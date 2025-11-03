@@ -78,7 +78,7 @@ const About = () => {
                 style={textStyle}
 
               >
-                I believe in continuous learning and enjoy staying up-to-date with the latest advancements in AI and ML. Whether it's working on a challenging problem or collaborating with a team, I am always eager to contribute my skills and learn from others.
+                I believe in continuous learning and enjoy staying up-to-date with the latest advancements in AI and ML. Whether it&apos;s working on a challenging problem or collaborating with a team, I am always eager to contribute my skills and learn from others.
               </motion.p>
 
               <motion.p

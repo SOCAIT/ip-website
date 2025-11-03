@@ -124,7 +124,7 @@ function Home() {
         </p>
        
         <p className="homepage-subtitle">
-          "Error-Correction is the beginning of infinity."
+          &quot;Error-Correction is the beginning of infinity.&quot;
         </p>
 
         <Row>

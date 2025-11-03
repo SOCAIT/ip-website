@@ -144,7 +144,7 @@ export default async function ArticleDetail({ params }) {
                 Article Not Found
               </h2>
               <p style={{ color: '#ccc', marginBottom: '2.5rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
-                The article you're looking for doesn't exist or has been removed.<br />
+                The article you&apos;re looking for doesn&apos;t exist or has been removed.<br />
                 It might have been unpublished or the URL may be incorrect.
               </p>
               <InteractiveLink 

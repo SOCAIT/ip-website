@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function AdminLogin() {
   const [password, setPassword] = useState('');
@@ -135,9 +136,9 @@ export default function AdminLogin() {
           color: '#888',
         }}>
           <p>Set ADMIN_PASSWORD in your environment variables</p>
-          <a href="/" style={{ color: '#9AE6B4', textDecoration: 'none' }}>
+          <Link href="/" style={{ color: '#9AE6B4', textDecoration: 'none' }}>
             ← Back to Home
-          </a>
+          </Link>
         </div>
       </div>
     </div>
