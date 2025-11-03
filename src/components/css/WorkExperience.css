@@ -1,0 +1,73 @@
+.work-experience-section {
+    padding: 50px 0;
+    background: #3f3f3f;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .work-experience-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .work-experience-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .work-experience-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    width: 80%;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .work-experience-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .work-logo-column {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .work-logo {
+    height: 50px;
+  }
+  
+  .work-description-column {
+    flex: 3;
+    text-align: left;
+    padding-left: 20px;
+    background: #333;
+    padding:25px;
+    border-radius: 10px;
+
+
+  }
+  
+  .work-description-column h3 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .work-description-column p {
+    margin: 5px 0 0;
+  }
+  
+  .work-details {
+    display: none;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .work-experience-item:hover .work-details {
+    display: block;
+  }

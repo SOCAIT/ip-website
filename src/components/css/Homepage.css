@@ -1,0 +1,58 @@
+.homepage-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  background-color: #3f3f3f
+}
+
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Make sure particles are below the content */
+}
+
+.homepage-content {
+  position: relative;
+  z-index: 2; /* Ensure content is above the particles */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.homepage-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.homepage-check-cv {
+  font-size: 2rem;
+  font-style: italic;
+  color: #fff;
+
+  /* font-weight: bold; */
+}
+
+.homepage-subtitle {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.highlight {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.highlight-company {
+  color: #ffa500;
+  font-weight: bold;
+}

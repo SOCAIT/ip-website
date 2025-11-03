@@ -1,0 +1,25 @@
+.project-card {
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .project-card:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .view-all {
+    margin-top: 30px;
+  }
+  
+  .view-all-link {
+    color: #fff;
+    background-color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .view-all-link:hover {
+    background-color: #555;
+  }

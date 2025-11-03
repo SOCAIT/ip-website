@@ -1,0 +1,33 @@
+{
+  "short_name": "I. Pastellas",
+  "name": "Ioannis Pastellas - Machine Learning Engineer Portfolio",
+  "description": "Portfolio showcasing machine learning projects, AI solutions, technical articles, and professional experience",
+  "icons": [
+    {
+      "src": "socait.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "ip_no_slogan.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "ip_no_slogan.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0f0f0f",
+  "background_color": "#0f0f0f",
+  "categories": ["portfolio", "technology", "education"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
