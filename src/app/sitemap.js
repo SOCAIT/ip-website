@@ -1,26 +1,32 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export default async function sitemap() {
   const baseUrl = 'https://www.ipastellas.com';
 
   // Fetch all published articles
   let articles = [];
-  try {
-    const { data, error } = await supabase
-      .from('articles')
-      .select('slug, date, updated_at')
-      .eq('published', true)
-      .order('date', { ascending: false });
+  
+  // Only fetch articles if Supabase is configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (supabaseUrl && supabaseKey) {
+    try {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      const { data, error } = await supabase
+        .from('articles')
+        .select('slug, date, updated_at')
+        .eq('published', true)
+        .order('date', { ascending: false });
 
-    if (!error && data) {
-      articles = data;
+      if (!error && data) {
+        articles = data;
+      }
+    } catch (error) {
+      console.error('Error fetching articles for sitemap:', error);
     }
-  } catch (error) {
-    console.error('Error fetching articles for sitemap:', error);
+  } else {
+    console.warn('Supabase not configured - sitemap will only include static pages');
   }
 
   // Static pages
