@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaPaperPlane, FaRobot, FaUser, FaCode, FaBriefcase, FaLightbulb, FaComments } from 'react-icons/fa';
+import './css/CustomChatbot.css';
 
 function generateConversationId() {
   return 'conv_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -26,7 +27,7 @@ function renderFormattedText(text) {
         // Bold **text**
         if (part.startsWith('**') && part.endsWith('**')) {
           return (
-            <strong key={idx} style={{ fontWeight: '700', color: '#9AE6B4' }}>
+            <strong key={idx} style={{ fontWeight: '700', color: '#d4af37' }}>
               {part.slice(2, -2)}
             </strong>
           );
@@ -37,13 +38,13 @@ function renderFormattedText(text) {
             <code 
               key={idx} 
               style={{ 
-                backgroundColor: '#2a2a2a', 
+                background: 'rgba(212, 175, 55, 0.15)', 
                 padding: '0.125rem 0.375rem', 
                 borderRadius: '4px',
                 fontSize: '0.9em',
                 fontFamily: 'monospace',
-                color: '#9AE6B4',
-                border: '1px solid #444'
+                color: '#d4af37',
+                border: '1px solid rgba(212, 175, 55, 0.3)'
               }}
             >
               {part.slice(1, -1)}
@@ -77,7 +78,7 @@ function renderFormattedText(text) {
           style={{ 
             fontSize: sizes[level - 1],
             fontWeight: '700',
-            color: '#9AE6B4',
+            color: '#d4af37',
             marginTop: '1em',
             marginBottom: '0.5em',
             fontFamily: 'Orbitron, sans-serif',
@@ -94,7 +95,7 @@ function renderFormattedText(text) {
       if (match) {
         elements.push(
           <div key={key++} style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75em', marginBottom: '0.5em' }}>
-            <span style={{ fontWeight: '700', color: '#9AE6B4', minWidth: '1.5em' }}>{match[1]}.</span>
+            <span style={{ fontWeight: '700', color: '#d4af37', minWidth: '1.5em' }}>{match[1]}.</span>
             <span style={{ flex: 1 }}>{renderLineWithFormatting(match[2])}</span>
           </div>
         );
@@ -117,7 +118,7 @@ function renderFormattedText(text) {
             marginBottom: '0.35em'
           }}
         >
-          <span style={{ color: '#9AE6B4', minWidth: '0.75em' }}>•</span>
+          <span style={{ color: '#d4af37', minWidth: '0.75em' }}>•</span>
           <span style={{ flex: 1 }}>{renderLineWithFormatting(content)}</span>
         </div>
       );
@@ -127,7 +128,7 @@ function renderFormattedText(text) {
       const content = line.replace(/^[-•]\s/, '');
       elements.push(
         <div key={key++} style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5em', marginBottom: '0.35em' }}>
-          <span style={{ color: '#9AE6B4', minWidth: '0.75em' }}>•</span>
+          <span style={{ color: '#d4af37', minWidth: '0.75em' }}>•</span>
           <span style={{ flex: 1 }}>{renderLineWithFormatting(content)}</span>
         </div>
       );
@@ -253,40 +254,83 @@ export function PersonalChatbot() {
   ];
 
   return (
-    <section className="py-5" style={{ backgroundColor: '#3f3f3f' }}>
-      <div className="container" style={{ maxWidth: '900px', textAlign: 'left' }}>
-        <div 
-          style={{
-            borderRadius: '20px',
-            overflow: 'hidden',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #555',
-            backgroundColor: '#2a2a2a'
-          }}
-        >
+    <>
+      {/* Fixed Input Overlay */}
+      <div className="chatbot-fixed-input">
+        <div className="chatbot-container">
+          <div className="d-flex align-items-end gap-2">
+            <textarea
+              className="chat-textarea"
+              style={{
+                flex: 1,
+                resize: 'none',
+                borderRadius: '12px',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(10, 14, 26, 0.95)',
+                color: 'white',
+                padding: '1rem 1.125rem',
+                fontSize: '1rem',
+                minHeight: '52px',
+                maxHeight: '200px',
+                fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
+                lineHeight: '1.5',
+                letterSpacing: '0.01em',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(20px)'
+              }}
+              placeholder={welcome.placeholder}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onFocus={(e) => e.target.style.borderColor = 'rgba(212, 175, 55, 0.6)'}
+              onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)'}
+            />
+            <Button
+              className="send-button"
+              onClick={sendMessage}
+              disabled={isSending || !inputValue.trim()}
+              style={{
+                height: '52px',
+                minWidth: '52px',
+                borderRadius: '12px',
+                backgroundColor: '#d4af37',
+                border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '0 1.25rem',
+                fontWeight: 'bold'
+              }}
+              onMouseEnter={(e) => !isSending && !inputValue.trim() ? null : e.target.style.backgroundColor = '#b8941f'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#d4af37'}
+            >
+              <FaPaperPlane style={{ fontSize: '1.1rem', color: '#000' }} />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <section className="py-5 chatbot-section" style={{ backgroundColor: 'transparent', paddingTop: '4rem', paddingBottom: '8rem' }}>
+        <div className="chatbot-container">
+          <div className="chatbot-card">
           {/* Header */}
-          <div 
-            style={{
-              padding: '1.5rem',
-              background: 'linear-gradient(135deg, #4a4a4a 0%, #3f3f3f 100%)',
-              borderBottom: '2px solid #666'
-            }}
-          >
+          <div className="chatbot-header">
             <div className="d-flex align-items-center gap-3">
               <div 
+                className="robot-icon-large"
                 style={{
                   width: '56px',
                   height: '56px',
                   borderRadius: '50%',
-                  backgroundColor: '#555',
+                  background: 'rgba(212, 175, 55, 0.2)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  border: '2px solid #777',
+                  border: '2px solid rgba(212, 175, 55, 0.4)',
                   flexShrink: 0
                 }}
               >
-                <FaRobot style={{ fontSize: '1.8rem', color: '#9AE6B4' }} />
+                <FaRobot style={{ fontSize: '1.8rem', color: '#d4af37' }} />
               </div>
               <div style={{ flex: 1 }}>
                 <h2 
@@ -316,8 +360,8 @@ export function PersonalChatbot() {
                   width: '10px',
                   height: '10px',
                   borderRadius: '50%',
-                  backgroundColor: '#9AE6B4',
-                  boxShadow: '0 0 8px rgba(0, 255, 136, 0.6)',
+                  backgroundColor: '#d4af37',
+                  boxShadow: '0 0 8px rgba(212, 175, 55, 0.6)',
                   animation: 'pulse 2s infinite'
                 }}
               />
@@ -329,10 +373,10 @@ export function PersonalChatbot() {
             <div 
               style={{
                 padding: '1rem 1.5rem',
-                backgroundColor: '#4a3f3f',
+                background: 'rgba(212, 175, 55, 0.1)',
                 color: '#ffcccc',
                 fontSize: '0.95rem',
-                borderBottom: '1px solid #555',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
                 letterSpacing: '0.01em',
                 fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
                 lineHeight: '1.6'
@@ -345,17 +389,11 @@ export function PersonalChatbot() {
           {/* Messages Area */}
           <div 
             ref={scrollAreaRef}
-            style={{
-              height: '60vh',
-              maxHeight: '600px',
-              overflowY: 'auto',
-              padding: '1.5rem',
-              backgroundColor: '#3f3f3f',
-              textAlign: 'left'
-            }}
+            className="messages-area"
           >
             {messages.length === 0 ? (
               <div 
+                className="welcome-screen"
                 style={{
                   height: '100%',
                   display: 'flex',
@@ -366,88 +404,51 @@ export function PersonalChatbot() {
                   padding: '1rem'
                 }}
               >
-                <div 
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    backgroundColor: '#555',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '1.5rem',
-                    border: '3px solid #666'
-                  }}
-                >
-                  <FaRobot style={{ fontSize: '2.5rem', color: '#9AE6B4' }} />
-                </div>
-                <h3 
-                  style={{ 
-                    fontFamily: 'Orbitron, sans-serif', 
-                    fontSize: '1.75rem',
-                    marginBottom: '1rem',
-                    color: 'white',
-                    fontWeight: '700',
-                    letterSpacing: '0.02em'
-                  }}
-                >
-                  {welcome.title}
-                </h3>
-                <p style={{ 
-                  fontSize: '1.05rem', 
-                  color: '#d0d0d0', 
-                  maxWidth: '500px', 
-                  marginBottom: '2rem',
-                  lineHeight: '1.7',
-                  letterSpacing: '0.015em',
-                  fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif'
-                }}>
-                  {welcome.desc}
-                </p>
+              
                 
-                <div className="row g-3" style={{ maxWidth: '600px', width: '100%' }}>
+                <div className="quick-questions-grid">
                   {quickQuestions.map((q, idx) => (
-                    <div key={idx} className="col-12 col-sm-6">
-                      <button
-                        onClick={() => handleQuickQuestion(q.question)}
-                        style={{
-                          width: '100%',
-                          textAlign: 'left',
-                          padding: '1rem',
-                          borderRadius: '12px',
-                          border: '1px solid #555',
-                          backgroundColor: '#2a2a2a',
-                          color: 'white',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s',
-                          fontSize: '0.9rem'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = '#4a4a4a';
-                          e.currentTarget.style.borderColor = '#9AE6B4';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = '#2a2a2a';
-                          e.currentTarget.style.borderColor = '#555';
-                        }}
-                      >
-                        <div className="d-flex align-items-center gap-2 mb-1">
-                          <span style={{ color: '#9AE6B4', fontSize: '1.1rem' }}>{q.icon}</span>
-                          <span style={{ 
-                            fontWeight: '600', 
-                            fontFamily: 'Orbitron, sans-serif',
-                            fontSize: '0.95rem',
-                            letterSpacing: '0.015em'
-                          }}>{q.title}</span>
-                        </div>
-                        <div style={{ 
-                          fontSize: '0.8rem', 
-                          color: '#aaa',
-                          letterSpacing: '0.01em',
-                          lineHeight: '1.4'
-                        }}>{q.desc}</div>
-                      </button>
-                    </div>
+                    <button
+                      key={idx}
+                      className="quick-question-btn"
+                      onClick={() => handleQuickQuestion(q.question)}
+                      style={{
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '1rem',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        color: 'white',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        fontSize: '0.9rem'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(212, 175, 55, 0.1)';
+                        e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.4)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                      }}
+                    >
+                      <div className="d-flex align-items-center gap-2 mb-1">
+                        <span className="btn-icon" style={{ color: '#d4af37', fontSize: '1.1rem' }}>{q.icon}</span>
+                        <span className="btn-title" style={{ 
+                          fontWeight: '600', 
+                          fontFamily: 'Orbitron, sans-serif',
+                          fontSize: '0.95rem',
+                          letterSpacing: '0.015em'
+                        }}>{q.title}</span>
+                      </div>
+                      <div className="btn-desc" style={{ 
+                        fontSize: '0.8rem', 
+                        color: '#aaa',
+                        letterSpacing: '0.01em',
+                        lineHeight: '1.4'
+                      }}>{q.desc}</div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -465,32 +466,34 @@ export function PersonalChatbot() {
                   >
                     {m.role === 'assistant' && (
                       <div 
+                        className="robot-icon-small"
                         style={{
                           width: '36px',
                           height: '36px',
                           borderRadius: '50%',
-                          backgroundColor: '#555',
+                          background: 'rgba(212, 175, 55, 0.2)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          border: '2px solid #666',
+                          border: '2px solid rgba(212, 175, 55, 0.4)',
                           flexShrink: 0,
                           marginTop: '4px'
                         }}
                       >
-                        <FaRobot style={{ fontSize: '1rem', color: '#9AE6B4' }} />
+                        <FaRobot style={{ fontSize: '1rem', color: '#d4af37' }} />
                       </div>
                     )}
                     
                     <div
+                      className={m.role === 'user' ? 'message-bubble' : 'assistant-message'}
                       style={{
                         ...(m.role === 'user' ? {
                           maxWidth: '75%',
                           padding: '1rem 1.25rem',
                           borderRadius: '18px',
                           borderBottomRightRadius: '4px',
-                          backgroundColor: '#9AE6B4',
-                          color: '#1a1a1a',
+                          backgroundColor: '#d4af37',
+                          color: '#0a0e1a',
                           fontWeight: '500',
                           whiteSpace: 'pre-wrap',
                           wordBreak: 'break-word',
@@ -521,15 +524,16 @@ export function PersonalChatbot() {
                           width: '36px',
                           height: '36px',
                           borderRadius: '50%',
-                          backgroundColor: '#555',
+                          background: 'rgba(100, 181, 246, 0.2)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
                           flexShrink: 0,
-                          marginTop: '4px'
+                          marginTop: '4px',
+                          border: '2px solid rgba(100, 181, 246, 0.4)'
                         }}
                       >
-                        <FaUser style={{ fontSize: '0.9rem', color: '#bbb' }} />
+                        <FaUser style={{ fontSize: '0.9rem', color: '#64b5f6' }} />
                       </div>
                     )}
                   </div>
@@ -538,20 +542,21 @@ export function PersonalChatbot() {
                 {isSending && (
                   <div className="d-flex gap-2" style={{ alignItems: 'flex-start', width: '100%' }}>
                     <div 
+                      className="robot-icon-small"
                       style={{
                         width: '36px',
                         height: '36px',
                         borderRadius: '50%',
-                        backgroundColor: '#555',
+                        background: 'rgba(212, 175, 55, 0.2)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        border: '2px solid #666',
+                        border: '2px solid rgba(212, 175, 55, 0.4)',
                         flexShrink: 0,
                         marginTop: '4px'
                       }}
                     >
-                      <FaRobot style={{ fontSize: '1rem', color: '#9AE6B4' }} />
+                      <FaRobot style={{ fontSize: '1rem', color: '#d4af37' }} />
                     </div>
                     <div
                       style={{
@@ -562,7 +567,7 @@ export function PersonalChatbot() {
                         gap: '0.625rem'
                       }}
                     >
-                      <Spinner animation="border" size="sm" style={{ color: '#9AE6B4' }} />
+                      <Spinner animation="border" size="sm" style={{ color: '#d4af37' }} />
                       <span style={{ 
                         color: '#d0d0d0', 
                         fontSize: '1rem',
@@ -577,13 +582,14 @@ export function PersonalChatbot() {
                   <div 
                     style={{
                       padding: '0.875rem 1rem',
-                      backgroundColor: '#4a3f3f',
+                      background: 'rgba(212, 175, 55, 0.1)',
                       color: '#ffcccc',
                       borderRadius: '10px',
                       fontSize: '0.95rem',
                       letterSpacing: '0.01em',
                       fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
-                      lineHeight: '1.5'
+                      lineHeight: '1.5',
+                      border: '1px solid rgba(255, 255, 255, 0.08)'
                     }}
                   >
                     ⚠️ {errorMessage}
@@ -593,73 +599,6 @@ export function PersonalChatbot() {
             )}
           </div>
 
-          {/* Input Area */}
-          <div 
-            style={{
-              padding: '1.25rem',
-              borderTop: '2px solid #555',
-              backgroundColor: '#2a2a2a'
-            }}
-          >
-            <div className="d-flex align-items-end gap-2">
-              <textarea
-                style={{
-                  flex: 1,
-                  resize: 'none',
-                  borderRadius: '12px',
-                  border: '2px solid #555',
-                  backgroundColor: '#3f3f3f',
-                  color: 'white',
-                  padding: '1rem 1.125rem',
-                  fontSize: '1rem',
-                  minHeight: '52px',
-                  maxHeight: '200px',
-                  fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
-                  lineHeight: '1.5',
-                  letterSpacing: '0.01em'
-                }}
-                placeholder={welcome.placeholder}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                onFocus={(e) => e.target.style.borderColor = '#9AE6B4'}
-                onBlur={(e) => e.target.style.borderColor = '#555'}
-              />
-              <Button
-                onClick={sendMessage}
-                disabled={isSending || !inputValue.trim()}
-                style={{
-                  height: '52px',
-                  minWidth: '52px',
-                  borderRadius: '12px',
-                  backgroundColor: '#9AE6B4',
-                  border: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0 1.25rem',
-                  fontWeight: 'bold'
-                }}
-                onMouseEnter={(e) => !isSending && !inputValue.trim() ? null : e.target.style.backgroundColor = '#00b8e6'}
-                   
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#9AE6B4'}
-              >
-                <FaPaperPlane style={{ fontSize: '1.1rem', color: '#000' }} />
-              </Button>
-            </div>
-            <div 
-              style={{
-                marginTop: '0.625rem',
-                textAlign: 'center',
-                fontSize: '0.8rem',
-                color: '#aaa',
-                letterSpacing: '0.01em',
-                fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif'
-              }}
-            >
-              Press Enter to send • Shift+Enter for new line
-            </div>
-          </div>
         </div>
       </div>
 
@@ -674,6 +613,7 @@ export function PersonalChatbot() {
         }
       `}</style>
     </section>
+    </>
   );
 }
 

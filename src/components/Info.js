@@ -9,6 +9,7 @@ import PersonalChatbot from './PersonalChatbot';
 // styles imported globally in app/globals.css
 import { motion } from 'framer-motion';
 // styles imported globally in app/globals.css
+import './css/Info.css';
 
 
 const Info = () => {
@@ -28,12 +29,11 @@ const Info = () => {
   // emailjs removed
 
   const textStyle = {
-    fontSize: 'calc(0.6rem + 1vw)'        , // Set the font size for text
-    fontFamily: 'sans-serif' ,// Specify Orbitron font', // Set a stylized font
-    color: "white",
-    marginBottom: '2rem', // Add some bottom margin for spacing,
-
-
+    fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+    fontFamily: 'Inter, sans-serif',
+    color: 'var(--text-secondary)',
+    marginBottom: '2rem',
+    lineHeight: '1.6'
   }; 
 
   
@@ -83,58 +83,154 @@ const Info = () => {
   };
 
   return (
-    <section id="contact" className="p-5 text-center" style={{ backgroundColor: '#3f3f3f' }}>
+    <section id="info" className="p-5 text-center" style={{ 
+      minHeight: '100vh', 
+      background: 'transparent',
+      paddingTop: '80px'
+    }}>
       <Container>
-        {/* <h2 style={{ fontSize: 'calc(2rem + 1vw)', fontFamily: 'Orbitron, sans-serif', marginBottom: '1.5rem', color: 'white' }}>
-          Contact Me
-        </h2>
-        <p style={{ fontSize: 'calc(0.8rem + 1vw)', fontFamily: 'sans-serif', color: 'white' }}>
-          Feel free to reach out to me on LinkedIn or GitHub, or email me directly.
+        <h2 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+          fontWeight: '600',
+          background: 'linear-gradient(135deg, #e8eaed 0%, #d4af37 50%, #64b5f6 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          fontFamily: 'Playfair Display, serif',
+          marginBottom: '2rem'
+        }}>Get In Touch</h2>
+        <p className="text-style" style={textStyle}>
+          Feel free to reach out to me on LinkedIn or GitHub, or send me a message directly.
         </p>
-        <motion.p
-                initial={{ y: '100vh' }}
-                animate={{ y: 0 }}
-
-                transition={{ type: 'spring', stiffness: 50, delay: 3 }}
-                style={textStyle}
-
-              >
-                Don't forget to checkout my full resume <a href="/assets/CV(I.P)_oct.pdf"  target="_blank">here</a>
-              </motion.p> */}
-        <Row className="d-flex justify-content-center g-1">
-          <Col xs={3} sm="auto" className="p-1">
-            <Button href="https://cy.linkedin.com/in/giannis-pastellas-a420611a6" style={{ fontSize: '1.5rem', backgroundColor: '#3f3f3f', borderColor: '#3f3f3f' }}>
-              <FaLinkedin /> 
-            </Button>
-          </Col>
-          <Col xs={3} sm="auto" className="p-1">
-            <Button href="https://github.com/giannisp09" style={{ fontSize: '1.5rem', backgroundColor: '#3f3f3f', borderColor: '#3f3f3f' }}>
-              <FaGithub /> 
-            </Button>
-          </Col>
-          <Col xs={3} sm="auto" className="p-1">
-            <Button onClick={toggleFormVisibility} style={{ fontSize: '1.5rem', backgroundColor: '#3f3f3f', borderColor: '#3f3f3f' }}>
-              <FaPaperPlane />
-            </Button>
-          </Col>
-          <Col xs={3} sm="auto" className="p-1">
-            <Button
-              onClick={() => window.location.href = 'mailto:giannispast9@gmail.com'}
-              style={{ fontSize: '1.5rem', backgroundColor: '#3f3f3f', borderColor: '#3f3f3f' }}
-              className="email-button"
-            >
-              <FaEnvelope />
-              {/* <FaEnvelope /> <span className="email-text">giannispast9@gmail.com.com</span> */}
-            </Button>
-          </Col>
-          
-        </Row>
+        <div className="d-flex justify-content-center gap-2 mt-4 social-buttons-row">
+          <Button 
+            href="https://cy.linkedin.com/in/giannis-pastellas-a420611a6"
+            className="social-btn"
+            style={{ 
+              fontSize: '2rem', 
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '15px',
+              padding: '15px 25px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'var(--accent-blue)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(79, 172, 254, 0.4)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'var(--glass-border)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <FaLinkedin /> 
+          </Button>
+          <Button 
+            href="https://github.com/giannisp09"
+            className="social-btn"
+            style={{ 
+              fontSize: '2rem', 
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '15px',
+              padding: '15px 25px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'var(--accent-gold)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(212, 175, 55, 0.4)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'var(--glass-border)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <FaGithub /> 
+          </Button>
+          <Button 
+            onClick={toggleFormVisibility}
+            className="social-btn"
+            style={{ 
+              fontSize: '2rem', 
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '15px',
+              padding: '15px 25px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'var(--accent-slate)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(91, 124, 153, 0.4)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'var(--glass-border)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <FaPaperPlane />
+          </Button>
+          <Button
+            onClick={() => window.location.href = 'mailto:giannispast9@gmail.com'}
+            className="email-button social-btn"
+            style={{ 
+              fontSize: '2rem', 
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '15px',
+              padding: '15px 25px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'var(--accent-blue)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(79, 172, 254, 0.4)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'var(--glass-border)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <FaEnvelope />
+          </Button>
+        </div>
 
         {formVisible && (
   <div className="d-flex justify-content-center" style={{ padding: '2rem' }}>
-    <Form onSubmit={handleSubmit} style={{ marginTop: '2rem', color: 'white', maxWidth: '700px', width: '100%' }}>
+    <Form 
+      onSubmit={handleSubmit} 
+      style={{ 
+        marginTop: '2rem', 
+        color: 'var(--text-primary)', 
+        maxWidth: '700px', 
+        width: '100%',
+        background: 'var(--glass-bg)',
+        backdropFilter: 'blur(20px)',
+        padding: '2rem',
+        borderRadius: '20px',
+        border: '1px solid var(--glass-border)',
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+      }}
+    >
       <Form.Group controlId="formName" className="mb-3">
-        <Form.Label style={{ textAlign: 'left', display: 'block', fontSize: 'calc(0.6rem + 1vw)', fontFamily: 'sans-serif', color: 'white' }}>
+        <Form.Label style={{ 
+          textAlign: 'left', 
+          display: 'block', 
+          fontSize: 'clamp(1rem, 2vw, 1.2rem)', 
+          fontFamily: 'Inter, sans-serif', 
+          color: 'var(--text-primary)',
+          fontWeight: '500'
+        }}>
           Name
         </Form.Label>
         <Form.Control
@@ -149,7 +245,14 @@ const Info = () => {
       </Form.Group>
 
       <Form.Group controlId="formEmail" className="mb-3">
-        <Form.Label style={{ textAlign: 'left', display: 'block' , fontSize: 'calc(0.6rem + 1vw)', fontFamily: 'sans-serif', color: 'white'}}>
+        <Form.Label style={{ 
+          textAlign: 'left', 
+          display: 'block', 
+          fontSize: 'clamp(1rem, 2vw, 1.2rem)', 
+          fontFamily: 'Inter, sans-serif', 
+          color: 'var(--text-primary)',
+          fontWeight: '500'
+        }}>
           Email
         </Form.Label>
         <Form.Control
@@ -164,7 +267,14 @@ const Info = () => {
       </Form.Group>
 
       <Form.Group controlId="formMessage" className="mb-3">
-        <Form.Label style={{ textAlign: 'left', display: 'block', fontSize: 'calc(0.6rem + 1vw)', fontFamily: 'sans-serif', color: 'white' }}>
+        <Form.Label style={{ 
+          textAlign: 'left', 
+          display: 'block', 
+          fontSize: 'clamp(1rem, 2vw, 1.2rem)', 
+          fontFamily: 'Inter, sans-serif', 
+          color: 'var(--text-primary)',
+          fontWeight: '500'
+        }}>
           Message
         </Form.Label>
         <Form.Control
@@ -179,7 +289,31 @@ const Info = () => {
         <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
       </Form.Group>
       
-      <Button variant="success" type="submit" className="mt-3" disabled={loading}>
+      <Button 
+        type="submit" 
+        className="mt-3" 
+        disabled={loading}
+        style={{
+          background: 'var(--primary-gradient)',
+          border: 'none',
+          borderRadius: '12px',
+          padding: '12px 30px',
+          fontWeight: '600',
+          fontSize: '1.1rem',
+          transition: 'all 0.3s ease',
+          boxShadow: '0 4px 15px rgba(157, 127, 245, 0.3)'
+        }}
+        onMouseOver={(e) => {
+          if (!loading) {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 6px 25px rgba(157, 127, 245, 0.5)';
+          }
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = '0 4px 15px rgba(157, 127, 245, 0.3)';
+        }}
+      >
         {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Send Message'}
       </Button>
     </Form>

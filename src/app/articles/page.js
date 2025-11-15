@@ -35,20 +35,30 @@ export default function ArticlesPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #0f0f0f, #1a1a1a)' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      background: 'linear-gradient(135deg, #0a0e1a 0%, #131821 50%, #1a1f2e 100%)'
+    }}>
       <CustomNavbar />
       <section id="articles" className="p-5 text-center">
         <div className="container" style={{ padding: '2rem 1rem' }}>
           <div style={{ marginBottom: '3rem' }}>
             <h2 className="mb-4" style={{ 
-              color: '#9AE6B4', 
-              textShadow: '0 0 20px rgba(154,230,180,0.4)',
-              fontSize: '2.5rem',
-              fontWeight: 'bold'
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+              fontWeight: '600',
+              background: 'linear-gradient(135deg, #e8eaed 0%, #d4af37 50%, #64b5f6 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              fontFamily: 'Playfair Display, serif'
             }}>
               📚 Articles
             </h2>
-            <p style={{ color: '#888', fontSize: '1.1rem' }}>
+            <p style={{ 
+              color: 'var(--text-secondary)', 
+              fontSize: '1.2rem',
+              fontFamily: 'Inter, sans-serif'
+            }}>
               Explore my latest thoughts and insights
             </p>
           </div>
@@ -57,26 +67,43 @@ export default function ArticlesPage() {
             <div style={{
               textAlign: 'center',
               padding: '5rem 2rem',
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.1)'
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(20px)',
+              borderRadius: '20px',
+              border: '1px solid var(--glass-border)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
             }}>
               <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⏳</div>
-              <p style={{ color: '#ddd', fontSize: '1.2rem' }}>Loading articles...</p>
+              <p style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.2rem',
+                fontFamily: 'Inter, sans-serif'
+              }}>Loading articles...</p>
             </div>
           ) : articles.length === 0 ? (
             <div style={{
               textAlign: 'center',
               padding: '5rem 2rem',
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '16px',
-              border: '2px dashed rgba(154,230,180,0.3)'
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(20px)',
+              borderRadius: '20px',
+              border: '2px dashed var(--accent-gold)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
             }}>
               <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📝</div>
-              <h3 style={{ color: '#9AE6B4', marginBottom: '1rem', fontSize: '1.5rem' }}>
+              <h3 style={{ 
+                color: 'var(--accent-gold)', 
+                marginBottom: '1rem', 
+                fontSize: '1.8rem',
+                fontFamily: 'Playfair Display, serif'
+              }}>
                 No articles yet
               </h3>
-              <p style={{ color: '#888', fontSize: '1.1rem' }}>
+              <p style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.1rem',
+                fontFamily: 'Inter, sans-serif'
+              }}>
                 Check back soon for new content!
               </p>
             </div>
@@ -90,28 +117,28 @@ export default function ArticlesPage() {
               {articles.map((a) => (
                 <Link key={a.slug} href={`/articles/${a.slug}`} style={{ textDecoration: 'none' }}>
                   <div style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '2px solid rgba(255,255,255,0.1)',
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
                     borderRadius: '20px',
                     overflow: 'hidden',
-                    backdropFilter: 'blur(6px)',
-                    color: '#fff',
-                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(20px)',
+                    color: 'var(--text-primary)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     cursor: 'pointer',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column'
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.borderColor = 'rgba(154,230,180,0.4)';
-                    e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.4)';
+                    e.currentTarget.style.transform = 'translateY(-10px)';
+                    e.currentTarget.style.borderColor = 'var(--accent-gold)';
+                    e.currentTarget.style.boxShadow = '0 15px 50px rgba(212, 175, 55, 0.4)';
                   }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+                    e.currentTarget.style.borderColor = 'var(--glass-border)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.37)';
                   }}
                   >
                     {a.cover_image ? (
@@ -122,19 +149,20 @@ export default function ArticlesPage() {
                           width: '100%', 
                           height: '200px', 
                           objectFit: 'cover',
-                          borderBottom: '2px solid rgba(154,230,180,0.2)'
+                          borderBottom: '1px solid var(--glass-border)',
+                          transition: 'transform 0.3s ease'
                         }} 
                       />
                     ) : (
                       <div style={{
                         width: '100%',
                         height: '200px',
-                        background: 'rgba(255,255,255,0.05)',
+                        background: 'var(--glass-bg)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '3rem',
-                        borderBottom: '2px solid rgba(255,255,255,0.1)'
+                        borderBottom: '1px solid var(--glass-border)'
                       }}>
                         📄
                       </div>
@@ -142,9 +170,11 @@ export default function ArticlesPage() {
                     <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                       <h3 style={{ 
                         margin: '0 0 0.75rem 0', 
-                        color: '#9AE6B4',
-                        fontSize: '1.3rem',
-                        lineHeight: '1.4'
+                        color: 'var(--accent-gold)',
+                        fontSize: '1.4rem',
+                        lineHeight: '1.4',
+                        fontWeight: '600',
+                        fontFamily: 'Playfair Display, serif'
                       }}>
                         {a.title}
                       </h3>
@@ -155,21 +185,23 @@ export default function ArticlesPage() {
                         flexWrap: 'wrap'
                       }}>
                         <small style={{ 
-                          color: '#888',
-                          background: 'rgba(154,230,180,0.1)',
-                          padding: '0.25rem 0.5rem',
-                          borderRadius: '4px',
-                          fontSize: '0.85rem'
+                          color: 'var(--text-secondary)',
+                          background: 'rgba(212, 175, 55, 0.15)',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '8px',
+                          fontSize: '0.85rem',
+                          fontFamily: 'Inter, sans-serif'
                         }}>
                           📅 {a.date}
                         </small>
                         {a.author_name && (
                           <small style={{ 
-                            color: '#9AE6B4',
-                            background: 'rgba(154,230,180,0.1)',
-                            padding: '0.25rem 0.5rem',
-                            borderRadius: '4px',
-                            fontSize: '0.85rem'
+                            color: 'var(--accent-slate)',
+                            background: 'rgba(100, 181, 246, 0.15)',
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '8px',
+                            fontSize: '0.85rem',
+                            fontFamily: 'Inter, sans-serif'
                           }}>
                             ✍️ {a.author_name}
                           </small>
@@ -177,13 +209,14 @@ export default function ArticlesPage() {
                       </div>
                       <p style={{ 
                         marginTop: 'auto', 
-                        color: '#ccc',
+                        color: 'var(--text-secondary)',
                         fontSize: '0.95rem',
                         lineHeight: '1.6',
                         display: '-webkit-box',
                         WebkitLineClamp: 3,
                         WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        fontFamily: 'Inter, sans-serif'
                       }}>
                         {a.excerpt || 'Click to read more...'}
                       </p>

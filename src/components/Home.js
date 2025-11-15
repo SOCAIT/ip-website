@@ -40,10 +40,10 @@ function Home() {
     () => ({
       background: {
         color: {
-          value: "#3f3f3f",
+          value: "transparent",
         },
       },
-      fpsLimit: 120,
+      fpsLimit: 60,
       interactivity: {
         events: {
           onClick: {
@@ -52,54 +52,68 @@ function Home() {
           },
           onHover: {
             enable: true,
-            mode: "repulse",
+            mode: "grab",
           },
         },
         modes: {
           push: {
-            quantity: 4,
+            quantity: 3,
           },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
+          grab: {
+            distance: 150,
+            links: {
+              opacity: 0.8,
+              color: "#d4af37",
+            },
           },
         },
       },
       particles: {
         color: {
-          value: "#ffffff",
+          value: ["#d4af37", "#64b5f6", "#5b7c99"],
         },
         links: {
-          color: "#ffffff",
+          color: "#d4af37",
           distance: 150,
           enable: true,
-          opacity: 0.5,
+          opacity: 0.3,
           width: 1,
         },
         move: {
           direction: "none",
           enable: true,
           outModes: {
-            default: "bounce",
+            default: "out",
           },
-          random: false,
-          speed: 6,
+          random: true,
+          speed: 1,
           straight: false,
         },
         number: {
           density: {
             enable: true,
+            area: 800,
           },
-          value: 80,
+          value: 50,
         },
         opacity: {
-          value: 0.5,
+          value: { min: 0.3, max: 0.7 },
+          animation: {
+            enable: true,
+            speed: 0.5,
+            minimumValue: 0.2,
+          },
         },
         shape: {
-          type: "circle",
+          type: ["circle", "triangle"],
         },
         size: {
-          value: { min: 1, max: 5 },
+          value: { min: 2, max: 6 },
+          animation: {
+            enable: true,
+            speed: 2,
+            minimumValue: 1,
+          },
         },
       },
       detectRetina: true,
@@ -120,7 +134,7 @@ function Home() {
       <Container className="text-center homepage-content">
         <h1 className="homepage-title">Ioannis Pastellas</h1>
         <p className="homepage-subtitle">
-          Machine Learning Engineer with over <span className="highlight">4 years</span> of demonstrated experience in <span className="highlight"> ML </span> & <span className="highlight">Reinforcement Learning</span>.
+          Machine Learning Engineer
         </p>
        
         <p className="homepage-subtitle">

@@ -1,25 +1,87 @@
-.project-card {
-    transition: box-shadow 0.3s ease-in-out;
+#projects {
+    background: transparent;
+    position: relative;
+  }
+
+  #projects h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    background: linear-gradient(135deg, #e8eaed 0%, #5b7c99 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 3rem;
+  }
+
+  .project-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
   }
   
   .project-card:hover {
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
   }
   
   .view-all {
-    margin-top: 30px;
+    margin-top: 50px;
+  }
+
+  .view-all .btn {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-primary) !important;
+    padding: 15px 40px !important;
+    font-size: 1.2rem !important;
+    border-radius: 15px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .view-all .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(157, 127, 245, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .view-all .btn:hover::before {
+    left: 100%;
+  }
+
+  .view-all .btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: var(--accent-gold) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
   }
   
   .view-all-link {
-    color: #fff;
-    background-color: #333;
-    padding: 10px 20px;
+    color: var(--text-primary);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    padding: 15px 30px;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
   }
   
   .view-all-link:hover {
-    background-color: #555;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
   }

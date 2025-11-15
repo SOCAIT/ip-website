@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import '../components/css/Card.css';
 @import '../components/css/CustomCard.css';
 @import '../components/css/CustomChatbot.css';
@@ -8,18 +9,42 @@
 @import '../components/css/Skills.css';
 @import '../components/css/WorkExperience.css';
 @import '../components/VideoPlayer.css';
-/* Global styles migrated from CRA */
+
+/* Global styles with professional modern design */
+:root {
+  --primary-gradient: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 100%);
+  --secondary-gradient: linear-gradient(135deg, #3a506b 0%, #5b7c99 100%);
+  --accent-gradient: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+  --dark-bg: #0a0e1a;
+  --dark-secondary: #131821;
+  --dark-tertiary: #1a1f2e;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #e8eaed;
+  --text-secondary: #9ca3af;
+  --accent-gold: #d4af37;
+  --accent-blue: #64b5f6;
+  --accent-slate: #5b7c99;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #3f3f3f;
-  color: white;
-  font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0a0e1a 0%, #131821 50%, #1a1f2e 100%);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 html {
-  background-color: #3f3f3f;
+  scroll-behavior: smooth;
+  background: var(--dark-bg);
 }
 
 .main {
@@ -33,35 +58,83 @@ video {
   object-fit: cover;
 }
 
-/* Dark theme overrides for Bootstrap defaults */
+/* Elegant glassmorphism card styles */
 .card {
-  background-color: #333 !important;
-  border-color: #3f3f3f !important;
-  color: #fff !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 20px !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 12px 48px 0 rgba(212, 175, 55, 0.3) !important;
+  border-color: var(--accent-gold) !important;
 }
 
 .navbar-collapse {
-  background-color: #3f3f3f !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 15px !important;
+  padding: 10px !important;
 }
 
 .nav-link, .navbar-brand {
-  color: #fff !important;
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+  position: relative !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-blue));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+.nav-link:hover {
+  color: var(--accent-gold) !important;
+  transform: translateY(-2px);
 }
 
 .form-control {
-  background-color: #3f3f3f !important;
-  color: #fff !important;
-  border-color: #555 !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 12px !important;
+  padding: 12px 20px !important;
+  transition: all 0.3s ease !important;
 }
 
 .form-control:focus {
-  background-color: #3f3f3f !important;
-  color: #fff !important;
-  border-color: #888 !important;
-  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2) !important;
 }
 
-/* Section backgrounds */
+.form-control::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.7;
+}
+
+/* Elegant section backgrounds with subtle patterns */
 section#projects,
 section#skills,
 section#education,
@@ -70,29 +143,115 @@ section#contact,
 section#home,
 section#articles,
 section#article {
-  background-color: #3f3f3f;
+  background: transparent;
+  position: relative;
 }
 
-/* Custom chatbot dark theme overrides */
+section#projects::before,
+section#home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(100, 181, 246, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
+  border-radius: 10px;
+  border: 2px solid var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: var(--text-primary);
+}
+
+/* Elegant button styling */
+.btn-primary {
+  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 12px 30px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3) !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5) !important;
+}
+
+/* Custom chatbot elegant theme */
 .chatbot {
-  background-color: #333 !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
 }
 
 .chatbot-messages {
-  background-color: #3f3f3f !important;
+  background: transparent !important;
 }
 
 .chatbot-message.bot {
-  background-color: #444 !important;
-  color: #fff !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  color: var(--text-primary) !important;
+  border-radius: 15px !important;
+  border: 1px solid var(--glass-border) !important;
+  padding: 12px 18px !important;
 }
 
 .chatbot-input {
-  background-color: #333 !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 15px !important;
+  border: 1px solid var(--glass-border) !important;
 }
 
 .chatbot-input input {
-  background-color: #3f3f3f !important;
-  color: #fff !important;
-  border: 1px solid #555 !important;
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+}
+
+/* Hamburger Menu Styling - White Color */
+.navbar-toggler {
+  border: none !important;
+  padding: 0.25rem 0.5rem !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }

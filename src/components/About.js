@@ -9,51 +9,48 @@ import { faDesktop, faMobileAlt, faBrain, faCode, faMobile } from '@fortawesome/
 import { motion } from 'framer-motion';
 
 const About = () => {
-    const headingStyle = {
-        fontSize: 'calc(2rem + 1vw)', // Set the font size for text
-        fontFamily: 'Orbitron, sans-serif', // Specify Orbitron font', // Set a stylized font
-        marginBottom: '1.5rem', // Add some bottom margin for spacing,
-        color: "white",
-        marginTop: "3rem"
-      };
-    
       const textStyle = {
-        fontSize: 'calc(0.8rem + 1vw)'        , // Set the font size for text
-        fontFamily: 'sans-serif' ,// Specify Orbitron font', // Set a stylized font
-        color: "white",
-        marginBottom: '2rem', // Add some bottom margin for spacing,
-
-
+        fontSize: 'clamp(1rem, 2vw, 1.3rem)',
+        fontFamily: 'Inter, sans-serif',
+        color: 'var(--text-secondary)',
+        marginBottom: '2rem',
+        lineHeight: '1.8',
+        maxWidth: '800px',
+        margin: '0 auto 2rem'
       };
 
-      const serviceStyle = {
-        fontSize: 'calc(1.2rem + 1vw)', // Set the font size for text
-        fontFamily: 'Orbitron, sans-serif', // Specify Orbitron font', // Set a stylized font
-        marginBottom: '1.5rem', // Add some bottom margin for spacing,
-        color: "white",
-        textAlign: 'center'
-      };
-
-      const serviceTextStyle = {
-        fontSize: 'calc(1rem + 1vw)'        , // Set the font size for text
-        fontFamily:'Orbitron, sans-serif', // Specify Orbitron font', // Set a stylized font
-        color: "white",
-        marginBottom: '2rem', // Add some bottom margin for spacing,
-        marginTop: '2rem'
-
+      const cvLinkStyle = {
+        color: 'var(--accent-purple)',
+        textDecoration: 'none',
+        fontWeight: '600',
+        transition: 'all 0.3s ease',
+        borderBottom: '2px solid transparent'
       };
     
       return (
-        <section id="about" className="p-5 text-center">
+        <section id="about" className="p-5 text-center" style={{
+          minHeight: '100vh',
+          background: 'transparent',
+          position: 'relative'
+        }}>
       <Container>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <h2>About Me</h2>
+          <h2 style={{
+            fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+            fontWeight: '600',
+            background: 'linear-gradient(135deg, #e8eaed 0%, #d4af37 50%, #64b5f6 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            fontFamily: 'Playfair Display, serif',
+            marginBottom: '3rem'
+          }}>About Me</h2>
           <Row className="justify-content-center mt-4">
-            <Col lg={8}>
+            <Col lg={10}>
               <motion.p
                 initial={{ x: '-100vw' }}
                 animate={{ x: 0 }}
@@ -81,15 +78,36 @@ const About = () => {
                 I believe in continuous learning and enjoy staying up-to-date with the latest advancements in AI and ML. Whether it&apos;s working on a challenging problem or collaborating with a team, I am always eager to contribute my skills and learn from others.
               </motion.p>
 
-              <motion.p
+              <motion.div
                 initial={{ y: '100vh' }}
                 animate={{ y: 0 }}
                 transition={{ type: 'spring', stiffness: 50, delay: 7.5 }}
-                style={textStyle}
-
+                style={{
+                  marginTop: '3rem',
+                  padding: '1.5rem 2rem',
+                  background: 'var(--glass-bg)',
+                  backdropFilter: 'blur(20px)',
+                  borderRadius: '15px',
+                  border: '1px solid var(--glass-border)',
+                  display: 'inline-block'
+                }}
               >
-                 Checkout my full CV <a href="/assets/CV(I.P)_oct.pdf"  target="_blank">here</a>
-              </motion.p>
+                 <p style={{ ...textStyle, marginBottom: 0 }}>
+                   Checkout my full CV <a 
+                     href="/assets/CV(I.P)_oct.pdf" 
+                     target="_blank"
+                     style={cvLinkStyle}
+                     onMouseOver={(e) => {
+                       e.currentTarget.style.color = 'var(--accent-blue)';
+                       e.currentTarget.style.borderBottom = '2px solid var(--accent-blue)';
+                     }}
+                     onMouseOut={(e) => {
+                       e.currentTarget.style.color = 'var(--accent-purple)';
+                       e.currentTarget.style.borderBottom = '2px solid transparent';
+                     }}
+                   >here</a>
+                 </p>
+              </motion.div>
             </Col>
           </Row>
         </motion.div>
