@@ -15,7 +15,7 @@ const Footer = ({ position}) => {
 
   return (
     <footer  style={footerStyle}>
-      <p>&copy; {currentYear} created by SOCAIT LTD.</p>
+      <p>&copy; {currentYear} created by Ioannis Pastellas.</p>
     </footer>
   );
 };
