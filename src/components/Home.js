@@ -162,7 +162,7 @@ function Home() {
                 className='homepage-check-cv'
 
               >
-                 Checkout my full CV <a href="/assets/CV(I.P)_oct.pdf"  target="_blank">here</a>
+                 Checkout my full CV <a href="/IoannisPastellasCV.pdf"  target="_blank">here</a>
               </motion.p>
         {/* <WorkExperience />
         <Education /> */}

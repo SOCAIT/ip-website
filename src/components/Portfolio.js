@@ -31,6 +31,7 @@ function Portfolio() {
             title: 'Object detection and Explainability using Drone Vision',
             description: 'YOLO - XAI - Real Time Detection',
             img: '/assets/projects/drone.jpeg',
+            link: "https://www.cygnus-project.eu/images/publications/2024_Adversarial-Explanations-for-Informed-Civilian.pdf",
           }, {
             title: 'QAOA (Quantum Optimization) of Traveling Salesman Problem (BSc Thesis)',
             description: 'Python3 - Qiskit',
