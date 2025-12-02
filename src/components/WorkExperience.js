@@ -16,19 +16,7 @@ function WorkExperience() {
             <p className="work-details">Leading full-stack projects, around AI systems( LLM, RLHF) with Mobile/Web Apps.</p>
           </div>
         </div> */}
-        {/* <div className="work-experience-item">
-          <div className="work-logo-column">
-            <img src={require("../assets/wargaming.png")} alt="Crunchyroll" className="work-logo" />
-          </div>
-          <div className="work-description-column">
-            <h3>Wargaming</h3>
-            <p>Research collaboration / Reinforcement Learning</p>
-            <p className="work-details">Offline Reinforcement Learning in World of Tanks, Off-Policy Evaluation</p>
-            <p className="work-details">2024-2025</p>
-
-          </div>
-        </div> */}
-        <div className="work-experience-item">
+         <div className="work-experience-item">
           <div className="work-logo-column">
             <img src="/assets/ubitech.jpeg"alt="Pixstory" className="work-logo" />
           </div>
@@ -40,6 +28,19 @@ function WorkExperience() {
 
           </div>
         </div>
+        <div className="work-experience-item">
+          <div className="work-logo-column">
+            <img src="/assets/wargaming.png" alt="Crunchyroll" className="work-logo" />
+          </div>
+          <div className="work-description-column">
+            <h3>Wargaming</h3>
+            <p>Research collaboration / Reinforcement Learning</p>
+            <p className="work-details">Offline Reinforcement Learning in World of Tanks, Off-Policy Evaluation</p>
+            <p className="work-details">2024-2025</p>
+
+          </div>
+        </div>
+       
 
         <div className="work-experience-item">
           <div className="work-logo-column">

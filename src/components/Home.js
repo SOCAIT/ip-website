@@ -6,6 +6,7 @@ import { loadSlim } from "@tsparticles/slim";
 import WorkExperience from "./WorkExperience";
 import Skills from "./Skills";
 import Education from "./Education";
+import Publications from "./Publications";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import { motion } from 'framer-motion';
@@ -147,6 +148,7 @@ function Home() {
         </Col>
         <Col  lg='6'>
           <Education />
+          <Publications />
         </Col>
 
 
