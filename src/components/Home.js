@@ -7,22 +7,14 @@ import WorkExperience from "./WorkExperience";
 import Skills from "./Skills";
 import Education from "./Education";
 import Publications from "./Publications";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import Hero from "./Hero";
+import { Container, Row, Col } from 'react-bootstrap';
 
 import { motion } from 'framer-motion';
 import Footer from "./Footer";
 
 function Home() {
   const [init, setInit] = useState(false);
-
-  const textStyle = {
-    fontSize: 'calc(0.8rem + 1vw)'        , // Set the font size for text
-    fontFamily: 'sans-serif' ,// Specify Orbitron font', // Set a stylized font
-    color: "white",
-    marginBottom: '2rem', // Add some bottom margin for spacing,
-
-
-  }; 
 
   // Initialize particles engine once
   useEffect(() => {
@@ -132,53 +124,50 @@ function Home() {
           className="particles-background"
         />
       )}
+      
+      {/* Hero Section - New stylish component */}
+      <Hero />
+
+      {/* CV Floating Card - Fixed positioning and animation */}
+      <motion.div
+        className="cv-floating-container"
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ 
+          type: 'spring', 
+          stiffness: 60,
+          damping: 15,
+          delay: 0.2 
+        }}
+      >
+        <motion.div
+          className="homepage-check-cv"
+          whileHover={{ 
+            scale: 1.05,
+            boxShadow: "0 20px 60px rgba(212, 175, 55, 0.4)"
+          }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          Checkout my full CV <a href="/IoannisPastellasCV.pdf" target="_blank" rel="noopener noreferrer">here</a>
+        </motion.div>
+      </motion.div>
+
       <Container className="text-center homepage-content">
-        <h1 className="homepage-title">Ioannis Pastellas</h1>
-        <p className="homepage-subtitle">
-          Machine Learning Engineer
-        </p>
-       
-        <p className="homepage-subtitle">
-          &quot;Error-Correction is the beginning of infinity.&quot;
-        </p>
-
         <Row>
-        <Col lg='6' >
-          <WorkExperience />
-        </Col>
-        <Col  lg='6'>
-          <Education />
-          <Publications />
-        </Col>
-
-
-
+          <Col lg='6'>
+            <WorkExperience />
+          </Col>
+          <Col lg='6'>
+            <Education />
+            <Publications />
+          </Col>
         </Row>
- 
-        <motion.p
-                initial={{ y: '100vh' }}
-                animate={{ y: 0 }}
-
-                transition={{ type: 'spring', stiffness: 50, delay: 3 }}
-                // style={textStyle}
-                className='homepage-check-cv'
-
-              >
-                 Checkout my full CV <a href="/IoannisPastellasCV.pdf"  target="_blank">here</a>
-              </motion.p>
-        {/* <WorkExperience />
-        <Education /> */}
 
         <Skills />
 
-
         <Footer position={"relative"}/>
-        
-
       </Container>
-      
-      
-
     </section>
   );
 }

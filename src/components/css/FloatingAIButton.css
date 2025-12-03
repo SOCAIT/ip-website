@@ -1,0 +1,232 @@
+.floating-ai-link {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.floating-ai-button {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pulsing ring */
+.pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
+  pointer-events: none;
+}
+
+/* Rotating background gradient */
+.rotating-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.3) 0%,
+    rgba(100, 181, 246, 0.3) 50%,
+    rgba(212, 175, 55, 0.3) 100%
+  );
+  pointer-events: none;
+}
+
+/* Main button circle */
+.icon-container {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4af37 0%, #e8c24d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4),
+              0 0 20px rgba(212, 175, 55, 0.3),
+              inset 0 0 20px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.floating-ai-button:hover .icon-container {
+  box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6),
+              0 0 30px rgba(212, 175, 55, 0.5),
+              inset 0 0 25px rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #e8c24d 0%, #d4af37 100%);
+}
+
+.ai-icon {
+  font-size: 2rem;
+  color: #0a0e1a;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Tooltip */
+.ai-tooltip {
+  position: absolute;
+  right: 85px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 14, 26, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.ai-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid rgba(212, 175, 55, 0.4);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.tooltip-icon {
+  font-size: 1rem;
+  color: #d4af37;
+}
+
+.ai-tooltip span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Floating particles */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d4af37;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+  pointer-events: none;
+}
+
+.particle-1 {
+  top: 10%;
+  right: 20%;
+}
+
+.particle-2 {
+  bottom: 15%;
+  left: 15%;
+}
+
+.particle-3 {
+  top: 50%;
+  left: 5%;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .floating-ai-link {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .floating-ai-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .ai-icon {
+    font-size: 1.75rem;
+  }
+
+  .ai-tooltip {
+    right: 75px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .ai-tooltip span {
+    font-size: 0.9rem;
+  }
+
+  .tooltip-icon {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-ai-link {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .floating-ai-button {
+    width: 55px;
+    height: 55px;
+  }
+
+  .icon-container {
+    width: 55px;
+    height: 55px;
+  }
+
+  .ai-icon {
+    font-size: 1.5rem;
+  }
+
+  .ai-tooltip {
+    right: 70px;
+    padding: 0.5rem 0.875rem;
+  }
+
+  .ai-tooltip span {
+    font-size: 0.85rem;
+  }
+}
+
+/* Accessibility - keyboard focus */
+.floating-ai-link:focus .icon-container {
+  outline: 3px solid #d4af37;
+  outline-offset: 3px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .floating-ai-button,
+  .pulse-ring,
+  .rotating-bg,
+  .particle,
+  .icon-container,
+  .ai-tooltip {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

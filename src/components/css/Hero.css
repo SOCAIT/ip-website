@@ -1,0 +1,435 @@
+.hero-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* Floating geometric shapes */
+.hero-shapes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  opacity: 0.15;
+  filter: blur(40px);
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #d4af37, #64b5f6);
+  top: 10%;
+  left: 10%;
+}
+
+.shape-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #64b5f6, #5b7c99);
+  bottom: 10%;
+  right: 10%;
+}
+
+.shape-3 {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, #5b7c99, #d4af37);
+  top: 50%;
+  right: 20%;
+}
+
+/* Main hero content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Name styling with glitch effect */
+.hero-name-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.hero-name {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #d4af37 25%,
+    #64b5f6 50%,
+    #d4af37 75%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.03em;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  position: relative;
+  animation: shimmer 3s linear infinite;
+  text-shadow: 0 0 80px rgba(212, 175, 55, 0.5);
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Glitch effect on hover */
+.hero-name::before,
+.hero-name::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-name:hover::before {
+  animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  background: linear-gradient(135deg, #d4af37, #64b5f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 0 #d4af37;
+  opacity: 0.8;
+}
+
+.hero-name:hover::after {
+  animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  background: linear-gradient(135deg, #64b5f6, #5b7c99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: -2px 0 #64b5f6;
+  opacity: 0.8;
+}
+
+@keyframes glitch-1 {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    transform: translate(-2px, 2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Cursor blink */
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+  color: #d4af37;
+  font-weight: 300;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Underline animation */
+.hero-name-underline {
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37, #64b5f6, #d4af37);
+  margin: 0 auto;
+  margin-top: 1rem;
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+/* Subtitle with code-like styling */
+.hero-subtitle-container {
+  margin-bottom: 2.5rem;
+}
+
+.hero-role {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-family: 'Fira Code', 'Courier New', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgba(212, 175, 55, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: all 0.3s ease;
+}
+
+.hero-role:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+.role-bracket {
+  color: #64b5f6;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.role-text {
+  color: #d4af37;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Quote styling */
+.hero-quote-container {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  padding: 2rem 3rem;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.05) 0%,
+    rgba(100, 181, 246, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.hero-quote-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, #64b5f6, transparent);
+  animation: slide 3s ease-in-out infinite;
+}
+
+@keyframes slide {
+  0%, 100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.quote-mark {
+  font-size: 4rem;
+  font-family: 'Georgia', serif;
+  line-height: 0.5;
+  color: #d4af37;
+  opacity: 0.3;
+  position: absolute;
+}
+
+.quote-mark-left {
+  top: 1rem;
+  left: 1rem;
+}
+
+.quote-mark-right {
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.hero-quote {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  font-weight: 300;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Decorative lines */
+.hero-decorative-lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.decorative-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  border-radius: 1px;
+}
+
+.decorative-dot {
+  width: 8px;
+  height: 8px;
+  background: #d4af37;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-arrow {
+  font-size: 2rem;
+  color: #d4af37;
+  font-weight: 300;
+}
+
+.scroll-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+
+/* Gradient overlay */
+.hero-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(10, 14, 26, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-container {
+    padding: 1rem;
+  }
+
+  .hero-quote-container {
+    padding: 1.5rem 2rem;
+  }
+
+  .quote-mark {
+    font-size: 3rem;
+  }
+
+  .shape {
+    filter: blur(60px);
+  }
+
+  .shape-1,
+  .shape-2,
+  .shape-3 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-decorative-lines {
+    gap: 0.5rem;
+  }
+
+  .decorative-line {
+    max-width: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-role {
+    padding: 0.75rem 1.5rem;
+    gap: 0.3rem;
+  }
+
+  .hero-quote-container {
+    padding: 1rem 1.5rem;
+  }
+
+  .quote-mark-left {
+    left: 0.5rem;
+  }
+
+  .quote-mark-right {
+    right: 0.5rem;
+  }
+}
+

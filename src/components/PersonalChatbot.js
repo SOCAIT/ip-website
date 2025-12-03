@@ -161,12 +161,24 @@ export function PersonalChatbot() {
   const [errorMessage, setErrorMessage] = useState(null);
   const conversationIdRef = useRef(generateConversationId());
   const scrollAreaRef = useRef(null);
+  const chatSectionRef = useRef(null);
 
+  // Scroll messages area to bottom when new messages arrive
   useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [messages, isSending]);
+
+  // Scroll page to show chat section when user sends first message
+  useEffect(() => {
+    if (messages.length > 0 && chatSectionRef.current) {
+      chatSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start'
+      });
+    }
+  }, [messages.length]);
 
   async function sendMessage() {
     const trimmed = inputValue.trim();
@@ -183,6 +195,16 @@ export function PersonalChatbot() {
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsSending(true);
+
+    // Immediately scroll to chat section when user sends message
+    setTimeout(() => {
+      if (chatSectionRef.current) {
+        chatSectionRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start'
+        });
+      }
+    }, 100);
 
     try {
       if (!webhookUrl) {
@@ -244,6 +266,13 @@ export function PersonalChatbot() {
 
   const handleQuickQuestion = (question) => {
     setInputValue(question);
+    // Scroll to input area after setting question
+    setTimeout(() => {
+      const inputElement = document.querySelector('.chat-textarea');
+      if (inputElement) {
+        inputElement.focus();
+      }
+    }, 100);
   };
 
   const quickQuestions = [
@@ -310,7 +339,11 @@ export function PersonalChatbot() {
         </div>
       </div>
 
-      <section className="py-5 chatbot-section" style={{ backgroundColor: 'transparent', paddingTop: '4rem', paddingBottom: '8rem' }}>
+      <section 
+        ref={chatSectionRef}
+        className="py-5 chatbot-section" 
+        style={{ backgroundColor: 'transparent', paddingTop: '4rem', paddingBottom: '8rem' }}
+      >
         <div className="chatbot-container">
           <div className="chatbot-card">
           {/* Header */}

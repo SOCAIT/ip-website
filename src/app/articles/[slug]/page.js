@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import CustomNavbar from "@/components/CustomNavbar";
 import ArticleContent from "@/components/ArticleContent";
 import InteractiveLink from "@/components/InteractiveLink";
+import './article-detail.css';
 
 // Server-side Supabase client for metadata generation
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -120,52 +121,23 @@ export default async function ArticleDetail({ params }) {
 
   if (!article) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #0f0f0f, #1a1a1a)' }}>
+      <div className="article-detail-page">
         <CustomNavbar />
-        <section className="p-5 text-center">
-          <div className="container" style={{ 
-            maxWidth: '800px', 
-            margin: '0 auto', 
-            padding: '5rem 2rem' 
-          }}>
-            <div style={{
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '20px',
-              padding: '4rem 2rem',
-              border: '2px dashed rgba(245,101,101,0.3)'
-            }}>
-              <div style={{ fontSize: '5rem', marginBottom: '1.5rem' }}>📄</div>
-              <h2 style={{ 
-                color: '#9AE6B4', 
-                marginBottom: '1rem',
-                fontSize: '2rem',
-                textShadow: '0 0 20px rgba(154,230,180,0.4)'
-              }}>
-                Article Not Found
-              </h2>
-              <p style={{ color: '#ccc', marginBottom: '2.5rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
+        <section className="article-not-found">
+          <div className="not-found-container">
+            <div className="not-found-content">
+              <div className="not-found-icon">📄</div>
+              <h2 className="not-found-title">Article Not Found</h2>
+              <p className="not-found-text">
                 The article you&apos;re looking for doesn&apos;t exist or has been removed.<br />
                 It might have been unpublished or the URL may be incorrect.
               </p>
               <InteractiveLink 
                 href="/articles" 
-                style={{
-                  display: 'inline-block',
-                  padding: '1rem 2rem',
-                  background: 'linear-gradient(135deg, #48bb78, #38a169)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  borderRadius: '12px',
-                  transition: 'all 0.3s ease',
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  boxShadow: '0 4px 15px rgba(72,187,120,0.3)'
-                }}
-                hoverStyle={{
-                  transform: 'translateY(-2px)'
-                }}
+                className="back-link"
               >
-                ← Back to All Articles
+                <span className="back-arrow">←</span>
+                <span>Back to All Articles</span>
               </InteractiveLink>
             </div>
           </div>
@@ -182,88 +154,75 @@ export default async function ArticleDetail({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
         />
       )}
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #0f0f0f, #1a1a1a)' }}>
+      <div className="article-detail-page">
         <CustomNavbar />
-        <section id="article" className="p-5">
-          <div className="container" style={{ textAlign: 'left', maxWidth: '1100px', padding: '2rem 1rem' }}>
-            <h1 style={{ color: '#9AE6B4', textShadow: '0 0 8px rgba(154,230,180,0.4)', marginBottom: '0.5rem' }}>
-              {article.title}
-            </h1>
-          
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap' }}>
-            <small style={{ opacity: 0.85, color: '#ddd' }}>
-              📅 {article.date}
-            </small>
-            
-            {article.author_name && (
-              <>
-                <span style={{ color: '#666' }}>•</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  {article.author_avatar && (
-                    <img 
-                      src={article.author_avatar} 
-                      alt={article.author_name}
-                      style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                        border: '2px solid rgba(154,230,180,0.3)'
-                      }}
-                    />
-                  )}
-                  <div>
-                    <small style={{ opacity: 0.85, color: '#9AE6B4', fontWeight: 'bold' }}>
-                      {article.author_name}
-                    </small>
-                    {article.author_bio && (
-                      <p style={{ 
-                        margin: 0, 
-                        fontSize: '0.75rem', 
-                        opacity: 0.7, 
-                        color: '#ddd',
-                        maxWidth: '300px' 
-                      }}>
-                        {article.author_bio}
-                      </p>
-                    )}
-                  </div>
+        
+        {/* Hero Section with Cover Image */}
+        {article.cover_image && (
+          <div className="article-hero">
+            <img 
+              src={article.cover_image} 
+              alt={article.title}
+              className="article-hero-image"
+            />
+            <div className="article-hero-overlay"></div>
+          </div>
+        )}
+        
+        <section className="article-section">
+          <div className="article-container">
+            {/* Article Header */}
+            <header className="article-header">
+              <h1 className="article-detail-title">
+                {article.title}
+              </h1>
+              
+              <div className="article-meta-container">
+                <div className="article-meta-item">
+                  <span className="meta-icon">📅</span>
+                  <span className="meta-text">{article.date}</span>
                 </div>
-              </>
-            )}
-          </div>
+                
+                {article.author_name && (
+                  <>
+                    <span className="meta-separator">•</span>
+                    <div className="article-author">
+                      {article.author_avatar && (
+                        <img 
+                          src={article.author_avatar} 
+                          alt={article.author_name}
+                          className="author-avatar"
+                        />
+                      )}
+                      <div className="author-info">
+                        <span className="author-name">{article.author_name}</span>
+                        {article.author_bio && (
+                          <p className="author-bio">{article.author_bio}</p>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </header>
 
-          <div style={{ marginTop: '2rem' }}>
-            <ArticleContent blocks={article.blocks || []} />
-          </div>
+            {/* Article Content */}
+            <div className="article-body">
+              <ArticleContent blocks={article.blocks || []} />
+            </div>
 
-          <div style={{ 
-            marginTop: '3rem', 
-            paddingTop: '2rem', 
-            borderTop: '1px solid rgba(255,255,255,0.1)',
-            textAlign: 'center'
-          }}>
-            <InteractiveLink 
-              href="/articles" 
-              style={{
-                display: 'inline-block',
-                padding: '0.75rem 1.5rem',
-                background: 'rgba(154,230,180,0.1)',
-                color: '#9AE6B4',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                border: '1px solid rgba(154,230,180,0.3)',
-                transition: 'all 0.2s'
-              }}
-              hoverStyle={{
-                background: 'rgba(154,230,180,0.2)'
-              }}
-            >
-              ← Back to All Articles
-            </InteractiveLink>
+            {/* Article Footer */}
+            <footer className="article-footer">
+              <InteractiveLink 
+                href="/articles" 
+                className="article-back-link"
+              >
+                <span className="back-arrow">←</span>
+                <span>Back to All Articles</span>
+              </InteractiveLink>
+            </footer>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
     </>
   );

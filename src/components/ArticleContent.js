@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import './ArticleContent.css';
 
 // Helper function to parse text with markdown-style formatting
 function parseFormattedText(text) {
@@ -9,8 +10,8 @@ function parseFormattedText(text) {
   let currentIndex = 0;
   let key = 0;
   
-  // Combined regex to match **bold**, *italic*, and inline math $...$
-  const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|\$[^$]+\$)/g;
+  // Combined regex to match **bold**, *italic*, `code`, and inline math $...$
+  const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\$[^$]+\$)/g;
   let match;
   
   while ((match = regex.exec(text)) !== null) {
@@ -29,28 +30,28 @@ function parseFormattedText(text) {
     if (matched.startsWith('**') && matched.endsWith('**')) {
       // Bold text
       parts.push(
-        <strong key={`bold-${key++}`} style={{ fontWeight: 'bold', color: '#9AE6B4' }}>
+        <strong key={`bold-${key++}`} className="text-bold">
           {matched.slice(2, -2)}
         </strong>
       );
     } else if (matched.startsWith('*') && matched.endsWith('*')) {
       // Italic text
       parts.push(
-        <em key={`italic-${key++}`} style={{ fontStyle: 'italic', color: '#9AE6B4' }}>
+        <em key={`italic-${key++}`} className="text-italic">
           {matched.slice(1, -1)}
         </em>
+      );
+    } else if (matched.startsWith('`') && matched.endsWith('`')) {
+      // Inline code
+      parts.push(
+        <code key={`code-${key++}`} className="text-code">
+          {matched.slice(1, -1)}
+        </code>
       );
     } else if (matched.startsWith('$') && matched.endsWith('$')) {
       // Inline math - render as code-like style
       parts.push(
-        <code key={`math-${key++}`} style={{ 
-          fontFamily: 'monospace',
-          background: 'rgba(154,230,180,0.15)',
-          padding: '0.15rem 0.4rem',
-          borderRadius: '4px',
-          fontSize: '0.95em',
-          color: '#9AE6B4'
-        }}>
+        <code key={`math-${key++}`} className="text-math">
           {matched.slice(1, -1)}
         </code>
       );
@@ -73,58 +74,28 @@ function parseFormattedText(text) {
 
 export default function ArticleContent({ blocks }) {
   return (
-    <div style={{ display: 'grid', gap: '1.25rem' }}>
+    <div className="article-content-wrapper">
       {blocks.map((block, idx) => {
         if (block.type === "heading") {
           const Tag = `h${block.level || 2}`;
           return (
-            <Tag key={idx} style={{
-              margin: 0,
-              padding: '0.5rem 0',
-              color: '#9AE6B4',
-              textShadow: '0 0 8px rgba(154,230,180,0.4)'
-            }}>
+            <Tag key={idx} className={`content-heading heading-${block.level || 2}`}>
               {parseFormattedText(block.text)}
             </Tag>
           );
         }
         if (block.type === "text") {
           return (
-            <p key={idx} style={{
-              margin: 0,
-              lineHeight: 1.85,
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '12px',
-              padding: '1.1rem',
-              backdropFilter: 'blur(8px)',
-              color: '#fff',
-              fontSize: '1.08rem'
-            }}>
+            <p key={idx} className="content-paragraph">
               {parseFormattedText(block.text)}
             </p>
           );
         }
         if (block.type === "bullet_list") {
           return (
-            <ul key={idx} style={{
-              margin: 0,
-              paddingLeft: '2rem',
-              lineHeight: 1.85,
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '12px',
-              padding: '1.1rem 1.1rem 1.1rem 2.5rem',
-              backdropFilter: 'blur(8px)',
-              color: '#fff',
-              fontSize: '1.08rem',
-              listStyleType: 'disc'
-            }}>
+            <ul key={idx} className="content-list bullet-list">
               {(block.items || []).map((item, itemIdx) => (
-                <li key={itemIdx} style={{ 
-                  marginBottom: itemIdx < block.items.length - 1 ? '0.75rem' : '0',
-                  paddingLeft: '0.5rem'
-                }}>
+                <li key={itemIdx} className="list-item">
                   {parseFormattedText(item.text)}
                 </li>
               ))}
@@ -133,24 +104,9 @@ export default function ArticleContent({ blocks }) {
         }
         if (block.type === "numbered_list") {
           return (
-            <ol key={idx} style={{
-              margin: 0,
-              paddingLeft: '2rem',
-              lineHeight: 1.85,
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '12px',
-              padding: '1.1rem 1.1rem 1.1rem 2.5rem',
-              backdropFilter: 'blur(8px)',
-              color: '#fff',
-              fontSize: '1.08rem',
-              listStyleType: 'decimal'
-            }}>
+            <ol key={idx} className="content-list numbered-list">
               {(block.items || []).map((item, itemIdx) => (
-                <li key={itemIdx} style={{ 
-                  marginBottom: itemIdx < block.items.length - 1 ? '0.75rem' : '0',
-                  paddingLeft: '0.5rem'
-                }}>
+                <li key={itemIdx} className="list-item">
                   {parseFormattedText(item.text)}
                 </li>
               ))}
@@ -159,20 +115,33 @@ export default function ArticleContent({ blocks }) {
         }
         if (block.type === "image") {
           return (
-            <figure key={idx} style={{
-              margin: 0,
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '12px',
-              padding: '0.75rem'
-            }}>
-              <img src={block.src} alt={block.alt || ''} style={{ width: '100%', borderRadius: '8px' }} />
+            <figure key={idx} className="content-figure">
+              <img 
+                src={block.src} 
+                alt={block.alt || ''} 
+                className="content-image"
+                loading="lazy"
+              />
               {block.caption && (
-                <figcaption style={{ fontSize: '0.9rem', opacity: 0.8, marginTop: '0.5rem', color: '#fff' }}>
+                <figcaption className="content-caption">
                   {parseFormattedText(block.caption)}
                 </figcaption>
               )}
             </figure>
+          );
+        }
+        if (block.type === "code") {
+          return (
+            <pre key={idx} className="content-code-block">
+              <code>{block.text}</code>
+            </pre>
+          );
+        }
+        if (block.type === "quote") {
+          return (
+            <blockquote key={idx} className="content-blockquote">
+              {parseFormattedText(block.text)}
+            </blockquote>
           );
         }
         return null;

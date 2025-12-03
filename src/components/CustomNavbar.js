@@ -8,11 +8,12 @@ const CustomNavbar = () => {
 
 
   const textStyle = {
-    fontSize: '1.1rem',
+    fontSize: 'clamp(1rem, 2vw, 1.1rem)',
     fontFamily: 'Inter, sans-serif',
     fontWeight: '500',
     color: "white",
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
+    padding: '0.5rem 0.75rem'
   };
   
   const navbarStyle = {
@@ -42,24 +43,54 @@ const CustomNavbar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        {/* <Nav.Link as={Link} style={textStyle} to="/">
-          Home
-        </Nav.Link> */}
-        
-        <Nav.Link as={Link} style={textStyle} href="/">
+        <Nav.Link 
+          as={Link} 
+          style={textStyle} 
+          href="/"
+          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
+        >
           About
         </Nav.Link>
        
-        <Nav.Link as={Link} style={textStyle} href="/portfolio">
+        <Nav.Link 
+          as={Link} 
+          style={textStyle} 
+          href="/portfolio"
+          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
+        >
           Portfolio
         </Nav.Link>
 
-        <Nav.Link as={Link} style={textStyle} href="/articles">
+        <Nav.Link 
+          as={Link} 
+          style={textStyle} 
+          href="/articles"
+          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
+        >
           Articles
         </Nav.Link>
 
-        <Nav.Link as={Link} style={textStyle} href="/info">
-          Info
+        <Nav.Link 
+          as={Link} 
+          style={textStyle} 
+          href="/info"
+          onMouseOver={(e) => e.currentTarget.style.color = '#64b5f6'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
+        >
+          Connect
+        </Nav.Link>
+
+        <Nav.Link 
+          as={Link} 
+          style={textStyle} 
+          href="/chat"
+          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
+        >
+          AI Assistant
         </Nav.Link>
       </Nav>
       </Navbar.Collapse>
