@@ -108,7 +108,7 @@ const Info = () => {
       >
       <div className="form-header">
         <h3>Send me a message</h3>
-        <p>I'll get back to you as soon as possible</p>
+        <p>I&apos;ll get back to you as soon as possible</p>
       </div>
 
       <Form.Group controlId="formName" className="mb-3 form-group-custom">

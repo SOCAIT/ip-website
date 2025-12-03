@@ -123,7 +123,7 @@ function InfoHero({ onToggleForm, socialButtons }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <span className="title-word title-word-1">Let's</span>
+            <span className="title-word title-word-1">Let&apos;s</span>
             <span className="title-word title-word-2">Connect</span>
           </motion.h1>
           

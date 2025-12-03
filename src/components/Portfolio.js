@@ -95,7 +95,7 @@ function Portfolio() {
               <span className="btn-text">Interested in collaboration?</span>
               <span className="btn-icon">💬</span>
             </button>
-            <p className="view-more-note">Let's discuss your next project</p>
+            <p className="view-more-note">Let&apos;s discuss your next project</p>
           </div>
         </div>
       </section>
