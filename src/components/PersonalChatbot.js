@@ -600,7 +600,15 @@ export function PersonalChatbot() {
                         gap: '0.625rem'
                       }}
                     >
-                      <Spinner animation="border" size="sm" style={{ color: '#d4af37' }} />
+                      <Spinner 
+                        animation="border" 
+                        size="sm" 
+                        className="thinking-spinner"
+                        style={{ 
+                          color: '#d4af37',
+                          borderWidth: '3px'
+                        }} 
+                      />
                       <span style={{ 
                         color: '#d0d0d0', 
                         fontSize: '1rem',

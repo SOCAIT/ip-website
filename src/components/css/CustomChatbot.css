@@ -359,8 +359,17 @@
 }
 
 /* Thinking Spinner Enhancement */
-.spinner-border {
-  animation: spinGlow 1.5s ease-in-out infinite !important;
+.thinking-spinner {
+  animation: spinnerRotate 0.8s linear infinite, spinGlow 1.5s ease-in-out infinite !important;
+}
+
+@keyframes spinnerRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spinGlow {
@@ -483,7 +492,7 @@
   }
 
   .chat-textarea {
-    font-size: 0.95rem !important;
+    font-size: 16px !important; /* Must be at least 16px to prevent mobile zoom */
     padding: 0.875rem !important;
     min-height: 48px !important;
   }
@@ -596,7 +605,7 @@
   }
 
   .chat-textarea {
-    font-size: 0.9rem !important;
+    font-size: 16px !important; /* Must be at least 16px to prevent mobile zoom */
     padding: 0.75rem !important;
     min-height: 44px !important;
   }
