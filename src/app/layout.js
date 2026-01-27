@@ -22,6 +22,13 @@ const orbitron = Orbitron({
   display: "swap",
 });
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
 export const metadata = {
   metadataBase: new URL('https://www.ipastellas.com'),
   title: {
@@ -29,12 +36,6 @@ export const metadata = {
     template: "%s | Ioannis Pastellas"
   },
   description: "Portfolio of Ioannis Pastellas - Machine Learning Engineer specializing in AI, deep learning, optimization algorithms, and software engineering. Explore projects, articles, and technical insights. | Χαρτοφυλάκιο του Ιωάννη Παστέλλα - Μηχανικός Μηχανικής Μάθησης με εξειδίκευση στην Τεχνητή Νοημοσύνη, Βαθιά Μάθηση και Ανάπτυξη Λογισμικού.",
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   icons: {
     icon: [
       { url: '/ip_no_slogan.png', type: 'image/png', sizes: '192x192' },

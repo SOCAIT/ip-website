@@ -2,7 +2,7 @@
 const nextConfig = {
   // Image optimization
   images: {
-    unoptimized: false, // Keep optimization enabled for Netlify
+    unoptimized: true, // Bypass optimization to fix production 404s
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -20,9 +20,6 @@ const nextConfig = {
   
   // Compression
   compress: true,
-  
-  // Production optimizations
-  swcMinify: true,
   
   // Experimental features for better performance
   experimental: {
