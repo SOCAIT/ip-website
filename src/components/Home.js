@@ -18,6 +18,9 @@ function Home() {
 
   // Initialize particles engine once
   useEffect(() => {
+    // Skip particles on mobile devices for performance
+    if (window.innerWidth < 768) return;
+
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     }).then(() => {

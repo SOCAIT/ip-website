@@ -386,6 +386,11 @@
     padding: 1rem;
   }
 
+  /* Hide heavy animated shapes on mobile */
+  .hero-shapes {
+    display: none;
+  }
+
   .hero-quote-container {
     padding: 1.5rem 2rem;
   }

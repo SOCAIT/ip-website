@@ -258,6 +258,18 @@ section#home::before {
 
 /* Mobile-First Enhancements */
 @media (max-width: 768px) {
+  /* Performance: Disable heavy glassmorphism on mobile */
+  .card, .navbar-collapse, .form-control, .chatbot, .chatbot-message.bot, .chatbot-input, .hero-role, .hero-quote-container {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 14, 26, 0.95) !important; /* Solid dark fallback */
+  }
+
+  /* Make navbar background solid on mobile */
+  .navbar-collapse {
+    background: #0f0f23 !important;
+  }
+
   body {
     font-size: 16px;
   }
