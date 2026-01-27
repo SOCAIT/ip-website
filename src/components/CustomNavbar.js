@@ -1,6 +1,7 @@
 // src/components/Navbar.js
 "use client";
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar, Nav } from 'react-bootstrap';
 
@@ -27,11 +28,12 @@ const CustomNavbar = () => {
   return (
     <Navbar expand="lg" sticky="top" className='p-3' style={navbarStyle}>
       <Link href="/" className="navbar-brand">
-        <img 
+        <Image 
           src="/assets/ip_no_slogan.png" 
           width={40} 
           height={40} 
-          alt="logo"
+          alt="Ioannis Pastellas logo"
+          priority
           style={{
             transition: 'transform 0.3s ease',
             filter: 'drop-shadow(0 2px 8px rgba(157, 127, 245, 0.5))'

@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 
 function WorkExperience() {
   return (
@@ -18,7 +19,7 @@ function WorkExperience() {
         </div> */}
          <div className="work-experience-item">
           <div className="work-logo-column">
-            <img src="/assets/ubitech.jpeg"alt="Pixstory" className="work-logo" />
+            <Image src="/assets/ubitech.jpeg" alt="Ubitech logo" className="work-logo" width={60} height={80} loading="lazy" />
           </div>
           <div className="work-description-column">
             <h3>Ubitech</h3>
@@ -30,7 +31,7 @@ function WorkExperience() {
         </div>
         <div className="work-experience-item">
           <div className="work-logo-column">
-            <img src="/assets/wargaming.png" alt="Crunchyroll" className="work-logo" />
+            <Image src="/assets/wargaming.png" alt="Wargaming logo" className="work-logo" width={60} height={80} loading="lazy" />
           </div>
           <div className="work-description-column">
             <h3>Wargaming</h3>
@@ -44,7 +45,7 @@ function WorkExperience() {
 
         <div className="work-experience-item">
           <div className="work-logo-column">
-            <img src="/assets/ucy.png"alt="Pixstory" className="work-logo" />
+            <Image src="/assets/ucy.png" alt="University of Cyprus logo" className="work-logo" width={60} height={80} loading="lazy" />
           </div>
           <div className="work-description-column">
             <h3>University of Cyprus</h3>
@@ -57,7 +58,7 @@ function WorkExperience() {
         
         <div className="work-experience-item">
           <div className="work-logo-column">
-            <img src="/assets/goldman.png" alt="Lumin.ai" className="work-logo" />
+            <Image src="/assets/goldman.png" alt="AC Goldman logo" className="work-logo" width={60} height={80} loading="lazy" />
           </div>
           <div className="work-description-column">
             <h3>AC Goldman</h3>

@@ -24,12 +24,38 @@ export const metadata = {
   },
 };
 
+// Breadcrumb structured data
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.ipastellas.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI Assistant",
+      "item": "https://www.ipastellas.com/chat"
+    }
+  ]
+};
+
 export default function Page() {
   return (
-    <div>
-      <CustomNavbar />
-      <AIAssistant />
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div>
+        <CustomNavbar />
+        <AIAssistant />
+      </div>
+    </>
   );
 }
 

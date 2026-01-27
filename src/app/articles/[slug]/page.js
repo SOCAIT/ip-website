@@ -1,4 +1,5 @@
 import { use } from 'react';
+import Image from 'next/image';
 import { createClient } from '@supabase/supabase-js';
 import CustomNavbar from "@/components/CustomNavbar";
 import ArticleContent from "@/components/ArticleContent";
@@ -119,6 +120,32 @@ export default async function ArticleDetail({ params }) {
     }
   } : null;
 
+  // Generate breadcrumb structured data
+  const breadcrumbSchema = article ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.ipastellas.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Articles",
+        "item": "https://www.ipastellas.com/articles"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": article.title,
+        "item": `https://www.ipastellas.com/articles/${unwrappedParams.slug}`
+      }
+    ]
+  } : null;
+
   if (!article) {
     return (
       <div className="article-detail-page">
@@ -154,16 +181,26 @@ export default async function ArticleDetail({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
         />
       )}
+      {breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      )}
       <div className="article-detail-page">
         <CustomNavbar />
         
         {/* Hero Section with Cover Image */}
         {article.cover_image && (
           <div className="article-hero">
-            <img 
+            <Image 
               src={article.cover_image} 
               alt={article.title}
               className="article-hero-image"
+              width={1920}
+              height={600}
+              priority
+              quality={85}
             />
             <div className="article-hero-overlay"></div>
           </div>
@@ -188,10 +225,13 @@ export default async function ArticleDetail({ params }) {
                     <span className="meta-separator">•</span>
                     <div className="article-author">
                       {article.author_avatar && (
-                        <img 
+                        <Image 
                           src={article.author_avatar} 
                           alt={article.author_name}
                           className="author-avatar"
+                          width={48}
+                          height={48}
+                          loading="lazy"
                         />
                       )}
                       <div className="author-info">

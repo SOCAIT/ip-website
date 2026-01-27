@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import './ArticleContent.css';
 
 // Helper function to parse text with markdown-style formatting
@@ -116,11 +117,14 @@ export default function ArticleContent({ blocks }) {
         if (block.type === "image") {
           return (
             <figure key={idx} className="content-figure">
-              <img 
+              <Image 
                 src={block.src} 
                 alt={block.alt || ''} 
                 className="content-image"
+                width={1200}
+                height={675}
                 loading="lazy"
+                quality={85}
               />
               {block.caption && (
                 <figcaption className="content-caption">

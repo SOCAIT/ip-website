@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import CustomNavbar from "@/components/CustomNavbar";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -80,10 +81,13 @@ export default function ArticlesPage() {
                   <article className="article-card">
                     <div className="article-image-wrapper">
                       {article.cover_image ? (
-                        <img 
+                        <Image 
                           src={article.cover_image} 
                           alt={article.title}
                           className="article-image"
+                          width={600}
+                          height={400}
+                          loading="lazy"
                         />
                       ) : (
                         <div className="article-placeholder">

@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 // styles imported globally in app/globals.css
 
 function Education() {
@@ -9,7 +10,7 @@ function Education() {
       <div className="education-container">
         <div className="education-item">
           <div className="education-logo-column">
-            <img src="/assets/ucy.png" alt="University 1" className="education-logo" />
+            <Image src="/assets/ucy.png" alt="University of Cyprus logo - Master's degree" className="education-logo" width={60} height={80} loading="lazy" />
           </div>
           <div className="education-description-column">
             <h3>University of Cyprus</h3>
@@ -24,7 +25,7 @@ function Education() {
 
         <div className="education-item">
           <div className="education-logo-column">
-            <img src="/assets/ucy.png" alt="University 2" className="education-logo" />
+            <Image src="/assets/ucy.png" alt="University of Cyprus logo - Bachelor's degree" className="education-logo" width={60} height={80} loading="lazy" />
           </div>
           <div className="education-description-column">
             <h3>University of Cyprus</h3>

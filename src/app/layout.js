@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FloatingAIButton from "@/components/FloatingAIButton";
@@ -6,11 +6,20 @@ import FloatingAIButton from "@/components/FloatingAIButton";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -28,7 +37,6 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
       { url: '/ip_no_slogan.png', type: 'image/png', sizes: '192x192' },
     ],
     apple: [
@@ -58,16 +66,25 @@ export const metadata = {
     "Computer Vision",
     "NLP",
     "Optimization Algorithms",
-    // Greek keywords (Ελληνικά)
+    // Greek keywords (Ελληνικά) - Multiple variations for better search coverage
     "Ιωάννης Παστέλλας",
+    "Ιωάννης Παστελλας", // Without accent - common search variation
+    "Ioannis Pastellas Κύπρος",
+    "Ioannis Pastellas Cyprus",
     "Μηχανικός Μηχανικής Μάθησης",
+    "Μηχανικός AI",
     "Τεχνητή Νοημοσύνη",
     "Βαθιά Μάθηση",
     "Μηχανική Μάθηση",
     "Ανάπτυξη Λογισμικού",
     "Χαρτοφυλάκιο",
     "Έργα ML",
-    "Λύσεις AI"
+    "Λύσεις AI",
+    "Προγραμματιστής Python",
+    "Data Scientist Κύπρος",
+    "AI Engineer Cyprus",
+    "Πανεπιστήμιο Κύπρου",
+    "University of Cyprus"
   ],
   authors: [{ name: "Ioannis Pastellas", url: "https://www.ipastellas.com" }],
   creator: "Ioannis Pastellas",
@@ -128,10 +145,14 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Ioannis Pastellas",
-    "alternateName": "Ιωάννης Παστέλλας",
+    "alternateName": ["Ιωάννης Παστέλλας", "Ιωάννης Παστελλας"], // Multiple Greek name variations
     "jobTitle": "Machine Learning Engineer",
     "description": "Machine Learning Engineer specializing in AI, deep learning, optimization algorithms, and software engineering",
     "url": "https://www.ipastellas.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "CY" // Cyprus
+    },
     "sameAs": [
       "https://github.com/ipastellas",
       "https://linkedin.com/in/ipastellas"
@@ -165,22 +186,27 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Ioannis Pastellas Portfolio",
+    "alternateName": "Χαρτοφυλάκιο Ιωάννη Παστέλλα",
     "description": "Portfolio showcasing machine learning projects, AI solutions, and technical articles",
     "url": "https://www.ipastellas.com",
     "author": {
       "@type": "Person",
       "name": "Ioannis Pastellas"
     },
-    "inLanguage": "en-US"
+    "inLanguage": ["en-US", "el-GR"],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.ipastellas.com/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   };
 
   return (
-    <html lang="en">
+    <html lang="en" prefix="og: http://ogp.me/ns#">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0f0f0f" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -202,7 +228,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`}
       >
         {children}
         <FloatingAIButton />

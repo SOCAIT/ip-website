@@ -36,7 +36,7 @@ function Home() {
           value: "transparent",
         },
       },
-      fpsLimit: 60,
+      fpsLimit: 30, // Reduced from 60 to 30 for better performance on lower-end devices
       interactivity: {
         events: {
           onClick: {
@@ -85,9 +85,9 @@ function Home() {
         number: {
           density: {
             enable: true,
-            area: 800,
+            area: 1200, // Increased area to reduce density
           },
-          value: 50,
+          value: 30, // Reduced from 50 to 30 for better performance
         },
         opacity: {
           value: { min: 0.3, max: 0.7 },
