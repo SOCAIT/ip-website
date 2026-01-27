@@ -36,7 +36,7 @@ function Portfolio() {
     {
       title: 'QAOA (Quantum Optimization) of Traveling Salesman Problem (BSc Thesis)',
       description: 'Python3 - Qiskit',
-      img: '/assets/projects/tsp.png',
+      img: '/assets/projects/tsp.webp',
       tags: ['Quantum Computing', 'Optimization']
     }
   ];
