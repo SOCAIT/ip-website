@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 // styles imported globally in app/globals.css
 
 const certifications = [
@@ -35,10 +36,13 @@ function Skills() {
       <h2 className="skills-title">Technical Skills</h2>
       <div className="skills-container">
         <div className="skills-item">
-          <img
+          <Image
             src="/assets/development-code.png"
             alt="Programming Languages"
             className="skills-icon"
+            width={100}
+            height={100}
+            loading="lazy"
           />
           <div className="skills-description">
             <h3>Programming Languages</h3>
@@ -48,7 +52,7 @@ function Skills() {
         </div>
 
         <div className="skills-item">
-          <img src="/assets/ml.png" alt="Machine Learning" className="skills-icon" />
+          <Image src="/assets/ml.png" alt="Machine Learning" className="skills-icon" width={100} height={100} loading="lazy" />
           <div className="skills-description">
             <h3>Machine Learning</h3>
             <hr />
@@ -60,7 +64,7 @@ function Skills() {
         </div>
 
         <div className="skills-item">
-          <img src="/assets/db.png" alt="Databases" className="skills-icon" />
+          <Image src="/assets/db.png" alt="Databases" className="skills-icon" width={100} height={100} loading="lazy" />
           <div className="skills-description">
             <h3>Databases</h3>
             <hr />
@@ -68,7 +72,7 @@ function Skills() {
           </div>
         </div>
         <div className="skills-item">
-          <img src="/assets/cloud.png" alt="Cloud Platforms" className="skills-icon" />
+          <Image src="/assets/cloud.png" alt="Cloud Platforms" className="skills-icon" width={100} height={100} loading="lazy" />
           <div className="skills-description">
             <h3>Cloud Platforms</h3>
             <hr />
@@ -76,7 +80,7 @@ function Skills() {
           </div>
         </div>
         <div className="skills-item">
-          <img src="/assets/fw.png" alt="Frameworks" className="skills-icon" />
+          <Image src="/assets/fw.png" alt="Frameworks" className="skills-icon" width={100} height={100} loading="lazy" />
           <div className="skills-description">
             <h3>Frameworks</h3>
             <hr />
@@ -84,7 +88,7 @@ function Skills() {
           </div>
         </div>
         <div className="skills-item">
-          <img src="/assets/front.png" alt="Frontend" className="skills-icon" />
+          <Image src="/assets/front.png" alt="Frontend" className="skills-icon" width={100} height={100} loading="lazy" />
           <div className="skills-description">
             <h3>Frontend</h3>
             <hr />
