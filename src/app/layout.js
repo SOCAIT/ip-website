@@ -38,6 +38,7 @@ export const metadata = {
   description: "Portfolio of Ioannis Pastellas - Machine Learning Engineer specializing in AI, deep learning, optimization algorithms, and software engineering. Explore projects, articles, and technical insights. | Χαρτοφυλάκιο του Ιωάννη Παστέλλα - Μηχανικός Μηχανικής Μάθησης με εξειδίκευση στην Τεχνητή Νοημοσύνη, Βαθιά Μάθηση και Ανάπτυξη Λογισμικού.",
   icons: {
     icon: [
+      { url: '/socait.ico', type: 'image/x-icon', sizes: 'any' },
       { url: '/ip_no_slogan.png', type: 'image/png', sizes: '192x192' },
     ],
     apple: [
