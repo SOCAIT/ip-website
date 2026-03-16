@@ -1,101 +1,117 @@
-// src/components/Navbar.js
 "use client";
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Navbar, Nav } from 'react-bootstrap';
 
 const CustomNavbar = () => {
+  const pathname = usePathname();
 
+  const isActive = (href) => pathname === href;
 
-  const textStyle = {
-    fontSize: 'clamp(1rem, 2vw, 1.1rem)',
-    fontFamily: 'Inter, sans-serif',
-    fontWeight: '500',
-    color: "white",
-    transition: 'all 0.3s ease',
-    padding: '0.5rem 0.75rem'
-  };
-  
+  const isHome = pathname === '/';
+
   const navbarStyle = {
-    background: 'rgba(15, 15, 35, 0.8)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)'
+    background: 'transparent',
+    borderBottom: 'none',
+    padding: '0.75rem 1.5rem',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
   };
+
+  const linkStyle = (href) => ({
+    fontSize: '0.78rem',
+    fontWeight: '600',
+    color: isActive(href) ? '#ffffff' : 'var(--text-secondary)',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    padding: '0.5rem 0.85rem',
+    transition: 'color 0.2s ease',
+    position: 'relative',
+  });
 
   return (
-    <Navbar expand="lg" sticky="top" className='p-3' style={navbarStyle}>
-      <Link href="/" className="navbar-brand">
-        <Image 
-          src="/assets/ip_no_slogan.png" 
-          width={40} 
-          height={40} 
-          alt="Ioannis Pastellas logo"
+    <Navbar expand="lg" style={navbarStyle}>
+      <Link href="/" className="navbar-brand" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <Image
+          src="/assets/ip_no_slogan.png"
+          width={32}
+          height={32}
+          alt="IP"
           priority
-          style={{
-            transition: 'transform 0.3s ease',
-            filter: 'drop-shadow(0 2px 8px rgba(157, 127, 245, 0.5))'
-          }}
-          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1) rotate(5deg)'}
-          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
+          style={{ opacity: 0.9 }}
         />
+        <span style={{
+          color: '#ffffff',
+          fontSize: '1rem',
+          fontWeight: '700',
+          letterSpacing: '0.02em',
+        }}>
+          Ioannis Pastellas
+        </span>
       </Link>
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-auto">
-        <Nav.Link 
-          as={Link} 
-          style={textStyle} 
-          href="/"
-          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
-          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
-        >
-          About
-        </Nav.Link>
-       
-        <Nav.Link 
-          as={Link} 
-          style={textStyle} 
-          href="/portfolio"
-          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
-          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
-        >
-          Portfolio
-        </Nav.Link>
-
-        <Nav.Link 
-          as={Link} 
-          style={textStyle} 
-          href="/articles"
-          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
-          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
-        >
-          Articles
-        </Nav.Link>
-
-        <Nav.Link 
-          as={Link} 
-          style={textStyle} 
-          href="/info"
-          onMouseOver={(e) => e.currentTarget.style.color = '#64b5f6'}
-          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
-        >
-          Connect
-        </Nav.Link>
-
-        <Nav.Link 
-          as={Link} 
-          style={textStyle} 
-          href="/chat"
-          onMouseOver={(e) => e.currentTarget.style.color = '#d4af37'}
-          onMouseOut={(e) => e.currentTarget.style.color = 'white'}
-        >
-          AI Assistant
-        </Nav.Link>
-      </Nav>
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
+        <Nav>
+          {[
+            { href: '/', label: 'Home' },
+            { href: '/portfolio', label: 'Portfolio' },
+            { href: '/articles', label: 'Articles' },
+            { href: '/chat', label: 'AI Assistant' },
+          ].map(({ href, label }) => (
+            <Nav.Link
+              as={Link}
+              key={href}
+              href={href}
+              style={linkStyle(href)}
+              onMouseOver={(e) => { if (!isActive(href)) e.currentTarget.style.color = '#ffffff'; }}
+              onMouseOut={(e) => { if (!isActive(href)) e.currentTarget.style.color = 'var(--text-secondary)'; }}
+            >
+              {isActive(href) && <span style={{
+                position: 'absolute',
+                top: '0.2rem',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '4px',
+                height: '4px',
+                borderRadius: '50%',
+                background: 'var(--accent-gold)',
+              }} />}
+              {label}
+            </Nav.Link>
+          ))}
+        </Nav>
       </Navbar.Collapse>
+
+      <Link
+        href="/info"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          fontSize: '0.75rem',
+          fontWeight: '700',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: '#111111',
+          background: '#ffffff',
+          textDecoration: 'none',
+          padding: '0.55rem 1.25rem',
+          borderRadius: '100px',
+          transition: 'opacity 0.2s ease',
+          whiteSpace: 'nowrap',
+        }}
+        onMouseOver={(e) => e.currentTarget.style.opacity = '0.85'}
+        onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+      >
+        CONNECT
+        <span style={{ fontSize: '1rem' }}>&rsaquo;</span>
+      </Link>
     </Navbar>
   );
 };

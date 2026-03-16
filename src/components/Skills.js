@@ -1,122 +1,106 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-// styles imported globally in app/globals.css
+
+const skillGroups = [
+  {
+    title: "Programming Languages",
+    items: "Python · Java · C · JavaScript",
+    icon: "/assets/development-code.png",
+  },
+  {
+    title: "Machine Learning",
+    items: "Huggingface · TensorFlow · PyTorch · OpenCV · CUDA · TorchRL · NLTK · SpaCy · Langchain",
+    icon: "/assets/ml.png",
+  },
+  {
+    title: "Databases",
+    items: "SQL · NoSQL · Hadoop · MongoDB · InfluxDB · ElasticSearch · Kafka",
+    icon: "/assets/db.png",
+  },
+  {
+    title: "Cloud Platforms",
+    items: "Amazon Web Services (AWS) · Google Cloud Platform (GCP)",
+    icon: "/assets/cloud.png",
+  },
+  {
+    title: "Frameworks",
+    items: "Docker · Kubernetes · Django · Flask · FastAPI · Metasploit",
+    icon: "/assets/fw.png",
+  },
+  {
+    title: "Frontend",
+    items: "HTML · CSS · JavaScript · ReactJS · ReactNative · NodeJS · Bootstrap",
+    icon: "/assets/front.png",
+  },
+];
 
 const certifications = [
   {
-    title: "Learning How to Learn: Powerful mental tools to help you master tough subjects",
-    issuer: "Deep Tech Solutions",
+    title: "Learning How to Learn",
+    issuer: "Coursera / Deep Teaching Solutions",
     year: "2025",
-    description:
-      "Proven techniques for efficient learning, memory, and mindset development.",
-    pdf: "/certifications/Coursera LearningHowToLearn.pdf",
+    file: "/certifications/Coursera LearningHowToLearn.pdf",
   },
   {
-    title: "NVIDIA AI Infrastructure & Operations Fundamentals",
+    title: "NVIDIA AI Infrastructure & Operations",
     issuer: "Coursera / NVIDIA",
     year: "2025",
-    description:
-      "Foundational skills in building and operating AI infrastructure on modern platforms.",
-    pdf: "/certifications/Coursera NVIDIA AI Infrastructure and Operations Fundamentals.pdf",
+    file: "/certifications/Coursera NVIDIA AI Infrastructure and Operations Fundamentals.pdf",
   },
   {
     title: "DevOps, DataOps, MLOps",
     issuer: "Coursera / Duke University",
     year: "2024",
-    description:
-      "Best practices for deploying, monitoring, and scaling production ML systems.",
-    pdf: "/certifications/Coursera Duke MLOps.pdf",
+    file: "/certifications/Coursera Duke MLOps.pdf",
+  },
+  {
+    title: "Fine-Tuning & RL for LLMs: Intro to Post-Training",
+    issuer: "Deeplearning.ai / AMD",
+    year: "2026",
+    file: "/certifications/ft-and-rl-for-llms-intro-post-training.png",
   },
 ];
 
 function Skills() {
   return (
-    <section id="skills" className="skills-section">
-      <h2 className="skills-title">Technical Skills</h2>
-      <div className="skills-container">
-        <div className="skills-item">
-          <Image
-            src="/assets/development-code.png"
-            alt="Programming Languages"
-            className="skills-icon"
-            width={100}
-            height={100}
-            loading="lazy"
-          />
-          <div className="skills-description">
-            <h3>Programming Languages</h3>
-            <hr />
-            <p>Python / Java / C / Javascript </p>
+    <section id="skills" className="editorial-section">
+      <h2 className="editorial-title">Skills &amp; Tools</h2>
+      <div className="skills-grid">
+        {skillGroups.map((group) => (
+          <div key={group.title} className="skill-card">
+            <Image
+              src={group.icon}
+              alt={group.title}
+              className="skill-icon"
+              width={40}
+              height={40}
+              loading="lazy"
+            />
+            <h3 className="skill-card-title">{group.title}</h3>
+            <p className="skill-card-items">{group.items}</p>
           </div>
-        </div>
-
-        <div className="skills-item">
-          <Image src="/assets/ml.png" alt="Machine Learning" className="skills-icon" width={100} height={100} loading="lazy" />
-          <div className="skills-description">
-            <h3>Machine Learning</h3>
-            <hr />
-            <p>
-              Huggingface / Tensorflow / PyTorch / OpenCV / CUDA / TorchRL / NLTK /
-              SpaCy / Langchain
-            </p>
-          </div>
-        </div>
-
-        <div className="skills-item">
-          <Image src="/assets/db.png" alt="Databases" className="skills-icon" width={100} height={100} loading="lazy" />
-          <div className="skills-description">
-            <h3>Databases</h3>
-            <hr />
-            <p>SQL / NoSQL / Hadoop / MongoDB / InfluxDB / ElasticSearch / Kafka </p>
-          </div>
-        </div>
-        <div className="skills-item">
-          <Image src="/assets/cloud.png" alt="Cloud Platforms" className="skills-icon" width={100} height={100} loading="lazy" />
-          <div className="skills-description">
-            <h3>Cloud Platforms</h3>
-            <hr />
-            <p>Amazon Web Services (AWS) / Google Cloud Platform (GCP) </p>
-          </div>
-        </div>
-        <div className="skills-item">
-          <Image src="/assets/fw.png" alt="Frameworks" className="skills-icon" width={100} height={100} loading="lazy" />
-          <div className="skills-description">
-            <h3>Frameworks</h3>
-            <hr />
-            <p>Docker / Kubernetes / Django / Flask / FastAPI / Metasploit</p>
-          </div>
-        </div>
-        <div className="skills-item">
-          <Image src="/assets/front.png" alt="Frontend" className="skills-icon" width={100} height={100} loading="lazy" />
-          <div className="skills-description">
-            <h3>Frontend</h3>
-            <hr />
-            <p>HTML / CSS / Javascript / ReactJS / ReactNative / NodeJS / Bootstrap </p>
-          </div>
-        </div>
+        ))}
       </div>
 
-      <div className="certifications-block">
-        <h3 className="certifications-title">Coursera Certifications</h3>
-        <div className="certifications-grid">
+      <div className="certs-section">
+        <h3 className="certs-title">Certifications</h3>
+        <div className="certs-list">
           {certifications.map((cert) => (
-            <article key={cert.title} className="cert-card">
-              <div className="cert-card-header">
-                <span className="cert-card-year">{cert.year}</span>
-                <h4>{cert.title}</h4>
+            <a
+              key={cert.title}
+              href={cert.file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cert-row"
+            >
+              <span className="cert-year">{cert.year}</span>
+              <div className="cert-info">
+                <span className="cert-name">{cert.title}</span>
+                <span className="cert-issuer">{cert.issuer}</span>
               </div>
-              <p className="cert-issuer">{cert.issuer}</p>
-              <p className="cert-description">{cert.description}</p>
-              <a
-                className="cert-link"
-                href={cert.pdf}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                📄 View Certificate
-              </a>
-            </article>
+              <span className="cert-arrow">&#8599;</span>
+            </a>
           ))}
         </div>
       </div>

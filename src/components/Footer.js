@@ -1,21 +1,21 @@
 "use client";
 import React from 'react';
 
-const Footer = ({ position}) => {
+const Footer = ({ position }) => {
   const currentYear = new Date().getFullYear();
 
-  const footerStyle= {
-    textAlign: 'center', padding: '20px', color:"white", fontFamily:"Orbitron",
-    position: position,
-    bottom: '0',
-    width: '100%',
-    //   clear: 'both', // Clear floats
-    //   zIndex: '1000',
-  }
-
   return (
-    <footer  style={footerStyle}>
-      <p>&copy; {currentYear} created by Ioannis Pastellas.</p>
+    <footer style={{
+      textAlign: 'center',
+      padding: '2rem 1rem',
+      color: 'var(--text-secondary)',
+      fontSize: '0.85rem',
+      position: position,
+      bottom: 0,
+      width: '100%',
+      letterSpacing: '0.02em',
+    }}>
+      <p style={{ margin: 0 }}>&copy; {currentYear} Ioannis Pastellas</p>
     </footer>
   );
 };

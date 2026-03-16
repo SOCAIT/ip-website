@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 @import '../components/css/Card.css';
 @import '../components/css/CustomCard.css';
 @import '../components/css/CustomChatbot.css';
@@ -10,21 +10,18 @@
 @import '../components/css/WorkExperience.css';
 @import '../components/ArticleContent.css';
 
-/* Global styles with professional modern design */
 :root {
-  --primary-gradient: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 100%);
-  --secondary-gradient: linear-gradient(135deg, #3a506b 0%, #5b7c99 100%);
-  --accent-gradient: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
-  --dark-bg: #0a0e1a;
-  --dark-secondary: #131821;
-  --dark-tertiary: #1a1f2e;
+  --dark-bg: #111111;
+  --dark-secondary: #161616;
+  --dark-tertiary: #1c1c1c;
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --text-primary: #e8eaed;
-  --text-secondary: #9ca3af;
-  --accent-gold: #d4af37;
-  --accent-blue: #64b5f6;
-  --accent-slate: #5b7c99;
+  --text-primary: #e8e8e8;
+  --text-secondary: #8a8a8a;
+  --accent-gold: #b8bcc6;
+  --accent-blue: #7ab0d4;
+  --accent-slate: #6b8a9e;
+  --font-heading: 'Instrument Serif', Georgia, serif;
 }
 
 * {
@@ -35,9 +32,9 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0a0e1a 0%, #131821 50%, #1a1f2e 100%);
+  background: linear-gradient(170deg, #1a1a1a 0%, var(--dark-bg) 400px) no-repeat, var(--dark-bg);
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -58,75 +55,53 @@ video {
   object-fit: cover;
 }
 
-/* Elegant glassmorphism card styles */
 .card {
   background: var(--glass-bg) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
   border: 1px solid var(--glass-border) !important;
-  border-radius: 20px !important;
+  border-radius: 12px !important;
   color: var(--text-primary) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition: border-color 0.2s ease !important;
 }
 
 .card:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: 0 12px 48px 0 rgba(212, 175, 55, 0.3) !important;
-  border-color: var(--accent-gold) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 .navbar-collapse {
-  background: var(--glass-bg) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-radius: 15px !important;
+  border-radius: 8px !important;
   padding: 10px !important;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: rgba(17, 17, 17, 0.97) !important;
+  }
 }
 
 .nav-link, .navbar-brand {
   color: var(--text-primary) !important;
   font-weight: 500 !important;
-  position: relative !important;
-  transition: all 0.3s ease !important;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-gold), var(--accent-blue));
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.nav-link:hover::after {
-  width: 80%;
+  transition: color 0.2s ease !important;
 }
 
 .nav-link:hover {
   color: var(--accent-gold) !important;
-  transform: translateY(-2px);
 }
 
 .form-control {
   background: var(--glass-bg) !important;
-  backdrop-filter: blur(20px) !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--glass-border) !important;
-  border-radius: 12px !important;
+  border-radius: 8px !important;
   padding: 12px 20px !important;
-  transition: all 0.3s ease !important;
+  transition: border-color 0.2s ease !important;
 }
 
 .form-control:focus {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
   color: var(--text-primary) !important;
   border-color: var(--accent-gold) !important;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2) !important;
+  box-shadow: none !important;
 }
 
 .form-control::placeholder {
@@ -134,7 +109,6 @@ video {
   opacity: 0.7;
 }
 
-/* Elegant section backgrounds with subtle patterns */
 section#projects,
 section#skills,
 section#education,
@@ -147,23 +121,8 @@ section#article {
   position: relative;
 }
 
-section#projects::before,
-section#home::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(100, 181, 246, 0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-/* Modern scrollbar styling */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -171,49 +130,43 @@ section#home::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
-  border-radius: 10px;
-  border: 2px solid var(--dark-bg);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+  background: rgba(255, 255, 255, 0.18);
 }
 
-/* Selection styling */
 ::selection {
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(184, 188, 198, 0.2);
   color: var(--text-primary);
 }
 
 ::-moz-selection {
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(184, 188, 198, 0.2);
   color: var(--text-primary);
 }
 
-/* Elegant button styling */
 .btn-primary {
-  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%) !important;
+  background: var(--accent-gold) !important;
   border: none !important;
-  border-radius: 12px !important;
+  border-radius: 8px !important;
   padding: 12px 30px !important;
   font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3) !important;
+  color: var(--dark-bg) !important;
+  transition: opacity 0.2s ease !important;
+  box-shadow: none !important;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5) !important;
+  opacity: 0.85 !important;
 }
 
-/* Custom chatbot elegant theme */
 .chatbot {
   background: var(--glass-bg) !important;
-  backdrop-filter: blur(20px) !important;
   border: 1px solid var(--glass-border) !important;
-  border-radius: 20px !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+  border-radius: 12px !important;
 }
 
 .chatbot-messages {
@@ -222,17 +175,15 @@ section#home::before {
 
 .chatbot-message.bot {
   background: var(--glass-bg) !important;
-  backdrop-filter: blur(20px) !important;
   color: var(--text-primary) !important;
-  border-radius: 15px !important;
+  border-radius: 10px !important;
   border: 1px solid var(--glass-border) !important;
   padding: 12px 18px !important;
 }
 
 .chatbot-input {
   background: var(--glass-bg) !important;
-  backdrop-filter: blur(20px) !important;
-  border-radius: 15px !important;
+  border-radius: 10px !important;
   border: 1px solid var(--glass-border) !important;
 }
 
@@ -242,7 +193,6 @@ section#home::before {
   border: none !important;
 }
 
-/* Hamburger Menu Styling - White Color */
 .navbar-toggler {
   border: none !important;
   padding: 0.25rem 0.5rem !important;
@@ -256,25 +206,20 @@ section#home::before {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
-/* Mobile-First Enhancements */
 @media (max-width: 768px) {
-  /* Performance: Disable heavy glassmorphism on mobile */
-  .card, .navbar-collapse, .form-control, .chatbot, .chatbot-message.bot, .chatbot-input, .hero-role, .hero-quote-container {
+  .card, .navbar-collapse, .form-control, .chatbot, .chatbot-message.bot, .chatbot-input {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: rgba(10, 14, 26, 0.95) !important; /* Solid dark fallback */
   }
 
-  /* Make navbar background solid on mobile */
   .navbar-collapse {
-    background: #0f0f23 !important;
+    background: var(--dark-secondary) !important;
   }
 
   body {
     font-size: 16px;
   }
 
-  /* Improve touch targets */
   .btn, button, a, .nav-link {
     min-height: 44px;
     display: inline-flex;
@@ -282,35 +227,18 @@ section#home::before {
     justify-content: center;
   }
 
-  /* Better padding for mobile */
   section {
     padding: 3rem 1rem !important;
   }
 
-  /* Prevent horizontal scroll */
   html, body {
     overflow-x: hidden;
     max-width: 100vw;
   }
 
-  /* Responsive typography */
-  h1 {
-    font-size: clamp(1.8rem, 6vw, 2.5rem);
-  }
+  h3 { font-size: clamp(1.2rem, 4vw, 1.6rem); }
+  h4 { font-size: clamp(1.1rem, 3.5vw, 1.4rem); }
 
-  h2 {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
-  }
-
-  h3 {
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-  }
-
-  h4 {
-    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-  }
-
-  /* Navbar improvements */
   .navbar-collapse {
     margin-top: 10px;
     max-height: 80vh;
@@ -322,17 +250,14 @@ section#home::before {
     margin: 0.25rem 0;
   }
 
-  /* Form improvements */
   .form-control {
-    font-size: 16px !important; /* Prevents zoom on iOS */
+    font-size: 16px !important;
   }
 
-  /* Card improvements */
   .card {
     margin-bottom: 1.5rem;
   }
 
-  /* Better spacing */
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -340,66 +265,45 @@ section#home::before {
 }
 
 @media (max-width: 480px) {
-  body {
-    font-size: 15px;
-  }
+  body { font-size: 15px; }
+  section { padding: 2rem 0.75rem !important; }
 
-  section {
-    padding: 2rem 0.75rem !important;
-  }
-
-  /* Even more compact on very small screens */
   .btn, button {
     padding: 0.75rem 1.25rem !important;
     font-size: 0.95rem !important;
   }
 
-  /* Smaller container padding */
   .container {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
 }
 
-/* Tablet Landscape optimizations */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .container {
-    max-width: 95%;
-  }
-
-  section {
-    padding: 4rem 2rem !important;
-  }
+  .container { max-width: 95%; }
+  section { padding: 4rem 2rem !important; }
 }
 
-/* Improve tap highlighting */
 @media (hover: none) and (pointer: coarse) {
-  /* Touch devices */
   a, button, .btn, .nav-link, .card {
-    -webkit-tap-highlight-color: rgba(212, 175, 55, 0.2);
+    -webkit-tap-highlight-color: rgba(184, 188, 198, 0.12);
   }
 
-  /* Remove hover states on touch devices */
-  .card:hover,
-  .btn:hover,
-  .nav-link:hover {
+  .card:hover, .btn:hover, .nav-link:hover {
     transform: none !important;
   }
 
-  /* Active states for better feedback */
   .card:active {
     transform: scale(0.98) !important;
     transition: transform 0.1s ease !important;
   }
 
-  .btn:active,
-  .nav-link:active {
+  .btn:active, .nav-link:active {
     opacity: 0.8;
     transition: opacity 0.1s ease;
   }
 }
 
-/* Prevent text selection on interactive elements (optional, for better UX) */
 .btn, button, .nav-link {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -407,31 +311,16 @@ section#home::before {
   user-select: none;
 }
 
-/* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
-  .card,
-  .btn,
-  .form-control {
+  .card, .btn, .form-control {
     border-width: 2px !important;
   }
-
-  .nav-link::after {
-    height: 3px !important;
-  }
-}
-
-/* Dark mode support (if needed in future) */
-@media (prefers-color-scheme: dark) {
-  /* Already handled by our color scheme, but can add overrides here */
 }

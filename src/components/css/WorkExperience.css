@@ -1,127 +1,92 @@
-.work-experience-section {
-    padding: 50px 0;
-    background: transparent;
-    color: var(--text-primary);
-    text-align: center;
-  }
-  
-  .work-experience-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 40px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #e8eaed 0%, #d4af37 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-family: 'Playfair Display', serif;
-  }
-  
-  .work-experience-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .work-experience-item {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 900px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-  }
-  
-  .work-experience-item:hover {
-    transform: translateY(-8px);
-  }
-  
-  .work-logo-column {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 20px;
-    min-width: 80px;
-  }
-  
-  .work-logo {
-    height: 50px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    transition: transform 0.3s ease;
+.editorial-section {
+  padding: 4rem 0;
+}
+
+.editorial-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 2.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.experience-card {
+  padding: 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.experience-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.experience-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.experience-logo {
+  border-radius: 6px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.experience-card:hover .experience-logo {
+  opacity: 1;
+}
+
+.experience-period {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.experience-company {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem;
+}
+
+.experience-role {
+  font-size: 0.88rem;
+  color: var(--accent-gold);
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+}
+
+.experience-detail {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .editorial-section {
+    padding: 3rem 0;
   }
 
-  .work-experience-item:hover .work-logo {
-    transform: scale(1.1);
-  }
-  
-  .work-description-column {
-    flex: 3;
-    text-align: left;
-    padding: 25px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    transition: all 0.3s ease;
+  .editorial-title {
+    margin-bottom: 2rem;
   }
 
-  .work-experience-item:hover .work-description-column {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--accent-gold);
-    box-shadow: 0 12px 48px 0 rgba(212, 175, 55, 0.3);
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
-  
-  .work-description-column h3 {
-    font-size: 1.5rem;
-    margin: 0 0 8px 0;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  
-  .work-description-column p {
-    margin: 5px 0 0;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-  
-  .work-details {
-    display: none;
-    font-size: 1rem;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--glass-border);
-    color: var(--text-secondary);
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .work-experience-item:hover .work-details {
-    display: block;
-  }
-
-  @media (max-width: 768px) {
-    .work-experience-item {
-      flex-direction: column;
-      width: 95%;
-    }
-    
-    .work-logo-column {
-      margin-right: 0;
-      margin-bottom: 15px;
-    }
-  }
+}

@@ -29,7 +29,6 @@ const Info = () => {
 
   const textStyle = {
     fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-    fontFamily: 'Inter, sans-serif',
     color: 'var(--text-secondary)',
     marginBottom: '2rem',
     lineHeight: '1.6'

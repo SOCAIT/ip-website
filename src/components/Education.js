@@ -1,42 +1,52 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-// styles imported globally in app/globals.css
+
+const degrees = [
+  {
+    school: "University of Cyprus",
+    degree: "MSc in Artificial Intelligence",
+    grade: "8.94 / 10",
+    courses: "Deep Learning, NLP, Computer Vision, AI Ethics",
+    period: "2022 – 2024",
+    logo: "/assets/ucy.png",
+  },
+  {
+    school: "University of Cyprus",
+    degree: "BSc in Computer Science",
+    grade: "8.32 / 10",
+    courses: "Data Structures, Algorithms, Machine Learning, OS",
+    period: "2016 – 2021",
+    logo: "/assets/ucy.png",
+  },
+];
 
 function Education() {
   return (
-    <section id="education" className="education-section">
-      <h2 className="education-title">Education</h2>
-      <div className="education-container">
-        <div className="education-item">
-          <div className="education-logo-column">
-            <Image src="/assets/ucy.png" alt="University of Cyprus logo - Master's degree" className="education-logo" width={60} height={80} loading="lazy" />
+    <section id="education" className="editorial-section">
+      <h2 className="editorial-title">Education</h2>
+      <div className="education-grid">
+        {degrees.map((deg) => (
+          <div key={deg.degree} className="education-card">
+            <div className="education-card-top">
+              <Image
+                src={deg.logo}
+                alt={`${deg.school} logo`}
+                className="education-logo"
+                width={36}
+                height={36}
+                loading="lazy"
+              />
+              <span className="education-period">{deg.period}</span>
+            </div>
+            <h3 className="education-degree">{deg.degree}</h3>
+            <p className="education-school">{deg.school}</p>
+            <div className="education-meta">
+              <span className="education-grade">{deg.grade}</span>
+            </div>
+            <p className="education-courses">{deg.courses}</p>
           </div>
-          <div className="education-description-column">
-            <h3>University of Cyprus</h3>
-            <p>MSc in Artificial Intelligence</p>
-            <p className="education-details">Grade: 8.94/10</p>
-            <p className="education-details">
-              Courses: Deep Learning, NLP, Computer Vision, AI Ethics
-            </p>
-            <p className="education-details">2022-2024</p>
-          </div>
-        </div>
-
-        <div className="education-item">
-          <div className="education-logo-column">
-            <Image src="/assets/ucy.png" alt="University of Cyprus logo - Bachelor's degree" className="education-logo" width={60} height={80} loading="lazy" />
-          </div>
-          <div className="education-description-column">
-            <h3>University of Cyprus</h3>
-            <p>BSc in Computer Science</p>
-            <p className="education-details">Grade: 8.32/10</p>
-            <p className="education-details">
-              Courses: Data Structures, Algorithms, Machine Learning, Operating Systems
-            </p>
-            <p className="education-details">2016-2021</p>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

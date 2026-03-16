@@ -42,7 +42,7 @@ const About = () => {
           <h2 style={{
             fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
             fontWeight: '600',
-            background: 'linear-gradient(135deg, #e8eaed 0%, #d4af37 50%, #64b5f6 100%)',
+            background: 'linear-gradient(135deg, #e8eaed 0%, #b8bcc6 50%, #64b5f6 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',

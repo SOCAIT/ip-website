@@ -1,176 +1,64 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
-// styles imported globally in app/globals.css
+import React from "react";
 import WorkExperience from "./WorkExperience";
 import Skills from "./Skills";
 import Education from "./Education";
 import Publications from "./Publications";
 import Hero from "./Hero";
-import { Container, Row, Col } from 'react-bootstrap';
-
 import { motion } from 'framer-motion';
 import Footer from "./Footer";
 
+const sectionReveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.15 },
+  transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
+};
+
 function Home() {
-  const [init, setInit] = useState(false);
-
-  // Initialize particles engine once
-  useEffect(() => {
-    // Skip particles on mobile devices for performance
-    if (window.innerWidth < 768) return;
-
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
-  }, []);
-
-  const particlesLoaded = (container) => {
-    console.log(container);
-  };
-
-  const options = useMemo(
-    () => ({
-      background: {
-        color: {
-          value: "transparent",
-        },
-      },
-      fpsLimit: 30, // Reduced from 60 to 30 for better performance on lower-end devices
-      interactivity: {
-        events: {
-          onClick: {
-            enable: true,
-            mode: "push",
-          },
-          onHover: {
-            enable: true,
-            mode: "grab",
-          },
-        },
-        modes: {
-          push: {
-            quantity: 3,
-          },
-          grab: {
-            distance: 150,
-            links: {
-              opacity: 0.8,
-              color: "#d4af37",
-            },
-          },
-        },
-      },
-      particles: {
-        color: {
-          value: ["#d4af37", "#64b5f6", "#5b7c99"],
-        },
-        links: {
-          color: "#d4af37",
-          distance: 150,
-          enable: true,
-          opacity: 0.3,
-          width: 1,
-        },
-        move: {
-          direction: "none",
-          enable: true,
-          outModes: {
-            default: "out",
-          },
-          random: true,
-          speed: 1,
-          straight: false,
-        },
-        number: {
-          density: {
-            enable: true,
-            area: 1200, // Increased area to reduce density
-          },
-          value: 30, // Reduced from 50 to 30 for better performance
-        },
-        opacity: {
-          value: { min: 0.3, max: 0.7 },
-          animation: {
-            enable: true,
-            speed: 0.5,
-            minimumValue: 0.2,
-          },
-        },
-        shape: {
-          type: ["circle", "triangle"],
-        },
-        size: {
-          value: { min: 2, max: 6 },
-          animation: {
-            enable: true,
-            speed: 2,
-            minimumValue: 1,
-          },
-        },
-      },
-      detectRetina: true,
-    }),
-    []
-  );
-
   return (
     <section id="home" className="homepage-section">
-      {init && (
-        <Particles
-          id="tsparticles"
-          particlesLoaded={particlesLoaded}
-          options={options}
-          className="particles-background"
-        />
-      )}
-      
-      {/* Hero Section - New stylish component */}
       <Hero />
 
-      {/* CV Floating Card - Fixed positioning and animation */}
-      <motion.div
-        className="cv-floating-container"
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ 
-          type: 'spring', 
-          stiffness: 60,
-          damping: 15,
-          delay: 0.2 
-        }}
-      >
-        <motion.div
-          className="homepage-check-cv"
-          whileHover={{ 
-            scale: 1.05,
-            boxShadow: "0 20px 60px rgba(212, 175, 55, 0.4)"
-          }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          Checkout my full CV <a href="/IoannisPastellasCV.pdf" target="_blank" rel="noopener noreferrer">here</a>
+      <div className="homepage-content">
+        <motion.div {...sectionReveal}>
+          <div className="about-brief">
+            <p>
+              Specializing in <strong>deep learning</strong>, <strong>reinforcement learning</strong>, and
+              building intelligent systems from research to production.
+            </p>
+            <a href="/IoannisPastellasCV.pdf" target="_blank" rel="noopener noreferrer" className="about-cv-link">
+              View Full CV <span>&rarr;</span>
+            </a>
+          </div>
         </motion.div>
-      </motion.div>
 
-      <Container className="text-center homepage-content">
-        <Row>
-          <Col lg='6'>
-            <WorkExperience />
-          </Col>
-          <Col lg='6'>
-            <Education />
-            <Publications />
-          </Col>
-        </Row>
+        <div className="section-divider" />
 
-        <Skills />
+        <motion.div {...sectionReveal}>
+          <WorkExperience />
+        </motion.div>
 
-        <Footer position={"relative"}/>
-      </Container>
+        <div className="section-divider" />
+
+        <motion.div {...sectionReveal}>
+          <Education />
+        </motion.div>
+
+        <div className="section-divider" />
+
+        <motion.div {...sectionReveal}>
+          <Publications />
+        </motion.div>
+
+        <div className="section-divider" />
+
+        <motion.div {...sectionReveal}>
+          <Skills />
+        </motion.div>
+      </div>
+
+      <Footer position={"relative"} />
     </section>
   );
 }

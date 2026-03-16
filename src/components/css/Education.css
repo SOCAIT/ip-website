@@ -1,127 +1,84 @@
-.education-section {
-    padding: 50px 0;
-    background: transparent;
-    color: var(--text-primary);
-    text-align: center;
-  }
-  
-  .education-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 40px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #e8eaed 0%, #64b5f6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-family: 'Playfair Display', serif;
-  }
-  
-  .education-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .education-item {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 900px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-  }
-  
-  .education-item:hover {
-    transform: translateY(-8px);
-  }
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
 
-  .education-logo-column {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 20px;
-    min-width: 80px;
-  }
-  
-  .education-logo {
-    height: 50px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    transition: transform 0.3s ease;
-  }
+.education-card {
+  padding: 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
 
-  .education-item:hover .education-logo {
-    transform: scale(1.1);
-  }
-  
-  .education-description-column {
-    flex: 3;
-    text-align: left;
-    padding: 25px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    transition: all 0.3s ease;
-  }
+.education-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
 
-  .education-item:hover .education-description-column {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--accent-blue);
-    box-shadow: 0 12px 48px 0 rgba(100, 181, 246, 0.3);
-  }
-  
-  .education-description-column h3 {
-    font-size: 1.5rem;
-    margin: 0 0 8px 0;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  
-  .education-description-column p {
-    margin: 5px 0 0;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-  
-  .education-details {
-    display: none;
-    font-size: 1rem;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--glass-border);
-    color: var(--text-secondary);
-    animation: fadeIn 0.3s ease;
-  }
+.education-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .education-item:hover .education-details {
-    display: block;
-  }
+.education-logo {
+  border-radius: 6px;
+  object-fit: contain;
+  opacity: 0.85;
+}
 
-  @media (max-width: 768px) {
-    .education-item {
-      flex-direction: column;
-      width: 95%;
-    }
-    
-    .education-logo-column {
-      margin-right: 0;
-      margin-bottom: 15px;
-    }
+.education-card:hover .education-logo {
+  opacity: 1;
+}
+
+.education-period {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.education-degree {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem;
+}
+
+.education-school {
+  font-size: 0.88rem;
+  color: var(--accent-gold);
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+}
+
+.education-meta {
+  margin-bottom: 0.5rem;
+}
+
+.education-grade {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+
+.education-courses {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .education-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
+}

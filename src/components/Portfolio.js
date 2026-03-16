@@ -45,57 +45,31 @@ function Portfolio() {
     <>
       <section id="projects" className="portfolio-section">
         <div className="portfolio-container">
-          {/* Decorative background elements */}
-          <div className="portfolio-bg-decoration"></div>
-          
-          {/* Header */}
           <div className="portfolio-header">
-            <div className="portfolio-icon-wrapper">
-              <span className="portfolio-icon">🚀</span>
-            </div>
-            <h2 className="portfolio-title">
-              Featured Projects
-            </h2>
+            <h2 className="portfolio-title">Featured Projects</h2>
             <p className="portfolio-subtitle">
               A showcase of my work in AI, Machine Learning, and Software Engineering
             </p>
           </div>
 
-          {/* Projects Grid */}
           <div className="portfolio-grid">
             {projects.map((project, index) => (
-              <div 
-                key={index} 
-                className="portfolio-item"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
+              <div key={index} className="portfolio-item">
                 <Card
                   image={project.img}
                   title={project.title}
                   subtitle={project.description}
                   link={project.link}
-                  tags={project.tags}
                 />
                 {project.tags && (
                   <div className="project-tags">
                     {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="project-tag">
-                        {tag}
-                      </span>
+                      <span key={tagIndex} className="project-tag">{tag}</span>
                     ))}
                   </div>
                 )}
               </div>
             ))}
-          </div>
-
-          {/* View More Section */}
-          <div className="portfolio-view-more">
-            <button className="view-more-btn" onClick={() => window.location.href = '#contact'}>
-              <span className="btn-text">Interested in collaboration?</span>
-              <span className="btn-icon">💬</span>
-            </button>
-            <p className="view-more-note">Let&apos;s discuss your next project</p>
           </div>
         </div>
       </section>

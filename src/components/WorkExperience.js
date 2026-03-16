@@ -2,72 +2,60 @@
 import React from 'react';
 import Image from 'next/image';
 
+const experiences = [
+  {
+    company: "Ubitech",
+    role: "Machine Learning Engineer",
+    detail: "AI for EU-funded projects. Deploying on Kubernetes & Cloud.",
+    period: "2021 – Present",
+    logo: "/assets/ubitech.jpeg",
+  },
+  {
+    company: "Wargaming",
+    role: "Research Collaboration / RL",
+    detail: "Offline Reinforcement Learning in World of Tanks, Off-Policy Evaluation.",
+    period: "2024 – 2025",
+    logo: "/assets/wargaming.png",
+  },
+  {
+    company: "University of Cyprus",
+    role: "Teaching Assistant",
+    detail: "Computational Neuroscience master course.",
+    period: "2025",
+    logo: "/assets/ucy.png",
+  },
+  {
+    company: "AC Goldman",
+    role: "Data Scientist Intern",
+    detail: "XAI (LIME, SHAP) Credit Scoring ML system.",
+    period: "2020",
+    logo: "/assets/goldman.png",
+  },
+];
+
 function WorkExperience() {
   return (
-    <section id="work-experience" className="work-experience-section">
-      <h2 className="work-experience-title">Work Experience</h2>
-      <div className="work-experience-container">
-        {/* <div className="work-experience-item">
-          <div className="work-logo-column">
-            <img src={require("../assets/socait_logo_symbol.png")} alt="Crunchyroll" className="work-logo" />
+    <section id="work-experience" className="editorial-section">
+      <h2 className="editorial-title">Experience</h2>
+      <div className="experience-grid">
+        {experiences.map((exp) => (
+          <div key={exp.company + exp.period} className="experience-card">
+            <div className="experience-card-top">
+              <Image
+                src={exp.logo}
+                alt={`${exp.company} logo`}
+                className="experience-logo"
+                width={40}
+                height={40}
+                loading="lazy"
+              />
+              <span className="experience-period">{exp.period}</span>
+            </div>
+            <h3 className="experience-company">{exp.company}</h3>
+            <p className="experience-role">{exp.role}</p>
+            <p className="experience-detail">{exp.detail}</p>
           </div>
-          <div className="work-description-column">
-            <h3>SOCAIT</h3>
-            <p>Founder & CTO</p>
-            <p className="work-details">Leading full-stack projects, around AI systems( LLM, RLHF) with Mobile/Web Apps.</p>
-          </div>
-        </div> */}
-         <div className="work-experience-item">
-          <div className="work-logo-column">
-            <Image src="/assets/ubitech.jpeg" alt="Ubitech logo" className="work-logo" width={60} height={80} loading="lazy" />
-          </div>
-          <div className="work-description-column">
-            <h3>Ubitech</h3>
-            <p> Machine Learning Engineer</p>
-            <p className="work-details">Developing AI for various EU-funded projects. Deploying components on Kubernetes and Cloud</p>
-            <p className="work-details">2021- Now</p>
-
-          </div>
-        </div>
-        <div className="work-experience-item">
-          <div className="work-logo-column">
-            <Image src="/assets/wargaming.png" alt="Wargaming logo" className="work-logo" width={60} height={80} loading="lazy" />
-          </div>
-          <div className="work-description-column">
-            <h3>Wargaming</h3>
-            <p>Research collaboration / Reinforcement Learning</p>
-            <p className="work-details">Offline Reinforcement Learning in World of Tanks, Off-Policy Evaluation</p>
-            <p className="work-details">2024-2025</p>
-
-          </div>
-        </div>
-       
-
-        <div className="work-experience-item">
-          <div className="work-logo-column">
-            <Image src="/assets/ucy.png" alt="University of Cyprus logo" className="work-logo" width={60} height={80} loading="lazy" />
-          </div>
-          <div className="work-description-column">
-            <h3>University of Cyprus</h3>
-            <p> Teaching Assistant</p>
-            <p className="work-details">Teaching assistant for Computational Neuroscience master course.</p>
-            <p className="work-details">2025</p>
-
-          </div>
-        </div>
-        
-        <div className="work-experience-item">
-          <div className="work-logo-column">
-            <Image src="/assets/goldman.png" alt="AC Goldman logo" className="work-logo" width={60} height={80} loading="lazy" />
-          </div>
-          <div className="work-description-column">
-            <h3>AC Goldman</h3>
-            <p>Data Scientist Intern</p>
-            <p className="work-details">Built XAI(LIME,Shap) Credit Scoring ML system.</p>
-            <p className="work-details">2020</p>
-
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
