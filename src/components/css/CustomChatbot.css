@@ -45,6 +45,14 @@
   margin-bottom: 2px;
 }
 
+.chat-input-plus svg,
+.chat-input-mic svg,
+.chat-send-btn svg {
+  display: block;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
 .chat-input-plus:hover {
   color: var(--text-primary);
   border-color: rgba(255, 255, 255, 0.2);
@@ -187,14 +195,23 @@
     padding: 0.3rem 0.3rem 0.3rem 0.4rem;
   }
 
+  /* Override global button min-height that distorts circular icon buttons */
+  .chat-input-plus,
+  .chat-input-mic,
+  .chat-send-btn {
+    min-height: unset !important;
+    display: flex !important;
+    padding: 0 !important;
+  }
+
   .chat-input-plus {
-    width: 32px;
-    height: 32px;
+    width: 32px !important;
+    height: 32px !important;
   }
 
   .chat-send-btn {
-    width: 34px;
-    height: 34px;
+    width: 34px !important;
+    height: 34px !important;
   }
 
   .chat-textarea {
@@ -217,6 +234,29 @@
 
   .chat-input-pill {
     border-radius: 20px;
+  }
+
+  .chat-input-plus,
+  .chat-input-mic,
+  .chat-send-btn {
+    min-width: 32px !important;
+    padding: 0 !important;
+    overflow: hidden;
+  }
+
+  .chat-input-plus svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .chat-input-mic svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .chat-send-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   .chat-input-mic {
