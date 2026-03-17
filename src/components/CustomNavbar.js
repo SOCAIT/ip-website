@@ -45,14 +45,14 @@ const CustomNavbar = () => {
           priority
           style={{ opacity: 0.9 }}
         />
-        <span style={{
+        {/* <span style={{
           color: '#ffffff',
           fontSize: '1rem',
           fontWeight: '700',
           letterSpacing: '0.02em',
         }}>
           Ioannis Pastellas
-        </span>
+        </span> */}
       </Link>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

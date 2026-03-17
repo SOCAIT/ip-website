@@ -45,12 +45,12 @@ function Portfolio() {
     <>
       <section id="projects" className="portfolio-section">
         <div className="portfolio-container">
-          <div className="portfolio-header">
+          {/* <div className="portfolio-header">
             <h2 className="portfolio-title">Featured Projects</h2>
             <p className="portfolio-subtitle">
               A showcase of my work in AI, Machine Learning, and Software Engineering
             </p>
-          </div>
+          </div> */}
 
           <div className="portfolio-grid">
             {projects.map((project, index) => (

@@ -75,6 +75,10 @@
   width: clamp(320px, 42vw, 520px);
 }
 
+.hero-photo-motion {
+  width: 100%;
+}
+
 .hero-photo {
   width: 100%;
   height: auto;
@@ -124,7 +128,8 @@
   }
 
   .hero-photo-area {
-    width: clamp(280px, 55vw, 400px);
+    width: clamp(260px, 50vw, 400px);
+    bottom: 4%;
   }
 
   .hero-name {
@@ -143,8 +148,8 @@
   }
 
   .hero-photo-area {
-    width: 75vw;
-    bottom: 8%;
+    width: min(72vw, 300px);
+    bottom: clamp(4.5rem, 10vh, 6.5rem);
   }
 
   .hero-name {

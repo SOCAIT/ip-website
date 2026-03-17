@@ -29,21 +29,23 @@ function Hero() {
       </motion.div>
 
       {/* Center photo */}
-      <motion.div
-        className="hero-photo-area"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.1 }}
-      >
-        <Image
-          src="/ipastellas_hero.png"
-          alt="Ioannis Pastellas"
-          width={600}
-          height={800}
-          priority
-          className="hero-photo"
-        />
-      </motion.div>
+      <div className="hero-photo-area">
+        <motion.div
+          className="hero-photo-motion"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+        >
+          <Image
+            src="/ipastellas_hero.png"
+            alt="Ioannis Pastellas"
+            width={600}
+            height={800}
+            priority
+            className="hero-photo"
+          />
+        </motion.div>
+      </div>
 
       {/* Name at bottom */}
       <motion.h1
