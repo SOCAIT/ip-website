@@ -24,7 +24,7 @@ function Hero() {
           <span>ML Engineer</span>
           <span><strong>Researcher</strong></span>
           <span>Builder</span>
-          <span className="role-italic">AI specialist</span>
+          {/* <span className="role-italic">AI specialist</span> */}
         </div>
       </motion.div>
 

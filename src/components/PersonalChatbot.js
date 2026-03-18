@@ -199,9 +199,9 @@ export function PersonalChatbot() {
       {/* Fixed input bar */}
       <div className="chatbot-fixed-input">
         <div className="chat-input-pill">
-          <button className="chat-input-plus" type="button" aria-label="Attach">
+          {/* <button className="chat-input-plus" type="button" aria-label="Attach">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3.75v10.5M3.75 9h10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-          </button>
+          </button> */}
           <textarea
             className="chat-textarea"
             placeholder={welcome.placeholder}
@@ -210,9 +210,9 @@ export function PersonalChatbot() {
             onKeyDown={handleKeyDown}
             rows={1}
           />
-          <button className="chat-input-mic" type="button" aria-label="Voice input">
+          {/* <button className="chat-input-mic" type="button" aria-label="Voice input">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1a2.5 2.5 0 0 0-2.5 2.5v4a2.5 2.5 0 0 0 5 0v-4A2.5 2.5 0 0 0 8 1Z" stroke="currentColor" strokeWidth="1.3"/><path d="M12 7.5a4 4 0 0 1-8 0M8 12.5v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
-          </button>
+          </button> */}
           <button
             className="chat-send-btn"
             onClick={sendMessage}

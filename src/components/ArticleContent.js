@@ -4,8 +4,26 @@ import Image from "next/image";
 import './ArticleContent.css';
 
 // Helper function to parse text with markdown-style formatting
+function normalizeInlineFormatting(text) {
+  if (!text) return '';
+
+  return text
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/<\s*br\s*\/?>/gi, '\n')
+    .replace(/<\s*(b|strong)\s*>(.*?)<\s*\/\s*(b|strong)\s*>/gi, '**$2**')
+    .replace(/<\s*(i|em)\s*>(.*?)<\s*\/\s*(i|em)\s*>/gi, '*$2*')
+    .replace(/<\s*code\s*>(.*?)<\s*\/\s*code\s*>/gi, '`$1`')
+    .replace(/<[^>]+>/g, '');
+}
+
 function parseFormattedText(text) {
   if (!text) return null;
+  const normalizedText = normalizeInlineFormatting(text);
   
   const parts = [];
   let currentIndex = 0;
@@ -15,12 +33,12 @@ function parseFormattedText(text) {
   const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\$[^$]+\$)/g;
   let match;
   
-  while ((match = regex.exec(text)) !== null) {
+  while ((match = regex.exec(normalizedText)) !== null) {
     // Add text before the match
     if (match.index > currentIndex) {
       parts.push(
         <span key={`text-${key++}`}>
-          {text.substring(currentIndex, match.index)}
+          {normalizedText.substring(currentIndex, match.index)}
         </span>
       );
     }
@@ -62,15 +80,15 @@ function parseFormattedText(text) {
   }
   
   // Add remaining text
-  if (currentIndex < text.length) {
+  if (currentIndex < normalizedText.length) {
     parts.push(
       <span key={`text-${key++}`}>
-        {text.substring(currentIndex)}
+        {normalizedText.substring(currentIndex)}
       </span>
     );
   }
   
-  return parts.length > 0 ? parts : text;
+  return parts.length > 0 ? parts : normalizedText;
 }
 
 export default function ArticleContent({ blocks }) {
