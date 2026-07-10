@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import CustomNavbar from "@/components/CustomNavbar";
 import ArticleContent from "@/components/ArticleContent";
 import InteractiveLink from "@/components/InteractiveLink";
+import Footer from "@/components/Footer";
 import './article-detail.css';
 
 // Server-side Supabase client for metadata generation
@@ -153,18 +154,16 @@ export default async function ArticleDetail({ params }) {
         <section className="article-not-found">
           <div className="not-found-container">
             <div className="not-found-content">
-              <div className="not-found-icon">📄</div>
               <h2 className="not-found-title">Article Not Found</h2>
               <p className="not-found-text">
-                The article you&apos;re looking for doesn&apos;t exist or has been removed.<br />
-                It might have been unpublished or the URL may be incorrect.
+                The article you&apos;re looking for doesn&apos;t exist or has been removed.
               </p>
               <InteractiveLink 
                 href="/articles" 
                 className="back-link"
               >
                 <span className="back-arrow">←</span>
-                <span>Back to All Articles</span>
+                <span>Back to all articles</span>
               </InteractiveLink>
             </div>
           </div>
@@ -197,16 +196,16 @@ export default async function ArticleDetail({ params }) {
               src={article.cover_image} 
               alt={article.title}
               className="article-hero-image"
-              width={1920}
-              height={600}
+              fill
               priority
               quality={85}
+              sizes="100vw"
             />
             <div className="article-hero-overlay"></div>
           </div>
         )}
         
-        <section className="article-section">
+        <section className={`article-section${article.cover_image ? '' : ' no-hero'}`}>
           <div className="article-container">
             {/* Article Header */}
             <header className="article-header">
@@ -215,34 +214,25 @@ export default async function ArticleDetail({ params }) {
               </h1>
               
               <div className="article-meta-container">
-                <div className="article-meta-item">
-                  <span className="meta-icon">📅</span>
-                  <span className="meta-text">{article.date}</span>
+                <div className="article-byline">
+                  {article.author_name && article.author_avatar && (
+                    <Image
+                      src={article.author_avatar}
+                      alt={article.author_name}
+                      className="author-avatar"
+                      width={34}
+                      height={34}
+                      loading="lazy"
+                    />
+                  )}
+                  {article.author_name && (
+                    <>
+                      <span className="byline-name">{article.author_name}</span>
+                      <span className="byline-sep">·</span>
+                    </>
+                  )}
+                  <span className="byline-date">{article.date}</span>
                 </div>
-                
-                {article.author_name && (
-                  <>
-                    <span className="meta-separator">•</span>
-                    <div className="article-author">
-                      {article.author_avatar && (
-                        <Image 
-                          src={article.author_avatar} 
-                          alt={article.author_name}
-                          className="author-avatar"
-                          width={48}
-                          height={48}
-                          loading="lazy"
-                        />
-                      )}
-                      <div className="author-info">
-                        <span className="author-name">{article.author_name}</span>
-                        {article.author_bio && (
-                          <p className="author-bio">{article.author_bio}</p>
-                        )}
-                      </div>
-                    </div>
-                  </>
-                )}
               </div>
             </header>
 
@@ -258,11 +248,12 @@ export default async function ArticleDetail({ params }) {
                 className="article-back-link"
               >
                 <span className="back-arrow">←</span>
-                <span>Back to All Articles</span>
+                <span>Back to all articles</span>
               </InteractiveLink>
             </footer>
           </div>
         </section>
+        <Footer />
       </div>
     </>
   );

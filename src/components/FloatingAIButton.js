@@ -10,7 +10,7 @@ function FloatingAIButton() {
   const [isHovered, setIsHovered] = useState(false);
   const pathname = usePathname();
 
-  if (pathname === '/chat') {
+  if (pathname === '/chat' || pathname.startsWith('/admin') || pathname.startsWith('/articles')) {
     return null;
   }
 

@@ -6,7 +6,7 @@ const experiences = [
   {
     company: "Ubitech",
     role: "Machine Learning Engineer",
-    detail: "AI for EU-funded projects. Deploying on Kubernetes & Cloud.",
+    detail: "AI for EU-funded projects. Deploying on Kubernetes & Cloud. Site Security Officer (SSO) for the secure room at the Limassol office; security cleared by the DSA of Cyprus.",
     period: "2021 – Present",
     logo: "/assets/ubitech.jpeg",
   },

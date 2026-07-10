@@ -60,6 +60,18 @@ const certifications = [
     year: "2026",
     file: "/certifications/ft-and-rl-for-llms-intro-post-training.png",
   },
+  {
+    title: "Spec-Driven Development with Coding Agents",
+    issuer: "DeepLearning.AI / JetBrains",
+    year: "2026",
+    file: "https://learn.deeplearning.ai/accomplishments/e3b44f75-c2e5-408a-b9fb-2f7b347eea36?usp=sharing",
+  },
+  {
+    title: "Fast & Efficient LLM Inference with vLLM",
+    issuer: "DeepLearning.AI / Red Hat",
+    year: "2026",
+    file: "https://learn.deeplearning.ai/accomplishments/ed42225a-1fef-4305-87eb-907ec87674ae?usp=sharing",
+  },
 ];
 
 function Skills() {

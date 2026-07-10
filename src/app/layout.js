@@ -114,17 +114,19 @@ export const metadata = {
     images: ["/og-image.png"],
     creator: "@ipastellas",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  robots: process.env.SITE_PASSWORD
+    ? { index: false, follow: false, googleBot: { index: false, follow: false } }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      },
   verification: {
     // Add your verification codes when you have them
     // google: "your-google-verification-code",

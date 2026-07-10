@@ -1,52 +1,47 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import CustomNavbar from '@/components/CustomNavbar';
+import { ToastProvider, useToast } from '@/components/Toast';
+import './admin.css';
 
-export default function AdminPage() {
+function AdminDashboard() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
-  useEffect(() => {
-    fetchArticles();
-  }, []);
-
-  const fetchArticles = async () => {
+  const fetchArticles = useCallback(async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
         .from('articles')
         .select('*')
         .order('created_at', { ascending: false });
-
       if (error) throw error;
       setArticles(data || []);
     } catch (error) {
-      console.error('Error fetching articles:', error);
-      alert('Error fetching articles: ' + error.message);
+      toast('Failed to load articles: ' + error.message, 'error');
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    fetchArticles();
+  }, [fetchArticles]);
 
   const deleteArticle = async (id, slug) => {
-    if (!confirm(`Delete article "${slug}"?`)) return;
-
+    if (!confirm(`Delete "${slug}"? This cannot be undone.`)) return;
     try {
-      const { error } = await supabase
-        .from('articles')
-        .delete()
-        .eq('id', id);
-
+      const { error } = await supabase.from('articles').delete().eq('id', id);
       if (error) throw error;
-      
-      alert('Article deleted successfully!');
+      toast('Article deleted');
       fetchArticles();
     } catch (error) {
-      console.error('Error deleting article:', error);
-      alert('Error deleting article: ' + error.message);
+      toast('Delete failed: ' + error.message, 'error');
     }
   };
 
@@ -56,329 +51,102 @@ export default function AdminPage() {
         .from('articles')
         .update({ published: !currentStatus })
         .eq('id', id);
-
       if (error) throw error;
-      
+      toast(currentStatus ? 'Moved to drafts' : 'Published');
       fetchArticles();
     } catch (error) {
-      console.error('Error updating article:', error);
-      alert('Error updating article: ' + error.message);
+      toast('Update failed: ' + error.message, 'error');
     }
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #0f0f0f, #1a1a1a)' }}>
+    <div className="admin-page">
       <CustomNavbar />
-      <section className="p-5">
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            marginBottom: '3rem',
-            flexWrap: 'wrap',
-            gap: '1rem'
-          }}>
-            <div>
-              <h1 style={{ 
-                color: '#9AE6B4', 
-                textShadow: '0 0 20px rgba(154,230,180,0.4)',
-                margin: '0 0 0.5rem 0',
-                fontSize: '2.5rem'
-              }}>
-                📚 Article Management
-              </h1>
-              <p style={{ color: '#888', fontSize: '1.1rem', margin: 0 }}>
-                Manage and publish your articles
-              </p>
-            </div>
-            <Link href="/admin/articles/new">
-              <button style={{
-                padding: '1rem 2rem',
-                background: 'linear-gradient(135deg, #48bb78, #38a169)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                boxShadow: '0 4px 15px rgba(72,187,120,0.3)',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
-              onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
-              >
-                <span style={{ fontSize: '1.5rem' }}>+</span> New Article
-              </button>
-            </Link>
+      <div className="admin-container admin-container--wide">
+        <nav className="admin-tabs">
+          <Link href="/admin" className="admin-tab admin-tab--active">Articles</Link>
+          <Link href="/admin/automations" className="admin-tab">Automations</Link>
+        </nav>
+        <div className="admin-header">
+          <div>
+            <h1>Articles</h1>
+            <p>Manage and publish your content</p>
           </div>
+          <Link href="/admin/articles/new">
+            <button className="admin-btn admin-btn--primary">+ New article</button>
+          </Link>
+        </div>
 
-          {loading ? (
-            <div style={{
-              textAlign: 'center',
-              padding: '5rem 2rem',
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⏳</div>
-              <p style={{ color: '#ddd', fontSize: '1.2rem' }}>Loading articles...</p>
-            </div>
-          ) : articles.length === 0 ? (
-            <div style={{
-              textAlign: 'center',
-              padding: '5rem 2rem',
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '16px',
-              border: '2px dashed rgba(154,230,180,0.3)'
-            }}>
-              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📝</div>
-              <h3 style={{ color: '#9AE6B4', marginBottom: '1rem', fontSize: '1.5rem' }}>
-                No articles yet
-              </h3>
-              <p style={{ color: '#888', marginBottom: '2rem', fontSize: '1.1rem' }}>
-                Start creating amazing content for your readers
-              </p>
-              <Link href="/admin/articles/new">
-                <button style={{
-                  padding: '1rem 2rem',
-                  background: 'linear-gradient(135deg, #48bb78, #38a169)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '12px',
-                  cursor: 'pointer',
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  boxShadow: '0 4px 15px rgba(72,187,120,0.3)',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-                >
-                  🚀 Create Your First Article
-                </button>
-              </Link>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              {articles.map((article) => (
-                <div
-                  key={article.id}
-                  style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '2px solid rgba(255,255,255,0.1)',
-                    borderRadius: '16px',
-                    padding: '1.5rem',
-                    display: 'grid',
-                    gridTemplateColumns: '120px 1fr auto',
-                    gap: '1.5rem',
-                    alignItems: 'center',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(154,230,180,0.3)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-                  }}
-                >
-                  {article.cover_image && (
-                    <img
-                      src={article.cover_image}
-                      alt={article.title}
-                      style={{
-                        width: '120px',
-                        height: '120px',
-                        objectFit: 'cover',
-                        borderRadius: '12px',
-                        border: '2px solid rgba(154,230,180,0.2)'
-                      }}
-                    />
-                  )}
-                  {!article.cover_image && (
-                    <div style={{
-                      width: '120px',
-                      height: '120px',
-                      background: 'rgba(255,255,255,0.05)',
-                      borderRadius: '12px',
-                      border: '2px dashed rgba(255,255,255,0.2)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#666',
-                      fontSize: '2rem'
-                    }}>
-                      <span>🖼️</span>
-                      <small style={{ fontSize: '0.75rem', marginTop: '0.5rem' }}>No cover</small>
-                    </div>
-                  )}
+        {loading ? (
+          <div className="admin-loading">
+            <div className="admin-spinner" />
+            <p>Loading articles...</p>
+          </div>
+        ) : articles.length === 0 ? (
+          <div className="be-empty">
+            <p>No articles yet</p>
+            <small>Create your first article to get started</small>
+          </div>
+        ) : (
+          <div className="admin-articles">
+            {articles.map((article) => (
+              <div key={article.id} className="admin-article-row">
+                {article.cover_image ? (
+                  <Image
+                    src={article.cover_image}
+                    alt={article.title}
+                    width={80}
+                    height={56}
+                    className="admin-article-thumb"
+                  />
+                ) : (
+                  <div className="admin-article-thumb--empty">--</div>
+                )}
 
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                      <h3 style={{ color: '#9AE6B4', margin: 0, fontSize: '1.3rem' }}>
-                        {article.title}
-                      </h3>
-                      <span style={{ 
-                        padding: '0.25rem 0.75rem',
-                        background: article.published ? 'rgba(72,187,120,0.2)' : 'rgba(237,137,54,0.2)',
-                        color: article.published ? '#48bb78' : '#ed8936',
-                        borderRadius: '6px',
-                        fontSize: '0.75rem',
-                        fontWeight: 'bold',
-                        border: `1px solid ${article.published ? 'rgba(72,187,120,0.3)' : 'rgba(237,137,54,0.3)'}`
-                      }}>
-                        {article.published ? '✓ Published' : '⏸ Draft'}
-                      </span>
-                    </div>
-                    <p style={{ color: '#ccc', margin: '0 0 0.75rem 0', fontSize: '0.95rem', lineHeight: '1.5' }}>
-                      {article.excerpt || 'No excerpt available'}
-                    </p>
-                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', fontSize: '0.85rem', color: '#888' }}>
-                      <span style={{ 
-                        background: 'rgba(66,153,225,0.1)', 
-                        padding: '0.25rem 0.5rem', 
-                        borderRadius: '4px',
-                        border: '1px solid rgba(66,153,225,0.2)'
-                      }}>
-                        🔗 {article.slug}
-                      </span>
-                      <span style={{ 
-                        background: 'rgba(154,230,180,0.1)', 
-                        padding: '0.25rem 0.5rem', 
-                        borderRadius: '4px',
-                        border: '1px solid rgba(154,230,180,0.2)'
-                      }}>
-                        📅 {article.date}
-                      </span>
-                      {article.author_name && (
-                        <span style={{ 
-                          background: 'rgba(159,122,234,0.1)', 
-                          padding: '0.25rem 0.5rem', 
-                          borderRadius: '4px',
-                          border: '1px solid rgba(159,122,234,0.2)'
-                        }}>
-                          ✍️ {article.author_name}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', minWidth: '140px' }}>
-                    <Link href={`/admin/articles/edit/${article.id}`}>
-                      <button style={{
-                        padding: '0.75rem 1rem',
-                        background: '#4299e1',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        fontSize: '0.9rem',
-                        fontWeight: '600',
-                        transition: 'all 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem'
-                      }}
-                      onMouseOver={(e) => e.target.style.background = '#3182ce'}
-                      onMouseOut={(e) => e.target.style.background = '#4299e1'}
-                      >
-                        ✏️ Edit
-                      </button>
-                    </Link>
-                    <Link href={`/articles/${article.slug}`}>
-                      <button style={{
-                        padding: '0.75rem 1rem',
-                        background: 'rgba(255,255,255,0.08)',
-                        color: 'white',
-                        border: '2px solid rgba(255,255,255,0.2)',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        fontSize: '0.9rem',
-                        fontWeight: '600',
-                        transition: 'all 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem'
-                      }}
-                      onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.15)'}
-                      onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.08)'}
-                      >
-                        👁️ View
-                      </button>
-                    </Link>
-                    <button
-                      onClick={() => togglePublished(article.id, article.published)}
-                      style={{
-                        padding: '0.75rem 1rem',
-                        background: article.published ? '#ed8936' : '#48bb78',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        fontSize: '0.9rem',
-                        fontWeight: '600',
-                        transition: 'all 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem'
-                      }}
-                      onMouseOver={(e) => e.target.style.opacity = '0.85'}
-                      onMouseOut={(e) => e.target.style.opacity = '1'}
-                    >
-                      {article.published ? '⏸ Unpublish' : '✓ Publish'}
-                    </button>
-                    <button
-                      onClick={() => deleteArticle(article.id, article.slug)}
-                      style={{
-                        padding: '0.75rem 1rem',
-                        background: '#f56565',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        fontSize: '0.9rem',
-                        fontWeight: '600',
-                        transition: 'all 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem'
-                      }}
-                      onMouseOver={(e) => {
-                        e.target.style.background = '#e53e3e';
-                        e.target.style.transform = 'scale(1.02)';
-                      }}
-                      onMouseOut={(e) => {
-                        e.target.style.background = '#f56565';
-                        e.target.style.transform = 'scale(1)';
-                      }}
-                    >
-                      🗑️ Delete
-                    </button>
+                <div className="admin-article-info">
+                  <h3>{article.title}</h3>
+                  <div className="admin-article-meta">
+                    <span className={`admin-badge ${article.published ? 'admin-badge--published' : 'admin-badge--draft'}`}>
+                      {article.published ? 'Published' : 'Draft'}
+                    </span>
+                    <span>{article.date}</span>
+                    <span>/{article.slug}</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+
+                <div className="admin-article-actions">
+                  <Link href={`/admin/articles/edit/${article.id}`}>
+                    <button className="admin-btn admin-btn--sm">Edit</button>
+                  </Link>
+                  <Link href={`/articles/${article.slug}`}>
+                    <button className="admin-btn admin-btn--sm admin-btn--ghost">View</button>
+                  </Link>
+                  <button
+                    className="admin-btn admin-btn--sm"
+                    onClick={() => togglePublished(article.id, article.published)}
+                  >
+                    {article.published ? 'Unpublish' : 'Publish'}
+                  </button>
+                  <button
+                    className="admin-btn admin-btn--sm admin-btn--danger"
+                    onClick={() => deleteArticle(article.id, article.slug)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
+export default function AdminPage() {
+  return (
+    <ToastProvider>
+      <AdminDashboard />
+    </ToastProvider>
+  );
+}

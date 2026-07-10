@@ -61,6 +61,7 @@ const CustomNavbar = () => {
           {[
             { href: '/', label: 'Home' },
             { href: '/portfolio', label: 'Portfolio' },
+            { href: '/automations', label: 'Automations' },
             { href: '/articles', label: 'Articles' },
             { href: '/chat', label: 'AI Assistant' },
           ].map(({ href, label }) => (

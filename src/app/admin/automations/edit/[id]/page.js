@@ -2,12 +2,12 @@
 
 import { use, useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import ArticleForm from '@/components/ArticleForm';
+import AutomationForm from '@/components/AutomationForm';
 import { ToastProvider } from '@/components/Toast';
 import CustomNavbar from '@/components/CustomNavbar';
 import '../../../admin.css';
 
-export default function EditArticlePage({ params }) {
+export default function EditAutomationPage({ params }) {
   const { id } = use(params);
   const [initialData, setInitialData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ export default function EditArticlePage({ params }) {
     (async () => {
       try {
         const { data, error: err } = await supabase
-          .from('articles')
+          .from('automations')
           .select('*')
           .eq('id', id)
           .single();
@@ -33,17 +33,18 @@ export default function EditArticlePage({ params }) {
 
   const handleSubmit = async (formData) => {
     const { error } = await supabase
-      .from('articles')
+      .from('automations')
       .update({
         title: formData.title,
         slug: formData.slug,
-        excerpt: formData.excerpt,
-        cover_image: formData.cover_image,
-        author_name: formData.author_name || 'Unknown',
-        author_avatar: formData.author_avatar,
-        author_bio: formData.author_bio,
-        blocks: formData.blocks,
+        platform: formData.platform,
+        description: formData.description,
+        trigger: formData.trigger,
+        output: formData.output,
+        tools: formData.tools,
+        workflow_json: formData.workflow_json,
         published: formData.published,
+        updated_at: new Date().toISOString(),
       })
       .eq('id', id);
     if (error) throw error;
@@ -56,7 +57,7 @@ export default function EditArticlePage({ params }) {
         <div className="admin-container">
           <div className="admin-loading">
             <div className="admin-spinner" />
-            <p>Loading article...</p>
+            <p>Loading automation...</p>
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@ export default function EditArticlePage({ params }) {
 
   return (
     <ToastProvider>
-      <ArticleForm
+      <AutomationForm
         initialData={initialData}
         onSubmit={handleSubmit}
         mode="edit"

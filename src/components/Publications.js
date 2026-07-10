@@ -4,6 +4,13 @@ import './css/Publications.css';
 
 const publications = [
   {
+    title: "Multi-Agent System for Automated Red Teaming Workflows: Methodology and Architecture",
+    venue: "Manuscript PDF",
+    year: "2026",
+    link: "/publications/multi-agent-system-automated-red-teaming-workflows.pdf",
+    authors: "I. Pastellas, S. Karagiorgou, E. Kafantaris"
+  },
+  {
     title: "Adaptive Policy-Driven Network Intelligence for Edge-to-Cloud Continuum",
     venue: "31st ICE IEEE/ITMC Conference (Valencia, Spain)",
     year: "2025",

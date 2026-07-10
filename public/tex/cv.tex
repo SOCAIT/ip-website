@@ -1,0 +1,329 @@
+%-------------------------------------------------------------------------------
+%                             MAIN DOCUMENT
+%-------------------------------------------------------------------------------
+\documentclass[
+	a4paper,
+    % --- THEME SETTINGS ---
+	sidecolor=sidebargray,       % Defined in ipastellas.cls (Dark Gray)
+	sectioncolor=sage,           % Sage Green Headers
+	subsectioncolor=darksage,    % Darker Sage Subheaders
+	itemtextcolor=black!90,      % Main body text color
+    % --- PROFILE PICTURE SETTINGS ---
+	profilepicstyle=profilelogo, % Use 'profilelogo' to keep logo square/rectangular
+	profilepicsize=3.5cm,        % Adjust width of your logo
+]{ipastellas}                    % MUST MATCH YOUR .CLS FILENAME
+
+%-------------------------------------------------------------------------------
+%                             ADDITIONAL PACKAGES
+%-------------------------------------------------------------------------------
+
+\usepackage{microtype}
+\usepackage{ragged2e}
+\usepackage{enumitem} 
+\usepackage{smartdiagram} % <--- THIS WAS MISSING AND CAUSED THE ERROR
+
+% --- BUBBLE DIAGRAM CONFIG ---
+\smartdiagramset{
+	bubble center node font = \footnotesize\bfseries\color{white},
+	bubble node font = \footnotesize\bfseries\color{white},
+	% Fixed sizes to prevent math errors
+	bubble center node size = 2.5cm, 
+	bubble node size = 1.5cm,
+	distance center/other bubbles = 0.5cm,
+	bubble center node color = sage,       
+	set color list = {materiallime, materialamber, materialcyan, materialblue, materialindigo},
+	bubble fill opacity = 0.8,
+}
+
+% Wheel Chart Colors for Dark Mode
+\colorlet{wheelchartlabelcolor}{white} % Text color of labels
+\colorlet{wheeltextcolor}{white}       % Text color inside wheel (if used)
+%-------------------------------------------------------------------------------
+%                            PERSONAL INFORMATION
+%-------------------------------------------------------------------------------
+\cvname{Ioannis Pastellas}
+\cvjobtitle{AI \& Machine Learning Engineer}
+
+% REPLACE 'logo.png' with your actual logo filename
+\cvprofilepic{images/projects/ip_logo.png} 
+
+\cvaddress{Mesa Geitonia, 4000, Limassol, Cyprus}
+\cvphone{+357 99341074}
+\cvmail{giannispast9@gmail.com}
+\cvsite{www.ipastellas.com} % Or LinkedIn URL
+
+%-------------------------------------------------------------------------------
+%                                SIDEBAR 1st PAGE
+%-------------------------------------------------------------------------------
+\addtofrontsidebar{
+	\graphicspath{{pics/flags/shiny/}}
+
+	\profilesection{Connect}
+		\begin{icontable}{2.5em}{1em}
+			\social{\faLinkedin}
+				{https://cy.linkedin.com/in/giannis-pastellas-a420611a6}
+				{LinkedIn Profile}
+            \\[0.1]
+			\social{\faGithub}
+				{https://github.com/giannisp09} 
+				{Personal GitHub }
+             \\[0.1]
+    %         \social{\faGithub}
+				% {https://github.com/SOCAIT} 
+				% {SOCAIT GitHub }
+    %          \\[0.1]
+			\social{\faEnvelope}
+				{mailto:giannispast9@gmail.com}
+				{Email Me}
+		\end{icontable}
+
+	\profilesection{Languages}
+		\pointskill{\faComment}{Greek (Native)}{5}
+	 	\pointskill{\faComment}{English (C1 / Fluent)}{5}
+
+    \profilesection{Tests}
+\skill{}{TOEFL iBT: 95/120 (Jan 2026)}
+    
+	
+	\profilesection{Tech Stack}
+	\barskill{\faCode}{Python, Java}{95}
+	\barskill{\faCubes}{Kubernetes / Docker}{80}
+    \barskill{\faCloud}{AWS / GCP / Lambda}{85}
+    \barskill{\faServer}{HPC}{75}
+
+	% \barskill{\faDatabase}{SQL, Vector DB}{70}
+    \barskill{\faJs}{ReactJs / ReactNative /NextJs}{90}
+
+    \\[0.3]
+
+    % Bubble Diagram
+	\begin{figure}\centering
+		\smartdiagram[bubble diagram]{
+			\textbf{AI / ML},
+			Python,
+			PyTorch,
+			Keras,
+			SciLearn,
+			TF
+		}
+	\end{figure}
+}
+
+%-------------------------------------------------------------------------------
+%                                SIDEBAR 2nd PAGE
+%-------------------------------------------------------------------------------
+\addtobacksidebar{
+
+% Bubble Diagram
+	% \begin{figure}\centering
+	% 	\smartdiagram[bubble diagram]{
+	% 		\textbf{Agents},
+	% 		AgentLightning,
+	% 		Langgraph
+	% 	}
+	% \end{figure}
+    
+	\profilesection{About Me}
+	\aboutme{
+		AI \& Machine Learning Engineer with an MSc in Artificial Intelligence and expertise in building full-stack AI solutions and research. Keen on Learning more about AI and especially Agentic Systems, Reinforcement Learning, Robotics. My vision is to help optimize Society through Artificial Intelligence.
+	}
+
+    \profilesection{Certifications}
+    \begin{sidebarminipage}
+        \small \color{white} % <--- THIS COMMAND FIXES IT
+        \begin{itemize}[leftmargin=*, nosep, itemsep=0.5em]
+            \item \textbf{Practical RL (Honors)} \\ \textit{HSE University (Coursera)}
+             \item \textbf{AI Infrastructure and Operations Fundamentals } \\ \textit{NVIDIA (Coursera)}
+             \item \textbf{DevOps, DataOps, MLOps } \\ \textit{Duke University (Coursera)}
+             \item \textbf{Finetuning \& RL for LLM: Intro to Post-Training } \\ \textit{AMD (DeepLearning.AI)}
+             \item \textbf{Spec-Driven Development with Coding Agents } \\ \textit{JetBrains (DeepLearning.AI)}
+             \item \textbf{Fast \& Efficient LLM Inference with vLLM } \\ \textit{Red Hat (DeepLearning.AI)}
+             \item \textbf{Learning How to Learn: Powerful mental tools to help you master tough subjects } \\ \textit{Deep Tech Solutions (Coursera)}
+             
+            \item \textbf{CyberHOT Summer School} \\ \textit{Cybersecurity Hands-on Training}
+        \end{itemize}
+    \end{sidebarminipage}
+
+    \profilesection{Key Courses}
+	\begin{memberships}
+		\membership[0.1em]{}{Machine Learning (9.5/10)}
+        \membership[0.1em]{}{Natural Language Proc. (9.0/10)}
+        \membership[0.1em]{}{AI Ethics (9.0/10)}
+        \membership[0.1em]{}{Algorithms \& Complexity (9/10)}
+	\end{memberships}
+
+	\profilesection{Interests}
+    \skill{\faMusic}{Electric Guitar (Self-Taught)}
+    \skill{}{Football}
+
+	
+
+ %    \profilesection{Research Interests}
+ %    % \wheelchart{outer radius}{inner radius}{
+ %    %   percent/text-width/color/Label
+ %    % }
+	% \wheelchart{1.5cm}{0.5cm}{%
+	%     6/3em/sage/XAI, 
+	%     20/3em/materialcyan/Network Intel, 
+	%     40/3em/materialamber/Offline RL, 
+	%     30/3em/materialindigo/Anomaly Det.
+	% }
+}
+
+%-------------------------------------------------------------------------------
+%                         TABLE ENTRIES RIGHT COLUMN
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\makefrontsidebar
+
+%-------------------------------------------------------------------------------
+% PAGE 1 CONTENT
+%-------------------------------------------------------------------------------
+
+\cvsection{Experience}
+\begin{cvtable}[3]
+    % UBITECH
+	\cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/work/ubitech.jpeg}}}{ML Research Associate}
+    {Ubitech LTD \hfill \textbf{06/2021 -- Present}} 
+    {
+        \begin{itemize}[leftmargin=*, nosep]
+            \item Designed and deployed ML models and web applications for EU-funded research projects (TALON, LAW-GAME, TRITON, CYGNUS, MIRIOPOS, FIDAL).
+            \item \textbf{Site Security Officer (SSO):} Serve as Site Security Officer responsible for the security of the secure room at the company's Limassol office; underwent security clearance with the Defence Security Authority (DSA) of Cyprus.
+            \item \textbf{DevOps \& MLOps:} Configured Kubernetes clusters with Kube-OVN and deployed models using Docker; implemented monitoring via Prometheus and InfluxDB.
+             \item \textbf{Agentic Pentest:} Developing automated penetration testing using an agentic AI workflow (ongoing project).
+            \item \textbf{Computer Vision:} Developed and finetuned Computer Vision models (YOLO, CNN) for detecting wildfires and human intruders, as well as robustifying such models under adversarial attacks.
+            \item \textbf{Network Intelligence:} Engineered AI modules to predict network resource demand, improving resource allocation efficiency by \textbf{15\%} (Published research).
+            \item \textbf{Anomaly Detection:} Developed Autoencoder and LSTM-based models for detecting anomalies in network flows and behavioral analysis, Network Intrusion Detection System.
+            \item \textbf{Explainable AI:} Conducted research on Explainable AI (XAI) tools (LIME, GradCAM).
+        \end{itemize}
+    }
+    
+    % WARGAMING (Thesis Work)
+    \cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/work/wargaming.png}}}
+    {ML Research Engineer}
+    {Wargaming Group \hfill \textbf{01/2024 -- 06/2024}}
+    {
+        \begin{itemize}[leftmargin=*, nosep]
+            \item \textbf{HPC Experiments:} All experiments were run on an HPC cluster utilizing multiple GPUs.
+             \item \textbf{Offline RL:} Trained different Offline RL policies (IQL, CQL, BC, AWAC) on large logged real game data (appr. 100GB) of the World of Tanks game, as well as on a simplified World of Tanks environment (Simulation, Grid Game).
+            \item \textbf{Off-Policy Evaluation (OPE):} Collaborated with R\&D to validate RL agent performance using OPE, on the World of Tanks simplified environment.
+            \item \textbf{OPE Case Study:} Developed an OPE repo for running OPE (FQE, Model-Based Dynamics, Importance Sampling) for evaluating Offline RL policies (d3rlpy, torch).
+            \item Benchmarked the OPE pipeline for \textbf{Halfcheetah} and \textbf{World of Tanks} environments, to validate and compare performance. 
+        \end{itemize}
+    }
+    % UCY Teaching
+	\cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/work/ucy.png}}}{Teaching Assistant}
+    {University of Cyprus \hfill \textbf{01/2025 -- Present}}
+    {
+		Assisted in "Computational Neuroscience" masters course in English. Delivered tutorials on HHsim, Neuron, and Brian tools; graded assignments and mentored students.
+    }
+    
+    % AC GOLDMAN
+	\cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/work/goldman.png}}}{Data Scientist Intern}
+    {AC Goldman Solutions \hfill \textbf{06/2020 -- 08/2020}}
+    {
+        \begin{itemize}[leftmargin=*, nosep]
+            \item Developed a Credit Scoring Machine Learning model for the banking sector.
+            \item Implemented XAI techniques to interpret model decisions and built a Flask-based UI.
+        \end{itemize}
+    }
+\end{cvtable}
+
+\cvsection{Education}
+\begin{cvtable}[3]
+    % MSc
+	\cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/work/ucy.png}}}{MSc in Artificial Intelligence}
+    {University of Cyprus \hfill \textbf{2022 -- 2024}}
+	{General Grade: \textbf{8.94/10}. (Taught in English)\\
+    \textit{Thesis:} "Offline Reinforcement Learning in World of Tanks". Conducted in collaboration with Wargaming Group (see Work Experience).}
+    
+    % BSc
+	\cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/work/ucy.png}}}{BSc in Computer Science}
+    {University of Cyprus \hfill \textbf{2017 -- 2021}}
+	{General Grade: \textbf{8.31/10}. \\
+    Focused on Computational Intelligence, Information Retrieval, and Probability Statistics.}
+\end{cvtable}
+
+%-------------------------------------------------------------------------------
+% BREAK TO PAGE 2
+%-------------------------------------------------------------------------------
+\newpage
+\makebacksidebar 
+
+%-------------------------------------------------------------------------------
+% PAGE 2 CONTENT
+%-------------------------------------------------------------------------------
+
+\cvsection{Personal Projects}
+\begin{cvtable}
+    % Semideus Learn
+    % TODO: swap logo for images/projects/semideus_learn_logo.png
+    \cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/projects/semideus.png}}}
+    {\href{https://learn.semideus.io}{Semideus Learn (A Learning and Cognition Platform)} \small{\faExternalLink}}
+    {\textit{Next.js, TypeScript, Supabase, Mastra, FastAPI, GCP, Qdrant} \hfill \textbf{Platform}}
+    {
+      AI-native platform that turns documents and notes into a cross-linked knowledge-graph
+      wiki, then proves the user actually understood it. A multi-agent layer (Mastra) drives
+      Socratic dialogue, adaptive tests, spaced-repetition recall, and spoken teach-backs --
+      including a teachable AI ``prot\'eg\'e'' the user tutors, that asks naive questions, pushes
+      back, then sits a test whose score becomes their proof of mastery. Mastery only advances
+      on demonstrated understanding, never self-report.
+  }
+    \\[0.3cm]
+
+    % Semideus Train
+    % TODO: swap logo for images/projects/semideus_train_logo.png and replace App Store link with the real one
+    \cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/projects/semideus.png}}}
+    {\href{https://apps.apple.com/app/semideus-train}{Semideus Train (Fitness \& Performance App)} \small{\faExternalLink}}
+    {\textit{React Native, FastAPI, AWS} \hfill \textbf{Mobile App}}
+    {
+        AI-native fitness app delivering personalized strength, and nutrition programming, with adaptive training plans and progress tracking.
+    }
+
+    % % SOCAIT (ready to uncomment)
+    % \\[0.3cm]
+    % \cvitem{\raisebox{-0.8\height}{\includegraphics[width=1.3cm]{images/projects/soc-3.PNG}}}
+    % {\href{https://www.socait.com}{SOCAIT: A Society of Agents} \small{\faExternalLink}}
+    % {\textit{Agents, Social Optimization} \hfill \textbf{Reasoning}}
+    % {
+    %     Developing a "society" of AI agents to help optimize our society. By building AI-first products that augment humans, and creating open source AI agents that contribute to Societal Optimization.
+    % }
+\end{cvtable}
+
+\cvsection{Publications}
+\begin{cvtable}
+    % Pub 0 (newest)
+    \cvpubitem{Multi-Agent System for Automated Red Teaming Workflows: Methodology and Architecture}
+    {\textbf{I. Pastellas}, S. Karagiorgou, E. Kafantaris}
+    {Manuscript}{2026}
+
+    % Pub 1
+	\cvpubitem{AI-fuelled Dimensioning and Optimal Resource Allocation of 5G/6G Wireless Communication Networks}
+    {P. Papaioannou, \textbf{I. Pastellas}, C. Tranoris, S. Karagiorgou, S. Denazis}
+	{IEEE MeditCom (pp. 413-418)}{2024}
+
+    % Pub 2
+    \cvpubitem{Adversarial Explanations for Informed Civilian and Environmental Protection}
+    {T. Anastasiou, \textbf{I. Pastellas}, S. Karagiorgou}
+    {IEEE International Conference on Big Data (pp. 2672-2681)}{2024}
+
+    % Pub 3
+    \cvpubitem{Explanation-Driven Adversarial Attacks against Multimedia Edge Applications}
+    {T. Anastasiou, \textbf{I. Pastellas}, S. Karagiorgou, M. Konidi}
+    {6th International Conference in EEITE, Greece}{2025}
+
+    % Pub 4
+     \cvpubitem{Adaptive Policy-Driven Network Intelligence for Edge-to-Cloud Continuum}
+    {\textbf{I. Pastellas}, S. Karagiorgou, M. Konidi}
+    {31st ICE IEEE/ITMC Conference (Valencia, Spain)}{2025}
+\end{cvtable}
+
+\cvsection{Awards}
+\begin{cvtable}
+	\cvitem{}{Highest Overall Grade}
+    {Lanitio Lyceum \hfill \textbf{Academic}}
+    {Awarded for achieving the highest overall grade in Mathematics \& Physics in the school year.}
+\end{cvtable}
+
+\end{document}

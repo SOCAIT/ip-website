@@ -1,6 +1,12 @@
 export default function robots() {
   const baseUrl = 'https://www.ipastellas.com';
 
+  if (process.env.SITE_PASSWORD) {
+    return {
+      rules: [{ userAgent: '*', allow: '/' }],
+    };
+  }
+
   return {
     rules: [
       {
