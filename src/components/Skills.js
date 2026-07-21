@@ -72,6 +72,18 @@ const certifications = [
     year: "2026",
     file: "https://learn.deeplearning.ai/accomplishments/ed42225a-1fef-4305-87eb-907ec87674ae?usp=sharing",
   },
+  {
+    title: "Efficient Inference with SGLang: Text and Image Generation",
+    issuer: "DeepLearning.AI / LMSys",
+    year: "2026",
+    file: "https://learn.deeplearning.ai/accomplishments/44e3420e-b4b8-472c-91e2-04c22054d170?usp=sharing",
+  },
+  {
+    title: "Document AI: From OCR to Agentic Doc Extraction",
+    issuer: "DeepLearning.AI / LandingAI",
+    year: "2026",
+    file: "https://learn.deeplearning.ai/accomplishments/2d27488f-540c-4f06-9b8c-0617ed31bd1a?usp=sharing",
+  },
 ];
 
 function Skills() {
