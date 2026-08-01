@@ -4,6 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Navbar, Nav } from 'react-bootstrap';
+import { SHOW_AUTOMATIONS } from '@/lib/features';
+
+const NAV_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/portfolio', label: 'Portfolio' },
+  ...(SHOW_AUTOMATIONS ? [{ href: '/automations', label: 'Automations' }] : []),
+  { href: '/articles', label: 'Articles' },
+  { href: '/chat', label: 'AI Assistant' },
+];
 
 const CustomNavbar = () => {
   const pathname = usePathname();
@@ -58,13 +67,7 @@ const CustomNavbar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
         <Nav>
-          {[
-            { href: '/', label: 'Home' },
-            { href: '/portfolio', label: 'Portfolio' },
-            { href: '/automations', label: 'Automations' },
-            { href: '/articles', label: 'Articles' },
-            { href: '/chat', label: 'AI Assistant' },
-          ].map(({ href, label }) => (
+          {NAV_LINKS.map(({ href, label }) => (
             <Nav.Link
               as={Link}
               key={href}

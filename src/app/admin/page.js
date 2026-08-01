@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import CustomNavbar from '@/components/CustomNavbar';
 import { ToastProvider, useToast } from '@/components/Toast';
+import { SHOW_AUTOMATIONS } from '@/lib/features';
 import './admin.css';
 
 function AdminDashboard() {
@@ -65,7 +66,9 @@ function AdminDashboard() {
       <div className="admin-container admin-container--wide">
         <nav className="admin-tabs">
           <Link href="/admin" className="admin-tab admin-tab--active">Articles</Link>
-          <Link href="/admin/automations" className="admin-tab">Automations</Link>
+          {SHOW_AUTOMATIONS && (
+            <Link href="/admin/automations" className="admin-tab">Automations</Link>
+          )}
         </nav>
         <div className="admin-header">
           <div>

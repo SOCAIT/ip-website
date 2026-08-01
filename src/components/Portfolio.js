@@ -7,12 +7,26 @@ import './css/Portfolio.css';
 function Portfolio() {
   const projects = [
     {
-      title: 'SyntraFit - Fitness App',
-      description: 'Agentic AI - LLM - Workout Generator',
-      img: '/assets/projects/syntrafit_sm.gif',
-      link: "https://apps.apple.com/cy/app/syntrafit/id6745785526",
-      tags: ['AI', 'Mobile', 'Health Tech']
+      title: 'Semideus Learn',
+      description: 'LLM - Mastra - Teach-back - Spaced Retrieval - Mastery Score',
+      img: 'https://gfzoopjhqhxjomjtxsyy.supabase.co/storage/v1/object/public/article-images/gzx2zsrqdjg-1782996891993.png',
+      link: 'https://learn.semideus.io/welcome',
+      tags: ['EdTech', 'AI Agents', 'Full Stack']
     },
+    {
+      title: 'Adeept PiCar AI Control',
+      description: 'Raspberry Pi - Computer Vision - LLM Agent - VLA Policy',
+      img: '/assets/projects/orion_robotics.jpg',
+      link: 'https://github.com/giannisp09/physical-ai-picar',
+      tags: ['Robotics', 'Computer Vision', 'AI Agents']
+    },
+    // {
+    //   title: 'SyntraFit - Fitness App',
+    //   description: 'Agentic AI - LLM - Workout Generator',
+    //   img: '/assets/projects/syntrafit_sm.gif',
+    //   link: "https://apps.apple.com/cy/app/syntrafit/id6745785526",
+    //   tags: ['AI', 'Mobile', 'Health Tech']
+    // },
     {
       title: 'Tweet Sentiment Financial Analysis and Generation',
       description: 'NLP - Time Series Analysis - Stock Market - GPT',

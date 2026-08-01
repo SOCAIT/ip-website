@@ -1,5 +1,7 @@
+import { notFound } from "next/navigation";
 import CustomNavbar from "@/components/CustomNavbar";
 import Automations from "@/components/Automations";
+import { SHOW_AUTOMATIONS } from "@/lib/features";
 
 export const metadata = {
   title: "Automations",
@@ -44,6 +46,8 @@ const breadcrumbSchema = {
 };
 
 export default function Page() {
+  if (!SHOW_AUTOMATIONS) notFound();
+
   return (
     <>
       <script
