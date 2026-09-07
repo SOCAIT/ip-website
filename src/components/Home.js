@@ -24,11 +24,11 @@ function Home() {
         <motion.div {...sectionReveal}>
           <div className="about-brief">
             <p>
-              Specializing in <strong>deep learning</strong>, <strong>reinforcement learning</strong>, and
-              building intelligent systems from research to production.
+              Most of my time goes into <strong>deep learning</strong> and <strong>reinforcement learning</strong>.
+              I take ideas out of papers and turn them into systems that actually run.
             </p>
-            <a href="/IoannisPastellasCV.pdf" target="_blank" rel="noopener noreferrer" className="about-cv-link">
-              View Full CV <span>&rarr;</span>
+            <a href="/IoannisPastellas_CV.pdf" target="_blank" rel="noopener noreferrer" className="about-cv-link">
+              Read the CV <span>&rarr;</span>
             </a>
           </div>
         </motion.div>

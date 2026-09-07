@@ -89,7 +89,7 @@ const certifications = [
 function Skills() {
   return (
     <section id="skills" className="editorial-section">
-      <h2 className="editorial-title">Skills &amp; Tools</h2>
+      <h2 className="editorial-title">Skills and tools</h2>
       <div className="skills-grid">
         {skillGroups.map((group) => (
           <div key={group.title} className="skill-card">

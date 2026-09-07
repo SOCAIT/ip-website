@@ -1,9 +1,10 @@
 import CustomNavbar from "@/components/CustomNavbar";
 import AIAssistant from "@/components/AIAssistant";
+import { buildOpenGraph } from "@/lib/seo";
 
 export const metadata = {
-  title: "AI Assistant | Chat with Ioannis",
-  description: "Chat with my AI assistant to learn about my experience, skills, projects, and how we can work together. Get instant answers to your questions.",
+  title: "AI Assistant",
+  description: "Ask about my work, projects, and how we might work together.",
   keywords: [
     "AI Assistant",
     "Chatbot",
@@ -16,12 +17,11 @@ export const metadata = {
   alternates: {
     canonical: "https://www.ipastellas.com/chat",
   },
-  openGraph: {
+  openGraph: buildOpenGraph({
     title: "AI Assistant | Ioannis Pastellas",
-    description: "Chat with my AI assistant to learn about my experience, skills, and projects",
-    url: "https://www.ipastellas.com/chat",
-    type: "website",
-  },
+    description: "Ask about my work, projects, and how we might work together.",
+    path: "/chat",
+  }),
 };
 
 // Breadcrumb structured data

@@ -2,7 +2,11 @@
 const nextConfig = {
   // Image optimization
   images: {
-    unoptimized: true, // Bypass optimization to fix production 404s
+    // Left on deliberately: it was added to fix production 404s on Netlify, and
+    // flipping it blind risks a repeat. The heavy assets are now pre-sized WebP
+    // (the 3.1 MB hero PNG is 190 KB at identical dimensions), so the LCP win is
+    // already banked. Revisit with a real Netlify deploy preview.
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -23,9 +27,19 @@ const nextConfig = {
   
   // Experimental features for better performance
   experimental: {
-    optimizePackageImports: ['@tsparticles/react', 'framer-motion', 'react-bootstrap'],
+    optimizePackageImports: ['framer-motion', 'react-bootstrap'],
   },
   
+  async redirects() {
+    return [
+      {
+        source: '/IoannisPastellasCV.pdf',
+        destination: '/IoannisPastellas_CV.pdf',
+        permanent: true,
+      },
+    ];
+  },
+
   // Headers for caching
   async headers() {
     return [

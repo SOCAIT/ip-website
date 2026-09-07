@@ -1,39 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 // styles imported globally in app/globals.css
 
-const Card = ({ image, title, subtitle,link }) => {
-    const [hovered, setHovered] = useState(false);
+const BLUR =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQADAD8BtJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//Z";
 
-    const handleClick = () => {
-      window.location.href = link;
-  };
-  
-    return (
-      <div
-        className="card"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={ link ? handleClick : null} // Redirect on click
-        style={{ cursor: "pointer" }} // Change cursor to indicate clickable
-      >
-        <Image 
-          src={image} 
-          alt={title} 
-          className="card-image"
-          width={600}
-          height={400}
-          loading="lazy"
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQADAD8BtJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//Z"
-        />
-      <div className={`card-overlay ${hovered ? "fade" : ""}`}>
+/**
+ * Renders as a real anchor so the card is keyboard-reachable, middle-clickable
+ * and crawlable. It used to be a <div> that called window.location.href, which
+ * gave project links none of those things.
+ */
+const Card = ({ image, title, subtitle, href, external = false }) => {
+  const body = (
+    <>
+      <Image
+        src={image}
+        alt=""
+        className="card-image"
+        width={600}
+        height={400}
+        loading="lazy"
+        placeholder="blur"
+        blurDataURL={BLUR}
+      />
+      <div className="card-overlay">
         <h2 className="card-title">{title}</h2>
         <p className="card-subtitle">{subtitle}</p>
       </div>
-      </div>
+    </>
+  );
+
+  if (!href) {
+    return <article className="card card-static">{body}</article>;
+  }
+
+  if (external) {
+    return (
+      <a className="card" href={href} target="_blank" rel="noopener noreferrer">
+        {body}
+      </a>
     );
-  };
-  
-  export default Card;
+  }
+
+  return (
+    <Link className="card" href={href}>
+      {body}
+    </Link>
+  );
+};
+
+export default Card;

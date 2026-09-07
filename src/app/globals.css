@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 @import '../components/css/Card.css';
-@import '../components/css/CustomCard.css';
 @import '../components/css/CustomChatbot.css';
 @import '../components/css/Education.css';
 @import '../components/css/Homepage.css';
@@ -21,7 +19,7 @@
   --accent-gold: #b8bcc6;
   --accent-blue: #7ab0d4;
   --accent-slate: #6b8a9e;
-  --font-heading: 'Instrument Serif', Georgia, serif;
+  --font-heading: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
 }
 
 * {

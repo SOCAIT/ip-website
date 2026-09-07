@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { caseStudies } from '@/content/projects';
 
 export default async function sitemap() {
   const baseUrl = 'https://www.ipastellas.com';
@@ -63,6 +64,14 @@ export default async function sitemap() {
     },
   ];
 
+  // Project case studies
+  const projectPages = caseStudies.map((project) => ({
+    url: `${baseUrl}/portfolio/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
+
   // Dynamic article pages
   const articlePages = articles.map((article) => ({
     url: `${baseUrl}/articles/${article.slug}`,
@@ -71,6 +80,6 @@ export default async function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...articlePages];
+  return [...staticPages, ...projectPages, ...articlePages];
 }
 

@@ -1,5 +1,6 @@
 .card {
   position: relative;
+  display: block;
   overflow: hidden;
   border: 1px solid var(--glass-border);
   border-radius: 12px;
@@ -7,6 +8,18 @@
   transition: border-color 0.2s ease;
   height: 100%;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* A project with no destination should not pretend to be clickable. */
+.card-static {
+  cursor: default;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
 }
 
 .card:hover {
@@ -21,7 +34,7 @@
   border-radius: 12px 12px 0 0;
 }
 
-.card:hover .card-image {
+a.card:hover .card-image {
   transform: scale(1.03);
 }
 
@@ -33,26 +46,27 @@
   height: 100%;
   background: linear-gradient(
     to top,
-    rgba(17, 17, 17, 0.95) 0%,
-    rgba(17, 17, 17, 0.6) 40%,
-    rgba(17, 17, 17, 0.2) 100%
+    rgba(12, 12, 12, 0.97) 0%,
+    rgba(12, 12, 12, 0.88) 45%,
+    rgba(12, 12, 12, 0.62) 100%
   );
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   color: white;
-  padding: 2rem;
-  transition: opacity 0.3s ease;
+  padding: 3.25rem 1.75rem 1.75rem;
+  transition: background 0.3s ease;
   opacity: 1;
   z-index: 1;
 }
 
-.card-overlay.fade {
+a.card:hover .card-overlay,
+a.card:focus-visible .card-overlay {
   background: linear-gradient(
     to top,
-    rgba(17, 17, 17, 0.85) 0%,
-    rgba(17, 17, 17, 0.3) 50%,
-    transparent 100%
+    rgba(12, 12, 12, 0.94) 0%,
+    rgba(12, 12, 12, 0.72) 50%,
+    rgba(12, 12, 12, 0.35) 100%
   );
 }
 
@@ -69,11 +83,15 @@
 }
 
 .card-subtitle {
-  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-size: 0.82rem;
   margin: 0;
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.5;
+}
+
+.card-image {
+  min-height: 260px;
 }
 
 .card-body {
@@ -101,7 +119,7 @@
   }
 
   .card-overlay {
-    padding: 1.5rem;
+    padding: 3rem 1.4rem 1.4rem;
   }
 }
 
@@ -116,7 +134,7 @@
   }
 
   .card-overlay {
-    padding: 1.25rem;
+    padding: 2.85rem 1.2rem 1.2rem;
   }
 }
 

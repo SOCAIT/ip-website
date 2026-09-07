@@ -14,7 +14,7 @@ const publications = [
     title: "Adaptive Policy-Driven Network Intelligence for Edge-to-Cloud Continuum",
     venue: "31st ICE IEEE/ITMC Conference (Valencia, Spain)",
     year: "2025",
-    link: "https://orcid.org/0009-0008-2648-7910",
+    link: "https://orcid.org/0000-0002-1193-6280",
     authors: "I. Pastellas, S. Karagiorgou, M. Konidi"
   },
   {

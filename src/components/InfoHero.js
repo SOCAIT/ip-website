@@ -13,7 +13,7 @@ function InfoHero({ onToggleForm }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <h1 className="info-hero-title">Let&apos;s Connect</h1>
+        <h1 className="info-hero-title">Get in touch</h1>
 
         <motion.p
           className="info-hero-subtitle"
@@ -21,7 +21,7 @@ function InfoHero({ onToggleForm }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          Open for opportunities and collaborations
+          Open to roles, collaborations, and consulting.
         </motion.p>
 
         <motion.p
@@ -30,7 +30,7 @@ function InfoHero({ onToggleForm }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3 }}
         >
-          Feel free to reach out on any platform, or send me a message directly.
+          LinkedIn, GitHub, or email. Pick whatever is easiest.
         </motion.p>
 
         <motion.div
@@ -48,7 +48,7 @@ function InfoHero({ onToggleForm }) {
             <FaLinkedin className="social-card-icon" />
             <div className="social-card-content">
               <h3>LinkedIn</h3>
-              <p>Professional network</p>
+              <p>Work and posts</p>
             </div>
             <span className="social-card-arrow">&#8599;</span>
           </a>
@@ -62,7 +62,7 @@ function InfoHero({ onToggleForm }) {
             <FaGithub className="social-card-icon" />
             <div className="social-card-content">
               <h3>GitHub</h3>
-              <p>Open source projects</p>
+              <p>Code</p>
             </div>
             <span className="social-card-arrow">&#8599;</span>
           </a>
@@ -74,7 +74,7 @@ function InfoHero({ onToggleForm }) {
             <FaEnvelope className="social-card-icon" />
             <div className="social-card-content">
               <h3>Email</h3>
-              <p>Direct contact</p>
+              <p>Write to me</p>
             </div>
             <span className="social-card-arrow">&#8599;</span>
           </a>
@@ -86,7 +86,7 @@ function InfoHero({ onToggleForm }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.5 }}
         >
-          Available for projects
+          Open to new work
         </motion.div>
       </motion.div>
     </div>

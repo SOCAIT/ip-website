@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.76.1",
-    "@tsparticles/react": "^3.0.0",
-    "@tsparticles/slim": "^3.9.1",
     "bootstrap": "^5.3.8",
     "framer-motion": "^12.23.13",
     "next": "15.5.7",

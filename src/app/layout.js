@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./globals.css";
 import FloatingAIButton from "@/components/FloatingAIButton";
@@ -15,6 +15,16 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Loaded here rather than via an @import in globals.css, which was a
+// render-blocking request to fonts.googleapis.com on every page load.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -25,10 +35,10 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL('https://www.ipastellas.com'),
   title: {
-    default: "Ioannis Pastellas | Machine Learning Engineer & AI Specialist | Μηχανικός Μηχανικής Μάθησης",
+    default: "Ioannis Pastellas | Machine Learning Engineer | Μηχανικός Μηχανικής Μάθησης",
     template: "%s | Ioannis Pastellas"
   },
-  description: "Portfolio of Ioannis Pastellas - Machine Learning Engineer specializing in AI, deep learning, optimization algorithms, and software engineering. Explore projects, articles, and technical insights. | Χαρτοφυλάκιο του Ιωάννη Παστέλλα - Μηχανικός Μηχανικής Μάθησης με εξειδίκευση στην Τεχνητή Νοημοσύνη, Βαθιά Μάθηση και Ανάπτυξη Λογισμικού.",
+  description: "Portfolio of Ioannis Pastellas. Machine Learning Engineer working on reinforcement learning, multi-agent systems, and applied ML. | Χαρτοφυλάκιο του Ιωάννη Παστέλλα. Μηχανικός Μηχανικής Μάθησης με εξειδίκευση στην Τεχνητή Νοημοσύνη και την ενισχυτική μάθηση.",
   icons: {
     icon: [
       { url: '/socait.ico', type: 'image/x-icon', sizes: 'any' },
@@ -95,24 +105,23 @@ export const metadata = {
     alternateLocale: ["el_GR"],
     url: "https://www.ipastellas.com",
     siteName: "Ioannis Pastellas Portfolio | Χαρτοφυλάκιο Ιωάννη Παστέλλα",
-    title: "Ioannis Pastellas | Machine Learning Engineer & AI Specialist",
-    description: "Portfolio of Ioannis Pastellas - Machine Learning Engineer specializing in AI, deep learning, and software engineering. | Χαρτοφυλάκιο Μηχανικού Μηχανικής Μάθησης με εξειδίκευση στην Τεχνητή Νοημοσύνη.",
+    title: "Ioannis Pastellas | Machine Learning Engineer",
+    description: "Portfolio of Ioannis Pastellas. Machine Learning Engineer working on reinforcement learning, multi-agent systems, and applied ML. | Χαρτοφυλάκιο Μηχανικού Μηχανικής Μάθησης με εξειδίκευση στην Τεχνητή Νοημοσύνη.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ioannis Pastellas - Machine Learning Engineer | Μηχανικός Μηχανικής Μάθησης",
+        alt: "Ioannis Pastellas, Machine Learning Engineer | Μηχανικός Μηχανικής Μάθησης",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ioannis Pastellas | Machine Learning Engineer & AI Specialist",
-    description: "Portfolio of Ioannis Pastellas - Machine Learning Engineer specializing in AI, deep learning, and software engineering.",
+    title: "Ioannis Pastellas | Machine Learning Engineer",
+    description: "Portfolio of Ioannis Pastellas. Machine Learning Engineer working on reinforcement learning, multi-agent systems, and applied ML.",
     images: ["/og-image.png"],
-    creator: "@ipastellas",
   },
   robots: process.env.SITE_PASSWORD
     ? { index: false, follow: false, googleBot: { index: false, follow: false } }
@@ -144,15 +153,16 @@ export default function RootLayout({ children }) {
     "name": "Ioannis Pastellas",
     "alternateName": ["Ιωάννης Παστέλλας", "Ιωάννης Παστελλας"], // Multiple Greek name variations
     "jobTitle": "Machine Learning Engineer",
-    "description": "Machine Learning Engineer specializing in AI, deep learning, optimization algorithms, and software engineering",
+    "description": "Machine Learning Engineer working on reinforcement learning, multi-agent systems, and applied ML",
     "url": "https://www.ipastellas.com",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "CY" // Cyprus
     },
     "sameAs": [
-      "https://github.com/ipastellas",
-      "https://linkedin.com/in/ipastellas"
+      "https://github.com/giannisp09",
+      "https://cy.linkedin.com/in/giannis-pastellas-a420611a6",
+      "https://orcid.org/0000-0002-1193-6280"
     ],
     "knowsAbout": [
       "Machine Learning",
@@ -184,7 +194,7 @@ export default function RootLayout({ children }) {
     "@type": "WebSite",
     "name": "Ioannis Pastellas Portfolio",
     "alternateName": "Χαρτοφυλάκιο Ιωάννη Παστέλλα",
-    "description": "Portfolio showcasing machine learning projects, AI solutions, and technical articles",
+    "description": "Portfolio of machine learning projects, papers, and writing",
     "url": "https://www.ipastellas.com",
     "author": {
       "@type": "Person",
@@ -201,8 +211,14 @@ export default function RootLayout({ children }) {
     }
   };
 
+  // Font variables go on <html>, not <body>: globals.css defines --font-heading
+  // on :root in terms of --font-instrument-serif, so that variable has to exist
+  // at :root or the whole --font-heading declaration resolves to nothing and
+  // every serif heading silently falls back to the sans stack.
+  const fontVariables = `${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`;
+
   return (
-    <html lang="en" prefix="og: http://ogp.me/ns#">
+    <html lang="en" prefix="og: http://ogp.me/ns#" className={fontVariables}>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0f0f0f" />
@@ -213,6 +229,14 @@ export default function RootLayout({ children }) {
         <link rel="alternate" hrefLang="en" href="https://www.ipastellas.com" />
         <link rel="alternate" hrefLang="el" href="https://www.ipastellas.com" />
         <link rel="alternate" hrefLang="x-default" href="https://www.ipastellas.com" />
+
+        {/* RSS */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Ioannis Pastellas Articles"
+          href="/articles/rss.xml"
+        />
         
         {/* Structured Data */}
         <script
@@ -224,9 +248,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         {children}
         <FloatingAIButton />
       </body>

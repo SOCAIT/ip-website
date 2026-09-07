@@ -5,7 +5,7 @@ import { SHOW_AUTOMATIONS } from "@/lib/features";
 
 export const metadata = {
   title: "Automations",
-  description: "Automations and workflows built by Ioannis Pastellas - n8n pipelines and AI-powered automations that handle repetitive tasks, from handwritten note transcription to data syncing. Download the source workflows.",
+  description: "n8n workflows I use to take repetitive work off my plate. Download the source and run them yourself.",
   keywords: [
     "n8n Automations",
     "AI Automation",

@@ -58,7 +58,7 @@ function Automations() {
           <div className="automations-header">
             <h2 className="automations-title">Automations</h2>
             <p className="automations-subtitle">
-              Workflows I build to automate the tedious parts of my day. Download the source to run them yourself.
+              Workflows I build to take the tedious parts of my day off my plate. Download the source and run them yourself.
             </p>
           </div>
 
@@ -69,8 +69,8 @@ function Automations() {
             </div>
           ) : automations.length === 0 ? (
             <div className="automations-empty">
-              <h3>No automations yet</h3>
-              <p>Check back soon for new workflows.</p>
+              <h3>Nothing here yet</h3>
+              <p>Check back soon.</p>
             </div>
           ) : (
             <div className="automations-grid">

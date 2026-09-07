@@ -3,6 +3,8 @@
 import { useState, useRef } from 'react';
 import { uploadFile } from '@/lib/uploadHelpers';
 
+const MAX_FILE_SIZE_MB = 20;
+
 export default function ImageUpload({ onUploadComplete, currentImage, label = "Choose Image" }) {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(currentImage || null);
@@ -20,9 +22,8 @@ export default function ImageUpload({ onUploadComplete, currentImage, label = "C
       return;
     }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert('File size must be less than 5MB');
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      alert(`File size must be less than ${MAX_FILE_SIZE_MB}MB`);
       return;
     }
 
@@ -224,7 +225,7 @@ export default function ImageUpload({ onUploadComplete, currentImage, label = "C
               Drag and drop an image here, or click to browse
             </p>
             <small style={{ color: '#666' }}>
-              Supports: JPG, PNG, GIF, WebP (max 5MB)
+              Supports: JPG, PNG, GIF, WebP (max {MAX_FILE_SIZE_MB}MB)
             </small>
           </div>
         )}

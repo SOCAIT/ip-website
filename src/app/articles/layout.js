@@ -1,6 +1,11 @@
+import { buildOpenGraph } from "@/lib/seo";
+
 export const metadata = {
-  title: "Articles",
-  description: "Read technical articles and insights by Ioannis Pastellas on machine learning, AI, deep learning, software engineering, and technology trends. In-depth tutorials, research, and thought leadership.",
+  // Must stay an object: a plain string here would overwrite the root layout's
+  // title object and strip the "%s | Ioannis Pastellas" template from every
+  // article page underneath this route.
+  title: { default: "Articles", template: "%s | Ioannis Pastellas" },
+  description: "Writing by Ioannis Pastellas on machine learning, reinforcement learning, and the systems around them.",
   keywords: [
     "Machine Learning Articles",
     "AI Blog",
@@ -14,12 +19,11 @@ export const metadata = {
   alternates: {
     canonical: "https://www.ipastellas.com/articles",
   },
-  openGraph: {
+  openGraph: buildOpenGraph({
     title: "Articles | Ioannis Pastellas",
-    description: "Technical articles and insights on machine learning, AI, and software engineering",
-    url: "https://www.ipastellas.com/articles",
-    type: "website",
-  },
+    description: "Writing on machine learning, reinforcement learning, and applied ML.",
+    path: "/articles",
+  }),
 };
 
 // Generate breadcrumb structured data for articles listing page
@@ -46,8 +50,8 @@ const breadcrumbSchema = {
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Ioannis Pastellas - Technical Articles",
-  "description": "Technical articles and insights on machine learning, AI, deep learning, and software engineering",
+  "name": "Ioannis Pastellas Articles",
+  "description": "Writing on machine learning, reinforcement learning, and applied ML",
   "url": "https://www.ipastellas.com/articles",
   "author": {
     "@type": "Person",

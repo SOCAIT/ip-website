@@ -95,10 +95,8 @@ function renderFormattedText(text) {
 
 export function PersonalChatbot() {
   const welcome = {
-    placeholder: 'Ask about my experience, skills, projects...',
+    placeholder: 'Ask about my work, projects, or how we might collaborate.',
   };
-
-  const webhookUrl = process.env.NEXT_PUBLIC_CHAT_WEBHOOK_URL ?? '';
 
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -137,31 +135,18 @@ export function PersonalChatbot() {
     }, 100);
 
     try {
-      if (!webhookUrl) throw new Error('Chat webhook URL not configured');
-
-      const response = await fetch(webhookUrl, {
+      // Goes through /api/chat so the upstream webhook URL stays server-side.
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatInput: trimmed, sessionId: conversationIdRef.current }),
       });
 
-      let assistantText = '';
-      const contentType = response.headers.get('content-type') || '';
+      const data = await response.json().catch(() => ({}));
 
-      if (contentType.includes('application/json')) {
-        const data = await response.json();
-        if (typeof data === 'string') assistantText = data;
-        else if (data && typeof data === 'object') {
-          const candidate = data.output ?? data.message ?? data.text;
-          assistantText = typeof candidate === 'string' ? candidate : JSON.stringify(data);
-        } else assistantText = String(data);
-      } else {
-        assistantText = await response.text();
-      }
+      if (!response.ok) throw new Error(data.error || 'The assistant is unavailable right now.');
 
-      if (!response.ok) throw new Error(assistantText || 'Request failed');
-
-      setMessages(prev => [...prev, { id: 'm_' + Date.now() + '_a', role: 'assistant', content: assistantText }]);
+      setMessages(prev => [...prev, { id: 'm_' + Date.now() + '_a', role: 'assistant', content: data.output ?? '' }]);
     } catch (err) {
       setErrorMessage(err?.message || 'Unknown error');
     } finally {
@@ -249,7 +234,7 @@ export function PersonalChatbot() {
               <FaRobot style={{ fontSize: '1.2rem', color: 'var(--accent-gold)' }} />
               <div style={{ flex: 1 }}>
                 <span style={{ fontSize: '0.95rem', fontWeight: '600', color: '#e8e8e8' }}>
-                  Ask me anything
+                  Ask about my work
                 </span>
               </div>
               <div style={{
@@ -257,18 +242,6 @@ export function PersonalChatbot() {
                 backgroundColor: 'var(--accent-gold)', opacity: 0.7,
               }} />
             </div>
-
-            {!webhookUrl && (
-              <div style={{
-                padding: '0.75rem 1.5rem',
-                background: 'rgba(184, 188, 198, 0.06)',
-                color: '#ffcccc',
-                fontSize: '0.85rem',
-                borderBottom: '1px solid var(--glass-border)',
-              }}>
-                Chatbot webhook URL not configured. Set NEXT_PUBLIC_CHAT_WEBHOOK_URL in .env.local.
-              </div>
-            )}
 
             {/* Messages */}
             <div ref={scrollAreaRef} className="messages-area" style={{ padding: '1.5rem' }}>

@@ -1,9 +1,10 @@
 import CustomNavbar from "@/components/CustomNavbar";
 import Portfolio from "@/components/Portfolio";
+import { buildOpenGraph } from "@/lib/seo";
 
 export const metadata = {
   title: "Portfolio",
-  description: "Explore Ioannis Pastellas' portfolio of machine learning projects, AI applications, and software engineering work. From deep learning models to optimization algorithms and full-stack applications.",
+  description: "Machine learning projects and case studies by Ioannis Pastellas. Reinforcement learning, agent systems, and applied ML.",
   keywords: [
     "ML Projects",
     "AI Portfolio",
@@ -17,12 +18,11 @@ export const metadata = {
   alternates: {
     canonical: "https://www.ipastellas.com/portfolio",
   },
-  openGraph: {
+  openGraph: buildOpenGraph({
     title: "Portfolio | Ioannis Pastellas",
-    description: "Explore machine learning projects, AI applications, and software engineering work by Ioannis Pastellas",
-    url: "https://www.ipastellas.com/portfolio",
-    type: "website",
-  },
+    description: "Machine learning projects and case studies by Ioannis Pastellas.",
+    path: "/portfolio",
+  }),
 };
 
 // Breadcrumb structured data

@@ -26,46 +26,7 @@
   white-space: nowrap;
 }
 
-/* --- Role tags on the left --- */
-.hero-roles {
-  position: absolute;
-  left: clamp(1.5rem, 3vw, 3rem);
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.role-line {
-  display: block;
-  width: 28px;
-  height: 1px;
-  background: var(--accent-gold);
-  margin-top: 0.55rem;
-  flex-shrink: 0;
-}
-
-.role-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.role-list strong {
-  color: var(--text-primary);
-}
-
-.role-italic {
-  font-style: italic;
-  font-family: var(--font-heading);
-}
-
-/* --- Center photo --- */
+/* --- Center photo — position, size and mask are intentionally unchanged --- */
 .hero-photo-area {
   position: absolute;
   bottom: 5%;
@@ -101,10 +62,41 @@
   filter: contrast(1.05) brightness(0.95);
 }
 
-/* --- Name at bottom --- */
+/*
+  Sits between the photo and the bottom copy. The photo's own mask only fades
+  its last 25%, which is not enough to guarantee contrast once there is a
+  tagline and buttons under the name at short viewport heights.
+*/
+.hero-scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(13, 13, 13, 0.90) 0%,
+    rgba(13, 13, 13, 0.60) 42%,
+    rgba(13, 13, 13, 0.20) 74%,
+    transparent 100%
+  );
+}
+
+/* --- Bottom copy block --- */
+.hero-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: clamp(2rem, 4vh, 4rem);
+}
+
 .hero-name {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   font-family: var(--font-geist-sans), -apple-system, sans-serif;
   font-size: clamp(2.8rem, 8.5vw, 9rem);
   font-weight: 800;
@@ -113,20 +105,149 @@
   line-height: 0.9;
   text-align: center;
   margin: 0;
-  padding-bottom: clamp(2rem, 4vh, 4rem);
   width: 100%;
   text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
 }
 
+.hero-tagline {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  max-width: 34ch;
+  text-align: center;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.hero-cta {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+.hero-cta-primary,
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-cta-primary {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #ffffff;
+}
+
+.hero-cta-primary:hover {
+  opacity: 0.85;
+  color: #111111;
+}
+
+.hero-cta-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hero-cta-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+}
+
+.hero-cta-primary:focus-visible,
+.hero-cta-secondary:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+/* --- Rails flanking the photo ---------------------------------------------
+   `display: contents` keeps a single set of DOM nodes: on desktop the rails
+   escape the flex column and position absolutely against .hero-container; on
+   narrow screens .hero-meta becomes a real flex row and they fall into flow.
+*/
+.hero-meta {
+  display: contents;
+}
+
+.hero-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.hero-roles {
+  left: clamp(1.5rem, 3vw, 3rem);
+}
+
+.hero-proof {
+  right: clamp(1.5rem, 3vw, 3rem);
+}
+
+.hero-rail-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.hero-proof .hero-rail-inner {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.role-line {
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent-gold);
+  margin-top: 0.55rem;
+  flex-shrink: 0;
+}
+
+.role-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.hero-proof .role-list {
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.role-list strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.role-italic {
+  font-style: italic;
+  font-family: var(--font-heading);
+}
+
 /* --- Responsive --- */
 @media (max-width: 960px) {
-  .hero-roles {
-    left: 1.25rem;
-    top: auto;
-    bottom: clamp(10rem, 22vh, 16rem);
-    transform: none;
-  }
-
   .hero-photo-area {
     width: clamp(260px, 50vw, 400px);
     bottom: 4%;
@@ -134,17 +255,84 @@
 
   .hero-name {
     font-size: clamp(2.2rem, 10vw, 5rem);
-    padding-bottom: 1.5rem;
+  }
+
+  .hero-roles {
+    left: 1.25rem;
+  }
+
+  .hero-proof {
+    right: 1.25rem;
+  }
+
+  .hero-proof .role-list {
+    font-size: 0.8rem;
+  }
+}
+
+/*
+  Below this width the rails no longer fit beside the photo. They drop into the
+  bottom block as one wrapped row rather than disappearing — the previous
+  layout set `.hero-roles { display: none }`, so phone visitors got a photo and
+  a name and nothing else.
+*/
+@media (max-width: 760px) {
+  /* Absolute against .hero-container (.hero-bottom is deliberately unpositioned),
+     so the rails occupy the empty space above the photo instead of the ~60px
+     left under the buttons. */
+  .hero-meta {
+    position: absolute;
+    top: clamp(4.5rem, 13vh, 8rem);
+    left: 1rem;
+    right: 1rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-rail {
+    position: static;
+    display: block;
+    pointer-events: auto;
+    width: 100%;
+  }
+
+  /* Clear the fixed AI button in the bottom-right corner. */
+  .hero-bottom {
+    padding-bottom: 4.5rem;
+  }
+
+  .hero-rail-inner,
+  .hero-proof .hero-rail-inner {
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .role-line {
+    display: none;
+  }
+
+  .role-list,
+  .hero-proof .role-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+    gap: 0.25rem 1rem;
+    font-size: 0.78rem;
+  }
+
+  .hero-bottom {
+    gap: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-ghost-text {
     font-size: 14rem;
-  }
-
-  .hero-roles {
-    display: none;
   }
 
   .hero-photo-area {
@@ -154,6 +342,32 @@
 
   .hero-name {
     font-size: clamp(1.8rem, 11vw, 3.5rem);
-    padding-bottom: 1.25rem;
+  }
+
+  .hero-scrim {
+    height: 40%;
+  }
+
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    padding: 0.65rem 1.15rem;
+    font-size: 0.72rem;
+  }
+
+  .role-list,
+  .hero-proof .role-list {
+    font-size: 0.72rem;
+    gap: 0.2rem 0.75rem;
+  }
+}
+
+/* Short-and-wide viewports (landscape phones) have no room for the extra copy. */
+@media (max-height: 560px) and (min-width: 761px) {
+  .hero-meta {
+    display: none;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
   }
 }

@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ipastellas.com
 
-## Getting Started
+Personal site of Ioannis Pastellas — Next.js 15 (App Router), React 19, deployed on Netlify.
 
-First, run the development server:
+## Running locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm start          # serve the production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment variables
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Set these in your local env file for development and in the Netlify UI for production.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | yes | Articles + admin CMS |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | yes | Articles + admin CMS |
+| `CONTACT_WEBHOOK_URL` | **yes, to receive messages** | Server-side endpoint the contact form posts to (n8n, Zapier, or anything that accepts a JSON POST). **Until this is set the form shows an error and points visitors at the mailto link — it never claims a message was sent.** |
+| `CHAT_WEBHOOK_URL` | for the AI assistant | Upstream chat webhook, read server-side only. Falls back to `NEXT_PUBLIC_CHAT_WEBHOOK_URL` so nothing breaks before you rename it — do rename it, since the `NEXT_PUBLIC_` prefix used to publish the URL in the browser bundle. |
+| `ADMIN_PASSWORD` | for `/admin` | Gates the CMS in production (which is also localhost-only via middleware). |
+| `SITE_PASSWORD` | optional | Password-gates the whole site and sets `noindex`. |
 
-## Learn More
+## Content
 
-To learn more about Next.js, take a look at the following resources:
+- **Articles** live in Supabase and are edited at `/admin` (localhost only). The index at `/articles` is server-rendered so crawlers and link unfurlers see the posts.
+- **Project case studies** live in `src/content/projects.js`. A project with a `blocks` array gets a page at `/portfolio/<slug>`, rendered by the same `<ArticleContent>` renderer the articles use. A project with only `externalLink` links straight out; one with neither renders as a non-interactive card.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Social share image
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`public/og-image.png` is generated, not hand-made. After changing the tagline or proof points:
 
-## Deploy on Vercel
+```bash
+python3 scripts/generate-og-image.py
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Images
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`next.config.mjs` sets `images.unoptimized: true` — it was added to fix production 404s on Netlify. Heavy assets are therefore pre-sized WebP committed to `public/`: the hero is 190 KB at its original 1587×2245 dimensions, down from a 3.1 MB PNG. If you re-enable optimization, verify images on a Netlify deploy preview before merging.

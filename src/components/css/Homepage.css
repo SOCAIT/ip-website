@@ -2,6 +2,10 @@
   position: relative;
   min-height: 100vh;
   background: var(--dark-bg);
+  /* globals.css sets `section { padding: ... !important }` below 768px, which
+     insets the full-bleed hero and pushes its 100vh past the viewport bottom.
+     Inner padding lives on .homepage-content instead. */
+  padding: 0 !important;
 }
 
 .homepage-content {
