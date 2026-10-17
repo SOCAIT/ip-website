@@ -1,7 +1,7 @@
 'use client';
 
 import { use, useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/adminApi';
 import ArticleForm from '@/components/ArticleForm';
 import { ToastProvider } from '@/components/Toast';
 import CustomNavbar from '@/components/CustomNavbar';
@@ -16,12 +16,7 @@ export default function EditArticlePage({ params }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data, error: err } = await supabase
-          .from('articles')
-          .select('*')
-          .eq('id', id)
-          .single();
-        if (err) throw err;
+        const data = await adminFetch(`/api/admin/articles/${id}`);
         setInitialData(data);
       } catch (e) {
         setError(e.message);
@@ -32,9 +27,9 @@ export default function EditArticlePage({ params }) {
   }, [id]);
 
   const handleSubmit = async (formData) => {
-    const { error } = await supabase
-      .from('articles')
-      .update({
+    await adminFetch(`/api/admin/articles/${id}`, {
+      method: 'PATCH',
+      body: {
         title: formData.title,
         slug: formData.slug,
         excerpt: formData.excerpt,
@@ -44,9 +39,8 @@ export default function EditArticlePage({ params }) {
         author_bio: formData.author_bio,
         blocks: formData.blocks,
         published: formData.published,
-      })
-      .eq('id', id);
-    if (error) throw error;
+      },
+    });
   };
 
   if (loading) {

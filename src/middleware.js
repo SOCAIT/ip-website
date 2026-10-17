@@ -22,13 +22,11 @@ export function middleware(request) {
         return NextResponse.redirect(new URL('/site-login', request.url));
       }
     }
-
-    const response = NextResponse.next();
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-    return response;
+    // No early return here: the admin checks below must still run when the
+    // site password is set.
   }
 
-  // --- Admin-only auth (existing logic) ---
+  // --- Admin-only auth ---
   const isAdminPage = pathname.startsWith('/admin');
   const isAdminApi = pathname.startsWith('/api/admin');
 
@@ -37,29 +35,35 @@ export function middleware(request) {
     const isLocalRequest = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
 
     if (!isLocalRequest) {
+      if (isAdminApi) {
+        return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      }
       return NextResponse.redirect(new URL('/', request.url));
     }
 
-    if (isAdminPage && pathname === '/admin/login') {
-      return NextResponse.next();
-    }
-
+    const isLoginRoute = pathname === '/admin/login' || pathname === '/api/admin/auth';
     const isProduction = process.env.NODE_ENV === 'production';
     const adminPassword = process.env.ADMIN_PASSWORD;
 
-    if (isProduction && adminPassword) {
+    if (!isLoginRoute && isProduction && adminPassword) {
       const authCookie = request.cookies.get('admin_auth')?.value;
       const authHeader = request.headers.get('x-admin-password');
       const isAuthenticated = authCookie === adminPassword || authHeader === adminPassword;
 
-      if (!isAuthenticated && isAdminPage) {
-        const loginUrl = new URL('/admin/login', request.url);
-        return NextResponse.redirect(loginUrl);
+      if (!isAuthenticated) {
+        if (isAdminApi) {
+          return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+        }
+        return NextResponse.redirect(new URL('/admin/login', request.url));
       }
     }
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+  if (sitePassword) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+  return response;
 }
 
 export const config = {

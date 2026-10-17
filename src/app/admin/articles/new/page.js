@@ -1,15 +1,15 @@
 'use client';
 
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/adminApi';
 import ArticleForm from '@/components/ArticleForm';
 import { ToastProvider } from '@/components/Toast';
 import '../../admin.css';
 
 export default function NewArticlePage() {
   const handleSubmit = async (formData) => {
-    const { error } = await supabase
-      .from('articles')
-      .insert([{
+    await adminFetch('/api/admin/articles', {
+      method: 'POST',
+      body: {
         title: formData.title,
         slug: formData.slug,
         excerpt: formData.excerpt,
@@ -20,8 +20,8 @@ export default function NewArticlePage() {
         blocks: formData.blocks,
         date: new Date().toISOString().split('T')[0],
         published: formData.published,
-      }]);
-    if (error) throw error;
+      },
+    });
   };
 
   return (

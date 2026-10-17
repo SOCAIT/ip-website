@@ -1,15 +1,15 @@
 'use client';
 
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/adminApi';
 import AutomationForm from '@/components/AutomationForm';
 import { ToastProvider } from '@/components/Toast';
 import '../../admin.css';
 
 export default function NewAutomationPage() {
   const handleSubmit = async (formData) => {
-    const { error } = await supabase
-      .from('automations')
-      .insert([{
+    await adminFetch('/api/admin/automations', {
+      method: 'POST',
+      body: {
         title: formData.title,
         slug: formData.slug,
         platform: formData.platform,
@@ -19,8 +19,8 @@ export default function NewAutomationPage() {
         tools: formData.tools,
         workflow_json: formData.workflow_json,
         published: formData.published,
-      }]);
-    if (error) throw error;
+      },
+    });
   };
 
   return (

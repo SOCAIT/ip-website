@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/adminApi';
 import Link from 'next/link';
 import CustomNavbar from '@/components/CustomNavbar';
 import { ToastProvider, useToast } from '@/components/Toast';
@@ -16,11 +16,7 @@ function AutomationsDashboard() {
   const fetchAutomations = useCallback(async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('automations')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
+      const data = await adminFetch('/api/admin/automations');
       setAutomations(data || []);
     } catch (error) {
       toast('Failed to load automations: ' + error.message, 'error');
@@ -36,8 +32,7 @@ function AutomationsDashboard() {
   const deleteAutomation = async (id, title) => {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
     try {
-      const { error } = await supabase.from('automations').delete().eq('id', id);
-      if (error) throw error;
+      await adminFetch(`/api/admin/automations/${id}`, { method: 'DELETE' });
       toast('Automation deleted');
       fetchAutomations();
     } catch (error) {
@@ -47,11 +42,10 @@ function AutomationsDashboard() {
 
   const togglePublished = async (id, currentStatus) => {
     try {
-      const { error } = await supabase
-        .from('automations')
-        .update({ published: !currentStatus })
-        .eq('id', id);
-      if (error) throw error;
+      await adminFetch(`/api/admin/automations/${id}`, {
+        method: 'PATCH',
+        body: { published: !currentStatus },
+      });
       toast(currentStatus ? 'Moved to drafts' : 'Published');
       fetchAutomations();
     } catch (error) {

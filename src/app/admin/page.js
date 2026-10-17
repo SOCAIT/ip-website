@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/adminApi';
 import Link from 'next/link';
 import CustomNavbar from '@/components/CustomNavbar';
 import { ToastProvider, useToast } from '@/components/Toast';
@@ -17,11 +17,7 @@ function AdminDashboard() {
   const fetchArticles = useCallback(async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('articles')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
+      const data = await adminFetch('/api/admin/articles');
       setArticles(data || []);
     } catch (error) {
       toast('Failed to load articles: ' + error.message, 'error');
@@ -37,8 +33,7 @@ function AdminDashboard() {
   const deleteArticle = async (id, slug) => {
     if (!confirm(`Delete "${slug}"? This cannot be undone.`)) return;
     try {
-      const { error } = await supabase.from('articles').delete().eq('id', id);
-      if (error) throw error;
+      await adminFetch(`/api/admin/articles/${id}`, { method: 'DELETE' });
       toast('Article deleted');
       fetchArticles();
     } catch (error) {
@@ -48,11 +43,10 @@ function AdminDashboard() {
 
   const togglePublished = async (id, currentStatus) => {
     try {
-      const { error } = await supabase
-        .from('articles')
-        .update({ published: !currentStatus })
-        .eq('id', id);
-      if (error) throw error;
+      await adminFetch(`/api/admin/articles/${id}`, {
+        method: 'PATCH',
+        body: { published: !currentStatus },
+      });
       toast(currentStatus ? 'Moved to drafts' : 'Published');
       fetchArticles();
     } catch (error) {

@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 import { caseStudies } from '@/content/projects';
 
+// Rebuild hourly so articles published from the database appear without a redeploy.
+export const revalidate = 3600;
+
 export default async function sitemap() {
   const baseUrl = 'https://www.ipastellas.com';
 

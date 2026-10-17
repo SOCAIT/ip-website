@@ -1,4 +1,13 @@
-import { supabase } from './supabase';
+import { adminFetch } from './adminApi';
+
+// Uploads and deletes go through /api/admin/upload, which holds the
+// service-role key server-side. Only the article-images bucket is supported.
+
+function assertBucket(bucket) {
+  if (bucket !== 'article-images') {
+    throw new Error(`Unsupported storage bucket: ${bucket}`);
+  }
+}
 
 /**
  * Upload a single file to Supabase Storage
@@ -10,25 +19,17 @@ import { supabase } from './supabase';
 export async function uploadFile(file, bucket = 'article-images', folder = '') {
   try {
     if (!file) throw new Error('No file provided');
+    assertBucket(bucket);
 
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-    const filePath = folder ? `${folder}/${fileName}` : fileName;
+    const form = new FormData();
+    form.append('file', file);
+    if (folder) form.append('folder', folder);
 
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .upload(filePath, file, {
-        cacheControl: '3600',
-        upsert: false
-      });
+    const response = await fetch('/api/admin/upload', { method: 'POST', body: form });
+    const data = await response.json().catch(() => null);
+    if (!response.ok) throw new Error(data?.error || `Upload failed (${response.status})`);
 
-    if (error) throw error;
-
-    const { data: { publicUrl } } = supabase.storage
-      .from(bucket)
-      .getPublicUrl(filePath);
-
-    return publicUrl;
+    return data.url;
   } catch (error) {
     console.error('Upload error:', error);
     throw error;
@@ -43,18 +44,10 @@ export async function uploadFile(file, bucket = 'article-images', folder = '') {
 export async function deleteFile(url, bucket = 'article-images') {
   try {
     if (!url) return;
-    
-    // Extract file path from URL
-    const urlParts = url.split(`${bucket}/`);
-    if (urlParts.length < 2) return;
-    
-    const filePath = urlParts[1];
+    assertBucket(bucket);
+    if (!url.includes(`${bucket}/`)) return;
 
-    const { error } = await supabase.storage
-      .from(bucket)
-      .remove([filePath]);
-
-    if (error) throw error;
+    await adminFetch('/api/admin/upload', { method: 'DELETE', body: { url } });
   } catch (error) {
     console.error('Delete error:', error);
     throw error;
@@ -68,9 +61,8 @@ export async function deleteFile(url, bucket = 'article-images') {
  * @returns {Promise<string[]>} - Array of public URLs
  */
 export async function uploadMultipleFiles(files, bucket = 'article-images') {
-  const uploadPromises = Array.from(files).map(file => 
+  const uploadPromises = Array.from(files).map(file =>
     uploadFile(file, bucket)
   );
   return Promise.all(uploadPromises);
 }
-

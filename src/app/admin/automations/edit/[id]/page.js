@@ -1,7 +1,7 @@
 'use client';
 
 import { use, useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { adminFetch } from '@/lib/adminApi';
 import AutomationForm from '@/components/AutomationForm';
 import { ToastProvider } from '@/components/Toast';
 import CustomNavbar from '@/components/CustomNavbar';
@@ -16,12 +16,7 @@ export default function EditAutomationPage({ params }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data, error: err } = await supabase
-          .from('automations')
-          .select('*')
-          .eq('id', id)
-          .single();
-        if (err) throw err;
+        const data = await adminFetch(`/api/admin/automations/${id}`);
         setInitialData(data);
       } catch (e) {
         setError(e.message);
@@ -32,9 +27,9 @@ export default function EditAutomationPage({ params }) {
   }, [id]);
 
   const handleSubmit = async (formData) => {
-    const { error } = await supabase
-      .from('automations')
-      .update({
+    await adminFetch(`/api/admin/automations/${id}`, {
+      method: 'PATCH',
+      body: {
         title: formData.title,
         slug: formData.slug,
         platform: formData.platform,
@@ -45,9 +40,8 @@ export default function EditAutomationPage({ params }) {
         workflow_json: formData.workflow_json,
         published: formData.published,
         updated_at: new Date().toISOString(),
-      })
-      .eq('id', id);
-    if (error) throw error;
+      },
+    });
   };
 
   if (loading) {
